@@ -10,7 +10,7 @@ public class TimeManager : Singleton<TimeManager>
 
     private void FixedUpdate()
     {
-        if (timeAgentHashSet.Count >= 0)
+        if (timeAgentHashSet.Count > 0)
         {
             UpdateTimeAgent();
             DestroyTimeAgent();

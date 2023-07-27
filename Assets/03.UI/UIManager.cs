@@ -13,20 +13,52 @@ public class UIManager : Singleton<UIManager>
     protected override void Awake()
     {
         base.Awake();
-        hitAction += HitEffect;
+        hitAction += HitEffectSystem;
     }
 
+
+
+    #region HitEffectSystem
     [ContextMenu("HitEffect")]
-    private void HitEffect()
+    private void HitEffectSystem()
+    {
+        HitEffectActive();
+        UIDisableTime(0.5f, () => HitEffectDisable());
+    }
+
+    private void HitEffectActive()
     {
         hitImage.gameObject.SetActive(true);
-        EffectTime();
     }
 
-    private void EffectTime()
+    private void HitEffectDisable()
     {
-        TimeAgent agent = new(0.5f, endTimeAction: (effect) => hitImage.gameObject.SetActive(false));
-        TimeManager.Instance.AddTimer(agent);
-        Debug.Log(agent.CurrentTime);
+        hitImage.gameObject.SetActive(false);
     }
+    #endregion
+
+
+    #region UIActiveSystem
+    private void UIActiveSystem(float disableTime, GameObject ui)
+    {
+        UIActive(ui);
+        UIDisableTime(disableTime, () => UIDisable(disableTime, ui));
+    }
+
+    private void UIActive(GameObject ui)
+    {
+        ui.SetActive(true);
+    }
+
+    private void UIDisable(float disableTime, GameObject ui)
+    {
+        ui.SetActive(false);
+    }
+
+    private void UIDisableTime(float disableTime, Action Method)
+    {
+        TimeAgent agent = new(disableTime, endTimeAction: (agent) => Method());
+        TimeManager.Instance.AddTimer(agent);
+    }
+    #endregion
 }

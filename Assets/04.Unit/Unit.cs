@@ -12,49 +12,57 @@ public struct UnitStatInfo
 
 public class Unit : MonoBehaviour, IDamageable
 {
-    [SerializeField] private UnitStatInfo unitStat;
+    [SerializeField] protected UnitStatInfo unitStat;
     public UnitStatInfo UnitStat => unitStat;
 
     protected int hp;
     public int Hp => hp;
 
-    private void Start()
+    protected bool isDead = false;
+
+    protected void Start()
+    {
+        ReSetStat();
+    }
+
+    protected void ReSetStat()
     {
         ResetHp();
     }
 
-    private void ResetHp()
+    protected virtual void ResetHp()
     {
         hp = UnitStat.MaxHp;
+        unitStat.MinHp = 0;
     }
 
     public virtual void TakeDamage(int damageValue)
     {
-        ChangeHp(damageValue);
+        ChangeHp(-damageValue);
     }
 
-    public void HealHp(int healValue)
+    public virtual void HealHp(int healValue)
     {
         ChangeHp(healValue);
     }
 
-    private void ChangeHp(int value)
+    protected void ChangeHp(int value)
     {
         hp += ClampHp(value);
-        if (hp <= UnitStat.MinHp)
+        if (Hp <= UnitStat.MinHp)
         {
-            Death();
+            isDead = true;
         }
     }
 
-    private int ClampHp(int value)
+    protected int ClampHp(int value)
     {
-        if (hp + value >= UnitStat.MaxHp)
+        if (Hp + value >= UnitStat.MaxHp)
         {
             hp = UnitStat.MaxHp;
         }
 
-        if (hp - value <= UnitStat.MinHp)
+        if (Hp + value <= UnitStat.MinHp)
         {
             hp = UnitStat.MinHp;
         }
@@ -63,6 +71,9 @@ public class Unit : MonoBehaviour, IDamageable
 
     protected virtual void Death()
     {
-
+        if (isDead)
+        {
+            
+        }
     }
 }
