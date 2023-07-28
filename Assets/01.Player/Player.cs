@@ -10,10 +10,16 @@ public class Player : Unit
         base.ResetHp();
     }
 
+    protected override void ResetSpeed()
+    {
+        unitStat.MoveSpeed = 5;
+        base.ResetSpeed();
+    }
+
     public override void TakeDamage(int damageValue)
     {
-        Debug.Log("hp" + hp);
         base.TakeDamage(damageValue);
+        Debug.Log("hp" + hp);
         UIManager.Instance.hitAction?.Invoke();
     }
 }

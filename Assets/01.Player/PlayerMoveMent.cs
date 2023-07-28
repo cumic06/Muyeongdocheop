@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Player))]
 public class PlayerMoveMent : MonoBehaviour
 {
     private Player player;
@@ -12,8 +11,13 @@ public class PlayerMoveMent : MonoBehaviour
         player = GetComponent<Player>();
     }
 
+    private void FixedUpdate()
+    {
+        MoveMent();
+    }
+
     private void MoveMent()
     {
-        //player.UnitStat.MoveSpeed;
+        transform.Translate(player.GetMoveSpeed() * Time.fixedDeltaTime * new Vector2(JoyStick.Instance.GetJoyStickHorizonValue(), 0));
     }
 }

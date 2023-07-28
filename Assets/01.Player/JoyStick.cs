@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class JoyStick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
+public class JoyStick : Singleton<JoyStick>, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
-    [SerializeField] private RectTransform moveJoystick;
+    [SerializeField] private RectTransform joystickRect;
     [SerializeField] private RectTransform center;
 
     [SerializeField] private float joyStickXMinPos;
     [SerializeField] private float joyStickXMaxPos;
 
-    public float Horizontal => (center.anchoredPosition.x - moveJoystick.anchoredPosition.x) * 2 - 1;
+    private float joyStickHorizontalValue;
+    public float JoyStickHorizontalValue => joyStickHorizontalValue;
 
     public void OnDrag(PointerEventData eventData)
     {
@@ -20,8 +21,10 @@ public class JoyStick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        moveJoystick.anchoredPosition = center.anchoredPosition;
+        ReSetJoystickPos();
+        SetJoyStickHorizonValue();
     }
+
 
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -36,6 +39,25 @@ public class JoyStick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
 
         Vector2 joyStickPos = new(limitXPos, 0);
 
-        moveJoystick.anchoredPosition = joyStickPos;
+        joystickRect.anchoredPosition = joyStickPos;
+
+        SetJoyStickHorizonValue();
+    }
+
+    #region JoystickValue Get Set
+    private void SetJoyStickHorizonValue()
+    {
+        joyStickHorizontalValue = joystickRect.anchoredPosition.x / center.rect.width;
+    }
+
+    public float GetJoyStickHorizonValue()
+    {
+        return JoyStickHorizontalValue;
+    }
+    #endregion
+
+    private void ReSetJoystickPos()
+    {
+        joystickRect.anchoredPosition = center.anchoredPosition;
     }
 }

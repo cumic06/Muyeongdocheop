@@ -657,11 +657,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7b614025e9cf3a4bb322c4853d78491, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveJoystick: {fileID: 626536698}
+  joystickRect: {fileID: 626536698}
   center: {fileID: 440449813}
   joyStickXMinPos: -100
   joyStickXMaxPos: 100
-  JoystickMoveInputX: 0
 --- !u!1 &384231415
 GameObject:
   m_ObjectHideFlags: 0
@@ -1327,13 +1326,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1627979499}
-  - component: {fileID: 1627979498}
   - component: {fileID: 1627979500}
+  - component: {fileID: 1627979503}
+  - component: {fileID: 1627979498}
   - component: {fileID: 1627979501}
   - component: {fileID: 1627979502}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1464,3 +1464,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1627979503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1627979497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71558f662ef47ba4ca3de7ac8217bf65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
