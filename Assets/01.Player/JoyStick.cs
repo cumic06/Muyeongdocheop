@@ -11,6 +11,8 @@ public class JoyStick : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
     [SerializeField] private float joyStickXMinPos;
     [SerializeField] private float joyStickXMaxPos;
 
+    public float Horizontal => (center.anchoredPosition.x - moveJoystick.anchoredPosition.x) * 2 - 1;
+
     public void OnDrag(PointerEventData eventData)
     {
         SetHandle(eventData);
