@@ -16,8 +16,6 @@ public class UIManager : Singleton<UIManager>
         hitAction += HitEffectSystem;
     }
 
-
-
     #region HitEffectSystem
     [ContextMenu("HitEffect")]
     private void HitEffectSystem()
@@ -36,7 +34,6 @@ public class UIManager : Singleton<UIManager>
         hitImage.gameObject.SetActive(false);
     }
     #endregion
-
 
     #region UIActiveSystem
     private void UIActiveSystem(float disableTime, GameObject ui)
