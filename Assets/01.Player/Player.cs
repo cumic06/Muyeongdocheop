@@ -20,6 +20,6 @@ public class Player : Unit
     {
         base.TakeDamage(damageValue);
         Debug.Log("hp" + hp);
-        UIManager.Instance.hitAction?.Invoke();
+        UIManager.Instance.HitAction?.Invoke();
     }
 }

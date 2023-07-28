@@ -59,6 +59,7 @@ public class Unit : MonoBehaviour, IDamageable
     {
         if (!isDead)
         {
+            UIManager.Instance.HpFunc?.Invoke(GetHp(), GetMaxHp());
             hp += ClampHp(value);
             if (Hp <= UnitStat.MinHp)
             {
@@ -86,6 +87,14 @@ public class Unit : MonoBehaviour, IDamageable
     public float GetMoveSpeed()
     {
         return unitStat.MoveSpeed;
+    }
+    public int GetHp()
+    {
+        return hp;
+    }
+    public int GetMaxHp()
+    {
+        return unitStat.MaxHp;
     }
     #endregion
 

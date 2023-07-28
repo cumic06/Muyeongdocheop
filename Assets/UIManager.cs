@@ -6,15 +6,16 @@ using UnityEngine.UI;
 
 public class UIManager : Singleton<UIManager>
 {
-    public Action hitAction;
-    public Action hpAction;
+    public Action HitAction;
+    public Func<int, int, int> HpFunc;
 
     [SerializeField] private Image hitImage;
+    [SerializeField] private Image playerHpSlider;
 
     protected override void Awake()
     {
         base.Awake();
-        hitAction += () => UIActiveSystem(0.5f, hitImage.gameObject);
+        HitAction += () => UIActiveSystem(0.5f, hitImage.gameObject);
     }
 
     #region UIActiveSystem
@@ -38,6 +39,13 @@ public class UIManager : Singleton<UIManager>
     {
         TimeAgent agent = new(disableTime, endTimeAction: (agent) => Method());
         TimeManager.Instance.AddTimer(agent);
+    }
+    #endregion
+
+    #region HpHandler
+    private void PlayerHpHandler()
+    {
+        //playerHpSlider.fillAmount =  / ;
     }
     #endregion
 }
