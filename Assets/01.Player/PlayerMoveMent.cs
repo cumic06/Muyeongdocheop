@@ -18,6 +18,6 @@ public class PlayerMoveMent : MonoBehaviour
 
     private void MoveMent()
     {
-        transform.Translate(player.GetMoveSpeed() * Time.fixedDeltaTime * new Vector2(JoyStick.Instance.GetJoyStickHorizonValue(), 0));
+        transform.Translate(player.GetMoveSpeed() * Time.fixedDeltaTime * new Vector2(JoyStick.Instance.GetJoyStickMoveHorizonValue(), 0));
     }
 }

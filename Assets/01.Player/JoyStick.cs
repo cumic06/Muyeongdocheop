@@ -50,12 +50,12 @@ public class JoyStick : Singleton<JoyStick>, IPointerDownHandler, IPointerUpHand
         joyStickHorizontalValue = joystickRect.anchoredPosition.x / center.rect.width;
     }
 
-    public float GetJoyStickHorizonValue()
+    public float GetJoyStickMoveHorizonValue()
     {
         return JoyStickHorizontalValue;
     }
     #endregion
-
+    
     private void ReSetJoystickPos()
     {
         joystickRect.anchoredPosition = center.anchoredPosition;

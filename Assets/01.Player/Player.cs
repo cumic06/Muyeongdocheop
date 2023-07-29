@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Player : Unit
 {
+    private readonly float hitShakeTime = 0.15f;
+    private readonly float hitShakePower = 0.1f;
+
     protected override void ResetHp()
     {
         unitStat.MaxHp = 100;
@@ -19,7 +22,8 @@ public class Player : Unit
     public override void TakeDamage(int damageValue)
     {
         base.TakeDamage(damageValue);
-        Debug.Log("hp" + hp);
         UIManager.Instance.HitAction?.Invoke();
+        CameraShakeSystem.Instance.CameraShake(hitShakeTime, hitShakePower);
+        SlowSystem.Instance.Slow(0.5f, 0.1f);
     }
 }

@@ -38,7 +38,7 @@ public class UIManager : Singleton<UIManager>
     private void UIDisableTime(float disableTime, Action Method)
     {
         TimeAgent agent = new(disableTime, endTimeAction: (agent) => Method());
-        TimeManager.Instance.AddTimer(agent);
+        TimerSystem.Instance.AddTimer(agent);
     }
     #endregion
 
