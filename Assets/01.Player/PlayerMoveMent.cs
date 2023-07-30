@@ -20,4 +20,9 @@ public class PlayerMoveMent : MonoBehaviour
     {
         transform.Translate(player.GetMoveSpeed() * Time.fixedDeltaTime * new Vector2(JoyStick.Instance.GetJoyStickMoveHorizonValue(), 0));
     }
+
+    //private void ATypeSkill()
+    //{
+
+    //}
 }

@@ -15,7 +15,7 @@ public class Player : Unit
 
     protected override void ResetSpeed()
     {
-        unitStat.MoveSpeed = 5;
+        unitStat.MoveSpeed = 8;
         base.ResetSpeed();
     }
 
@@ -25,5 +25,11 @@ public class Player : Unit
         UIManager.Instance.HitAction?.Invoke();
         CameraShakeSystem.Instance.CameraShake(hitShakeTime, hitShakePower);
         SlowSystem.Instance.Slow(0.5f, 0.1f);
+    }
+
+    protected override void Death()
+    {
+        base.Death();
+
     }
 }
