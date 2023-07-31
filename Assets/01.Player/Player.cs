@@ -30,6 +30,5 @@ public class Player : Unit
     protected override void Death()
     {
         base.Death();
-
     }
 }

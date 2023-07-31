@@ -10,6 +10,7 @@ public struct UnitStatInfo
     public float AttackPower;
 }
 
+[RequireComponent(typeof(SpriteRenderer))]
 public class Unit : MonoBehaviour, IDamageable
 {
     [SerializeField] protected UnitStatInfo unitStat;
@@ -19,6 +20,14 @@ public class Unit : MonoBehaviour, IDamageable
     public int Hp => hp;
 
     protected bool isDead = false;
+
+    protected SpriteRenderer spriteRenderer;
+    public SpriteRenderer SpriteRenderer => spriteRenderer;
+
+    protected void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
 
     protected void Start()
     {

@@ -55,7 +55,7 @@ public class JoyStick : Singleton<JoyStick>, IPointerDownHandler, IPointerUpHand
         return JoyStickHorizontalValue;
     }
     #endregion
-    
+
     private void ReSetJoystickPos()
     {
         joystickRect.anchoredPosition = center.anchoredPosition;

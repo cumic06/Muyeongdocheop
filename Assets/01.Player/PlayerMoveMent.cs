@@ -13,7 +13,11 @@ public class PlayerMoveMent : MonoBehaviour
 
     private void FixedUpdate()
     {
-        MoveMent();
+        if (CheckJoyStickMove())
+        {
+            MoveMent();
+            SetFilp();
+        }
     }
 
     private void MoveMent()
@@ -21,8 +25,13 @@ public class PlayerMoveMent : MonoBehaviour
         transform.Translate(player.GetMoveSpeed() * Time.fixedDeltaTime * new Vector2(JoyStick.Instance.GetJoyStickMoveHorizonValue(), 0));
     }
 
-    //private void ATypeSkill()
-    //{
+    private void SetFilp()
+    {
+        player.SpriteRenderer.flipX = JoyStick.Instance.GetJoyStickMoveHorizonValue() > 0.01f;
+    }
 
-    //}
+    private bool CheckJoyStickMove()
+    {
+        return JoyStick.Instance.GetJoyStickMoveHorizonValue() != 0;
+    }
 }
