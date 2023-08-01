@@ -4,7 +4,7 @@ public class SlowSystem : Singleton<SlowSystem>
 {
     private readonly int normalTime = 1;
 
-    public void Slow(float slowValue, float slowTime)
+    public void Slow(float slowTime, float slowValue)
     {
         Time.timeScale = slowValue;
 

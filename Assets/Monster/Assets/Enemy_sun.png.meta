@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 02976c9cff7577b4382a42a53b5421ce
+guid: 9cc2191d05f72fd4886c7ad40037d6c3
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -117,22 +117,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: player_0
+      name: Enemy_sun_0
       rect:
         serializedVersion: 2
-        x: 13
-        y: 1
-        width: 31
-        height: 62
+        x: 6
+        y: 2
+        width: 51
+        height: 59
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b5df48351084de6489dec9d32574b3aa
-      internalID: 1343210708
+      spriteID: 2edd308d5b023f24985d04204e649080
+      internalID: 664640998
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      player_0: 1343210708
+      Enemy_sun_0: 664640998
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

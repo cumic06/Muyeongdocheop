@@ -13,7 +13,7 @@ public class PlayerMoveMent : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (CheckJoyStickMove())
+        if (MoveJoyStick.Instance.CheckJoyStickMove())
         {
             MoveMent();
             SetFilp();
@@ -22,16 +22,11 @@ public class PlayerMoveMent : MonoBehaviour
 
     private void MoveMent()
     {
-        transform.Translate(player.GetMoveSpeed() * Time.fixedDeltaTime * new Vector2(JoyStick.Instance.GetJoyStickMoveHorizonValue(), 0));
+        transform.Translate(player.GetMoveSpeed() * Time.fixedDeltaTime * new Vector2(MoveJoyStick.Instance.GetJoyStickHorizonValue(), 0));
     }
 
     private void SetFilp()
     {
-        player.SpriteRenderer.flipX = JoyStick.Instance.GetJoyStickMoveHorizonValue() > 0.01f;
-    }
-
-    private bool CheckJoyStickMove()
-    {
-        return JoyStick.Instance.GetJoyStickMoveHorizonValue() != 0;
+        player.SpriteRenderer.flipX = MoveJoyStick.Instance.GetJoyStickHorizonValue() < 0.01f;
     }
 }

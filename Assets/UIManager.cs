@@ -22,7 +22,7 @@ public class UIManager : Singleton<UIManager>
     private void UIActiveSystem(float disableTime, GameObject ui)
     {
         UIActive(ui);
-        UIDisableTime(disableTime, () => UIDisable(disableTime, ui));
+        UIDisableTime(disableTime, () => UIDisable(ui));
     }
 
     private void UIActive(GameObject ui)
@@ -30,7 +30,7 @@ public class UIManager : Singleton<UIManager>
         ui.SetActive(true);
     }
 
-    private void UIDisable(float disableTime, GameObject ui)
+    private void UIDisable(GameObject ui)
     {
         ui.SetActive(false);
     }
