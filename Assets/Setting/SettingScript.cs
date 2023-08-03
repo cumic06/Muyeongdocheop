@@ -7,9 +7,15 @@ public class SettingScript : MonoBehaviour
     public GameObject SettingUI;
     public GameObject GameUI;
 
-    public void setting_window()
+    public void Setting_Window()
     {
         SettingUI.SetActive(true);
         GameUI.SetActive(false);
+    }
+
+    public void Setting_Exit()
+    {
+        SettingUI.SetActive(false);
+        GameUI.SetActive(true);
     }
 }
