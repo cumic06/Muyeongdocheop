@@ -40,7 +40,7 @@ public abstract class JoyStick : MonoBehaviour, IPointerDownHandler, IPointerUpH
 
     protected virtual void SetHandle(PointerEventData eventData)
     {
-        Vector2 joyStickPos = new(GetLimitXJoyStick(eventData), GetLimitYJoyStick(eventData));
+        Vector2 joyStickPos = GetLimitJoyStick(eventData);
 
         joystickRect.anchoredPosition = joyStickPos;
 
@@ -50,22 +50,20 @@ public abstract class JoyStick : MonoBehaviour, IPointerDownHandler, IPointerUpH
     #endregion
 
     #region LimitJoyStick
-    protected float GetLimitXJoyStick(PointerEventData eventData)
+    protected Vector2 GetLimitJoyStick(PointerEventData eventData)
     {
-        float joystickDistance = eventData.position.x - center.position.x;
-        float limitXPos = Mathf.Clamp(joystickDistance, joyStickXMinPos, joyStickXMaxPos);
+        float limitXPos = Mathf.Clamp(GetJoyStickDistance(eventData).x, joyStickXMinPos, joyStickXMaxPos);
+        float limitYPos = Mathf.Clamp(GetJoyStickDistance(eventData).y, joyStickYMinPos, joyStickYMaxPos);
 
-        return limitXPos;
-    }
-
-    protected float GetLimitYJoyStick(PointerEventData eventData)
-    {
-        float joystickDistance = eventData.position.y - center.position.y;
-        float limitYPos = Mathf.Clamp(joystickDistance, joyStickYMinPos, joyStickYMaxPos);
-
-        return limitYPos;
+        return new Vector2(limitXPos, limitYPos);
     }
     #endregion
+
+    protected Vector3 GetJoyStickDistance(PointerEventData eventData)
+    {
+        Vector3 joystickDistance = (Vector3)eventData.position - center.position;
+        return joystickDistance;
+    }
 
     #region JoystickValue Get Set
     protected void SetJoyStickHorizonValue()

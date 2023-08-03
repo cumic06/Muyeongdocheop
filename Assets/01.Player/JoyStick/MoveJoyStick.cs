@@ -32,7 +32,6 @@ public class MoveJoyStick : JoyStick
 
         SetJoyStickHorizonValue();
         base.SetHandle(eventData);
-        Debug.Log("MoveJoyStick");
     }
 
     public override float GetJoyStickHorizonValue()

@@ -24,9 +24,13 @@ public class Unit : MonoBehaviour, IDamageable
     protected SpriteRenderer spriteRenderer;
     public SpriteRenderer SpriteRenderer => spriteRenderer;
 
+    protected Animator anim;
+    public Animator Anim => anim;
+
     protected void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
     }
 
     protected void Start()

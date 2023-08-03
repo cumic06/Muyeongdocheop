@@ -15,8 +15,13 @@ public class PlayerMoveMent : MonoBehaviour
     {
         if (MoveJoyStick.Instance.CheckJoyStickMove())
         {
+            player.Anim.SetBool("IsRun", true);
             MoveMent();
             SetFilp();
+        }
+        else
+        {
+            player.Anim.SetBool("IsRun", false);
         }
     }
 

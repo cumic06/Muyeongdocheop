@@ -24,7 +24,6 @@ public class Player : Unit
         base.TakeDamage(damageValue);
         UIManager.Instance.HitAction?.Invoke();
         CameraShakeSystem.Instance.CameraShake(hitShakeTime, hitShakePower);
-        //SlowSystem.Instance.Slow(0.05f, 0.5f);
     }
 
     protected override void Death()
