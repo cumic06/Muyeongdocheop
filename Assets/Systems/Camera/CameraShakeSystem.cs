@@ -4,13 +4,6 @@ using UnityEngine;
 
 public class CameraShakeSystem : Singleton<CameraShakeSystem>
 {
-    private Vector3 camOriginPos;
-
-    private void Start()
-    {
-        camOriginPos = Camera.main.transform.position;
-    }
-
     public void CameraShake(float shakeTime, float shakePower)
     {
         TimeAgent agent = new(shakeTime, updateTimeAction: (agent) => CameraShaking());
@@ -18,6 +11,7 @@ public class CameraShakeSystem : Singleton<CameraShakeSystem>
 
         void CameraShaking()
         {
+            Vector3 camOriginPos = Camera.main.transform.position;
             Camera.main.transform.localPosition = Random.insideUnitSphere * shakePower + camOriginPos;
         }
     }
