@@ -12,13 +12,24 @@ public class AtypeSkillJoyStick : JoyStick
         Instance = GetComponent<AtypeSkillJoyStick>();
     }
 
+    public override void OnPointerUp(PointerEventData eventData)
+    {
+        base.OnPointerUp(eventData);
+    }
+
     public override float GetJoyStickHorizonValue()
     {
         return base.GetJoyStickHorizonValue();
+    }
+
+    public override float GetJoyStickVerticalValue()
+    {
+        return base.GetJoyStickVerticalValue();
     }
 
     public override bool CheckJoyStickMove()
     {
         return GetJoyStickHorizonValue() != 0;
     }
+
 }

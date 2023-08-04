@@ -27,7 +27,7 @@ public abstract class JoyStick : MonoBehaviour, IPointerDownHandler, IPointerUpH
         SetHandle(eventData);
     }
 
-    public void OnPointerUp(PointerEventData eventData)
+    public virtual void OnPointerUp(PointerEventData eventData)
     {
         ReSetJoystickPos();
         SetJoyStickHorizonValue();

@@ -15,7 +15,7 @@ public class Player : Unit
 
     protected override void ResetSpeed()
     {
-        unitStat.MoveSpeed = 8;
+        unitStat.MoveSpeed = 7;
         base.ResetSpeed();
     }
 
