@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
+[Serializable]
 public struct UnitStatInfo
 {
     public int MaxHp;
@@ -10,7 +12,7 @@ public struct UnitStatInfo
     public float AttackPower;
 }
 
-public class Unit : MonoBehaviour, IDamageable
+public class Unit : MonoBehaviour/*, IDamageable*/
 {
     [SerializeField] protected UnitStatInfo unitStat;
     public UnitStatInfo UnitStat => unitStat;
@@ -20,7 +22,7 @@ public class Unit : MonoBehaviour, IDamageable
 
     protected bool isDead = false;
 
-    protected void Start()
+    protected virtual void Start()
     {
         ReSetStat();
     }
