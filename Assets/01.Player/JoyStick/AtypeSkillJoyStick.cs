@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class AtypeSkillJoyStick : JoyStick
@@ -15,16 +12,7 @@ public class AtypeSkillJoyStick : JoyStick
     public override void OnPointerUp(PointerEventData eventData)
     {
         base.OnPointerUp(eventData);
-    }
-
-    public override float GetJoyStickHorizonValue()
-    {
-        return base.GetJoyStickHorizonValue();
-    }
-
-    public override float GetJoyStickVerticalValue()
-    {
-        return base.GetJoyStickVerticalValue();
+        ATypeSkill.Instance.Skill();
     }
 
     public override bool CheckJoyStickMove()

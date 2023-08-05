@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2d41f4f7595e85147adac65a5c7fcb96
+guid: 57edd9a1fc6dbd74d9f54a171bcc90e6
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -117,22 +117,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: AtkBtn1_0
+      name: Player6_idle_run2_0
       rect:
         serializedVersion: 2
-        x: 1
+        x: 9
         y: 0
-        width: 63
-        height: 64
+        width: 52
+        height: 53
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 5, y: 10, z: 6, w: 11}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7f1e58a7c6eefc14c812477020a48c37
-      internalID: 2134099785
+      spriteID: 4db518c1d8c6da94d99e78d197c82e32
+      internalID: 1319720433
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      AtkBtn1_0: 2134099785
+      Player6_idle_run2_0: 1319720433
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

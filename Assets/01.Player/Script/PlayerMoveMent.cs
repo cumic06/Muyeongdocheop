@@ -35,11 +35,14 @@ public class PlayerMoveMent : MonoBehaviour
         player.SpriteRenderer.flipX = MoveJoyStick.Instance.GetJoyStickHorizonValue() < 0.01f;
     }
 
-    public void Dash()
+    public IEnumerator Dash(float horizonValue, float verticalValue)
     {
-        float horizon = AtypeSkillJoyStick.Instance.GetJoyStickHorizonValue();
-        float vertical = AtypeSkillJoyStick.Instance.GetJoyStickVerticalValue();
-        transform.Translate(new Vector2(horizon, vertical) * player.GetMoveSpeed() * Time.deltaTime);
+        Debug.Log("Horizonvalue" + horizonValue);
+        Debug.Log("VerticalValue" + verticalValue);
+        while (true)
+        {
+            transform.Translate(player.GetMoveSpeed() * Time.deltaTime * new Vector2(horizonValue, verticalValue));
+            yield return null;
+        }
     }
-
 }

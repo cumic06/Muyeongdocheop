@@ -7,36 +7,16 @@ public class MoveJoyStick : JoyStick
 {
     public static MoveJoyStick Instance;
 
-    [SerializeField] private RectTransform moveJoyStickPoint;
-
     private void Awake()
     {
         Instance = GetComponent<MoveJoyStick>();
     }
 
-    public override void OnPointerDown(PointerEventData eventData)
+    protected override void ReSetJoystickPos()
     {
-        base.OnPointerDown(eventData);
-
-    }
-
-    protected override void SetHandle(PointerEventData eventData)
-    {
-        float joystickDistance = eventData.position.x - center.position.x;
-
-        float limitXPos = Mathf.Clamp(joystickDistance, joyStickXMinPos, joyStickXMaxPos);
-
-        Vector2 joyStickPos = new(limitXPos, 0);
-
-        joystickRect.anchoredPosition = joyStickPos;
-
+        base.ReSetJoystickPos();
         SetJoyStickHorizonValue();
-        base.SetHandle(eventData);
-    }
-
-    public override float GetJoyStickHorizonValue()
-    {
-        return base.GetJoyStickHorizonValue();
+        SetJoyStickVerticalValue();
     }
 
     public override bool CheckJoyStickMove()

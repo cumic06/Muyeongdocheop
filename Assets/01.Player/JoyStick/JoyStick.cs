@@ -30,7 +30,6 @@ public abstract class JoyStick : MonoBehaviour, IPointerDownHandler, IPointerUpH
     public virtual void OnPointerUp(PointerEventData eventData)
     {
         ReSetJoystickPos();
-        SetJoyStickHorizonValue();
     }
 
     public virtual void OnPointerDown(PointerEventData eventData)
@@ -57,13 +56,13 @@ public abstract class JoyStick : MonoBehaviour, IPointerDownHandler, IPointerUpH
 
         return new Vector2(limitXPos, limitYPos);
     }
-    #endregion
 
     protected Vector3 GetJoyStickDistance(PointerEventData eventData)
     {
         Vector3 joystickDistance = (Vector3)eventData.position - center.position;
         return joystickDistance;
     }
+    #endregion
 
     #region JoystickValue Get Set
     protected void SetJoyStickHorizonValue()
@@ -71,7 +70,7 @@ public abstract class JoyStick : MonoBehaviour, IPointerDownHandler, IPointerUpH
         joyStickHorizontalValue = joystickRect.anchoredPosition.x / center.rect.width;
     }
 
-    public virtual float GetJoyStickHorizonValue()
+    public float GetJoyStickHorizonValue()
     {
         return JoyStickHorizontalValue;
     }
@@ -81,14 +80,14 @@ public abstract class JoyStick : MonoBehaviour, IPointerDownHandler, IPointerUpH
         joyStickVerticalValue = joystickRect.anchoredPosition.y / center.rect.height;
     }
 
-    public virtual float GetJoyStickVerticalValue()
+    public float GetJoyStickVerticalValue()
     {
         return JoyStickVerticalValue;
     }
     #endregion
 
     #region ResetJoyStick
-    private void ReSetJoystickPos()
+    protected virtual void ReSetJoystickPos()
     {
         joystickRect.anchoredPosition = center.anchoredPosition;
     }

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 22c8813e1ea2a204492a9deecc267437
+guid: aecc0e699e2e3aa4eae7ebd221ffd31c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -117,12 +117,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player5_run_2_0
+      name: Player6_run5_0
       rect:
         serializedVersion: 2
-        x: 12
-        y: 7
-        width: 31
+        x: 16
+        y: 0
+        width: 44
         height: 54
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -131,8 +131,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9b9e8549b856bd14395f492c61cc7701
-      internalID: -1952289577
+      spriteID: 6356fcb99c12a504e9329b00a94a402d
+      internalID: -843651573
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Player5_run_2_0: -1952289577
+      Player6_run5_0: -843651573
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

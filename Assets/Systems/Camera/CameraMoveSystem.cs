@@ -8,12 +8,10 @@ public class CameraMoveSystem : MonoBehaviour
 
     [SerializeField] private float cameraSpeed;
 
-    [SerializeField] private Vector2 size;
-
-    private readonly float LimitYLowValue = 0f;
-    private readonly float LimitYHighValue = 10f;
-    private readonly float LimitXLowValue = 0f;
-    private readonly float LimitXHighValue = 10f;
+    [SerializeField] private float LimitYLowValue;
+    [SerializeField] private float LimitYHighValue;
+    [SerializeField] private float LimitXLowValue;
+    [SerializeField] private float LimitXHighValue;
 
     private void Update()
     {
@@ -28,20 +26,9 @@ public class CameraMoveSystem : MonoBehaviour
     private void FollowPlayer()
     {
         Vector3 slowPlayerFollow = Vector3.Lerp(transform.position, player.transform.position, cameraSpeed * Time.fixedDeltaTime);
-
-        //if (Vector2.Distance(transform.position, player.transform.position) >= 1.7f)
-        //{
-        //    transform.position = new Vector3(player.transform.position.x, slowPlayerFollow.y, -10);
-        //    Debug.Log("가까워");
-        //}
-        //else
-        //{
         transform.position = new Vector3(slowPlayerFollow.x, slowPlayerFollow.y, -10);
-        //    Debug.Log("멀어");
-        //}
     }
 
-    //이거 쓰면 멀어 계속 뜸 수정해야함
     private void LimitFollow()
     {
         float limitY = Mathf.Clamp(transform.position.y, LimitYLowValue, LimitYHighValue);

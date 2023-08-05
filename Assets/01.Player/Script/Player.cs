@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : Unit
 {
     private readonly float hitShakeTime = 0.5f;
-    private readonly float hitShakePower = 0.05f;
+    private readonly float hitShakePower = 0.15f;
 
     protected override void ResetHp()
     {
