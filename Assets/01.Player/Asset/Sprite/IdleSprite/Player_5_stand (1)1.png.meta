@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2d41f4f7595e85147adac65a5c7fcb96
+guid: 876b9312e147d21419a948680aaaf105
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -117,22 +117,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: AtkBtn1_0
+      name: Player_5_stand (1)1_0
       rect:
         serializedVersion: 2
-        x: 1
+        x: 12
         y: 0
-        width: 63
-        height: 64
+        width: 32
+        height: 63
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 5, y: 10, z: 6, w: 11}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7f1e58a7c6eefc14c812477020a48c37
-      internalID: 2134099785
+      spriteID: 6d926b395b54da941be795868325c104
+      internalID: 1946909694
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      AtkBtn1_0: 2134099785
+      Player_5_stand (1)1_0: 1946909694
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2d41f4f7595e85147adac65a5c7fcb96
+guid: 5e685f0b1a1905643a521686e625b154
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -42,7 +42,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -117,22 +117,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: AtkBtn1_0
+      name: Durumari_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 0
-        width: 63
-        height: 64
+        x: 2
+        y: 13
+        width: 125
+        height: 38
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 5, y: 10, z: 6, w: 11}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7f1e58a7c6eefc14c812477020a48c37
-      internalID: 2134099785
+      spriteID: a3223337d8b8c064488fdbf294db7572
+      internalID: 2013123010
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      AtkBtn1_0: 2134099785
+      Durumari_0: 2013123010
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
-[Serializable]
 public struct UnitStatInfo
 {
     public int MaxHp;
@@ -12,7 +10,8 @@ public struct UnitStatInfo
     public float AttackPower;
 }
 
-public class Unit : MonoBehaviour/*, IDamageable*/
+[RequireComponent(typeof(SpriteRenderer))]
+public class Unit : MonoBehaviour, IDamageable
 {
     [SerializeField] protected UnitStatInfo unitStat;
     public UnitStatInfo UnitStat => unitStat;
@@ -22,14 +21,28 @@ public class Unit : MonoBehaviour/*, IDamageable*/
 
     protected bool isDead = false;
 
-    protected virtual void Start()
+    protected SpriteRenderer spriteRenderer;
+    public SpriteRenderer SpriteRenderer => spriteRenderer;
+
+    protected Animator anim;
+    public Animator Anim => anim;
+
+    protected void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
+    }
+
+    protected void Start()
     {
         ReSetStat();
     }
 
+    #region ReSet
     protected void ReSetStat()
     {
         ResetHp();
+        ResetSpeed();
     }
 
     protected virtual void ResetHp()
@@ -38,6 +51,13 @@ public class Unit : MonoBehaviour/*, IDamageable*/
         unitStat.MinHp = 0;
     }
 
+    protected virtual void ResetSpeed()
+    {
+
+    }
+    #endregion
+
+    #region Hp
     public virtual void TakeDamage(int damageValue)
     {
         ChangeHp(-damageValue);
@@ -50,10 +70,14 @@ public class Unit : MonoBehaviour/*, IDamageable*/
 
     protected void ChangeHp(int value)
     {
-        hp += ClampHp(value);
-        if (Hp <= UnitStat.MinHp)
+        if (!isDead)
         {
-            isDead = true;
+            UIManager.Instance.HpFunc?.Invoke(GetHp(), GetMaxHp());
+            hp += ClampHp(value);
+            if (Hp <= UnitStat.MinHp)
+            {
+                isDead = true;
+            }
         }
     }
 
@@ -70,12 +94,28 @@ public class Unit : MonoBehaviour/*, IDamageable*/
         }
         return value;
     }
+    #endregion
+
+    #region GetValue
+    public float GetMoveSpeed()
+    {
+        return unitStat.MoveSpeed;
+    }
+    public int GetHp()
+    {
+        return hp;
+    }
+    public int GetMaxHp()
+    {
+        return unitStat.MaxHp;
+    }
+    #endregion
 
     protected virtual void Death()
     {
         if (isDead)
         {
-            
+
         }
     }
 }

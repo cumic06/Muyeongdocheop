@@ -6,40 +6,23 @@ using UnityEngine.UI;
 
 public class UIManager : Singleton<UIManager>
 {
-    public Action hitAction;
+    public Action HitAction;
+    public Func<int, int, int> HpFunc;
 
     [SerializeField] private Image hitImage;
+    [SerializeField] private Image playerHpSlider;
 
     protected override void Awake()
     {
         base.Awake();
-        hitAction += HitEffectSystem;
+        HitAction += () => UIActiveSystem(0.5f, hitImage.gameObject);
     }
-
-    #region HitEffectSystem
-    [ContextMenu("HitEffect")]
-    private void HitEffectSystem()
-    {
-        HitEffectActive();
-        UIDisableTime(0.5f, () => HitEffectDisable());
-    }
-
-    private void HitEffectActive()
-    {
-        hitImage.gameObject.SetActive(true);
-    }
-
-    private void HitEffectDisable()
-    {
-        hitImage.gameObject.SetActive(false);
-    }
-    #endregion
 
     #region UIActiveSystem
     private void UIActiveSystem(float disableTime, GameObject ui)
     {
         UIActive(ui);
-        UIDisableTime(disableTime, () => UIDisable(disableTime, ui));
+        UIDisableTime(disableTime, () => UIDisable(ui));
     }
 
     private void UIActive(GameObject ui)
@@ -47,7 +30,7 @@ public class UIManager : Singleton<UIManager>
         ui.SetActive(true);
     }
 
-    private void UIDisable(float disableTime, GameObject ui)
+    private void UIDisable(GameObject ui)
     {
         ui.SetActive(false);
     }
@@ -55,7 +38,14 @@ public class UIManager : Singleton<UIManager>
     private void UIDisableTime(float disableTime, Action Method)
     {
         TimeAgent agent = new(disableTime, endTimeAction: (agent) => Method());
-        TimeManager.Instance.AddTimer(agent);
+        TimerSystem.Instance.AddTimer(agent);
+    }
+    #endregion
+
+    #region HpHandler
+    private void PlayerHpHandler()
+    {
+        //playerHpSlider.fillAmount =  / ;
     }
     #endregion
 }

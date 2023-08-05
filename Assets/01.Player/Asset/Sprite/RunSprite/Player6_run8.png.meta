@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2d41f4f7595e85147adac65a5c7fcb96
+guid: 69b2b921ca4223048b2c2e3fc5186e8b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -117,22 +117,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: AtkBtn1_0
+      name: Player6_run8_0
       rect:
         serializedVersion: 2
-        x: 1
+        x: 7
         y: 0
-        width: 63
-        height: 64
+        width: 55
+        height: 52
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 5, y: 10, z: 6, w: 11}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7f1e58a7c6eefc14c812477020a48c37
-      internalID: 2134099785
+      spriteID: 746375020abe45447b5d898bc458101e
+      internalID: 590266852
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      AtkBtn1_0: 2134099785
+      Player6_run8_0: 590266852
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
