@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
+[Serializable]
 public struct UnitStatInfo
 {
     public int MaxHp;
@@ -33,7 +35,7 @@ public class Unit : MonoBehaviour, IDamageable
         anim = GetComponent<Animator>();
     }
 
-    protected void Start()
+    protected virtual void Start()
     {
         ReSetStat();
     }
