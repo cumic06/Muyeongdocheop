@@ -14,8 +14,15 @@ public class ATypeSkill : SkillSystem
         Instance = GetComponent<ATypeSkill>();
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(transform.position + new Vector3(ReturnSkillHalfRange(), 0, 0), skillRange[0]);
+    }
+
     protected override void UseSkill()
     {
-        playerMoveMent.StartCoroutine(playerMoveMent.Dash(AtypeSkillJoyStick.Instance.GetJoyStickHorizonValue() * 2, AtypeSkillJoyStick.Instance.GetJoyStickVerticalValue() * 2));
+        Debug.Log("UseSkill");
+        playerMoveMent.Dash(50f, AtypeSkillJoyStick.Instance.GetJoyStickHorizonValue() * 2, AtypeSkillJoyStick.Instance.GetJoyStickVerticalValue() * 2);
     }
 }

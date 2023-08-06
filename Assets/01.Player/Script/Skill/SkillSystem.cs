@@ -19,9 +19,9 @@ public class SkillSystem : MonoBehaviour
         canUseSkill = true;
     }
 
-    protected virtual int ReturnSkillHalfRange()
+    protected int ReturnSkillHalfRange()
     {
-        return Mathf.RoundToInt(skillRange[1].x * 0.5f);
+        return Mathf.RoundToInt(skillRange[0].x * 0.5f);
     }
 
     public void Skill()

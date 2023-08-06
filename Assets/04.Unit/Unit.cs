@@ -11,6 +11,7 @@ public struct UnitStatInfo
 }
 
 [RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class Unit : MonoBehaviour, IDamageable
 {
     [SerializeField] protected UnitStatInfo unitStat;
@@ -27,10 +28,14 @@ public class Unit : MonoBehaviour, IDamageable
     protected Animator anim;
     public Animator Anim => anim;
 
+    protected Rigidbody2D rigid;
+    public Rigidbody2D Rigid => rigid;
+
     protected void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+        rigid = GetComponent<Rigidbody2D>();
     }
 
     protected void Start()

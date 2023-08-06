@@ -6,6 +6,12 @@ public class PlayerMoveMent : MonoBehaviour
 {
     private Player player;
 
+    private readonly float LimitXLowValue = -8.5f;
+    private readonly float LimitYLowValue = -2.0f;
+
+    private readonly float LimitXHighValue = 100.0f;
+    private readonly float LimitYHighValue = 10.0f;
+
     private void Awake()
     {
         player = GetComponent<Player>();
@@ -13,6 +19,8 @@ public class PlayerMoveMent : MonoBehaviour
 
     private void FixedUpdate()
     {
+        LimitMove();
+
         if (MoveJoyStick.Instance.CheckJoyStickMove())
         {
             player.Anim.SetBool("IsRun", true);
@@ -32,17 +40,30 @@ public class PlayerMoveMent : MonoBehaviour
 
     private void SetFilp()
     {
-        player.SpriteRenderer.flipX = MoveJoyStick.Instance.GetJoyStickHorizonValue() < 0.01f;
+        if (AtypeSkillJoyStick.Instance.CheckJoyStickMove())
+        {
+            player.SpriteRenderer.flipX = AtypeSkillJoyStick.Instance.GetJoyStickHorizonValue() < 0.01f;
+        }
+
+        if (MoveJoyStick.Instance.CheckJoyStickMove())
+        {
+            player.SpriteRenderer.flipX = MoveJoyStick.Instance.GetJoyStickHorizonValue() < 0.01f;
+        }
     }
 
-    public IEnumerator Dash(float horizonValue, float verticalValue)
+
+    private void LimitMove()
     {
-        Debug.Log("Horizonvalue" + horizonValue);
-        Debug.Log("VerticalValue" + verticalValue);
-        while (true)
-        {
-            transform.Translate(player.GetMoveSpeed() * Time.deltaTime * new Vector2(horizonValue, verticalValue));
-            yield return null;
-        }
+        float LimitX = Mathf.Clamp(transform.position.x, LimitXLowValue, LimitXHighValue);
+        float LimitY = Mathf.Clamp(transform.position.y, LimitYLowValue, LimitYHighValue);
+
+        transform.position = new Vector3(LimitX, LimitY);
+    }
+
+    public void Dash(float dashPower, float horizonValue, float verticalValue)
+    {
+        SetFilp();
+        float DashPower = dashPower * player.GetMoveSpeed() * Time.fixedDeltaTime;
+        player.Rigid.AddForce(DashPower * new Vector2(horizonValue, verticalValue), ForceMode2D.Impulse);
     }
 }
