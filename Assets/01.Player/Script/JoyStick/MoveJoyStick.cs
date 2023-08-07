@@ -16,7 +16,6 @@ public class MoveJoyStick : JoyStick
     {
         base.ReSetJoystickPos();
         SetJoyStickHorizonValue();
-        SetJoyStickVerticalValue();
     }
 
     public override bool CheckJoyStickMove()

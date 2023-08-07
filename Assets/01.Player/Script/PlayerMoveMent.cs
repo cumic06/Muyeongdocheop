@@ -8,9 +8,10 @@ public class PlayerMoveMent : MonoBehaviour
 
     private readonly float LimitXLowValue = -8.5f;
     private readonly float LimitYLowValue = -2.0f;
-
     private readonly float LimitXHighValue = 100.0f;
     private readonly float LimitYHighValue = 10.0f;
+
+    private readonly int run = Animator.StringToHash("IsRun");
 
     private void Awake()
     {
@@ -23,19 +24,21 @@ public class PlayerMoveMent : MonoBehaviour
 
         if (MoveJoyStick.Instance.CheckJoyStickMove())
         {
-            player.Anim.SetBool("IsRun", true);
+            player.Anim.SetBool(run, true);
             MoveMent();
             SetFilp();
         }
         else
         {
-            player.Anim.SetBool("IsRun", false);
+            player.Anim.SetBool(run, false);
         }
     }
 
     private void MoveMent()
     {
-        transform.Translate(player.GetMoveSpeed() * Time.fixedDeltaTime * new Vector2(MoveJoyStick.Instance.GetJoyStickHorizonValue(), 0));
+        float moveSpeed = player.GetMoveSpeed() * Time.fixedDeltaTime;
+        Vector2 direction = new(MoveJoyStick.Instance.GetJoyStickHorizonValue(), 0);
+        transform.Translate(moveSpeed * direction);
     }
 
     private void SetFilp()
@@ -44,13 +47,14 @@ public class PlayerMoveMent : MonoBehaviour
         {
             player.SpriteRenderer.flipX = AtypeSkillJoyStick.Instance.GetJoyStickHorizonValue() < 0.01f;
         }
-
-        if (MoveJoyStick.Instance.CheckJoyStickMove())
+        else
         {
-            player.SpriteRenderer.flipX = MoveJoyStick.Instance.GetJoyStickHorizonValue() < 0.01f;
+            if (MoveJoyStick.Instance.CheckJoyStickMove())
+            {
+                player.SpriteRenderer.flipX = MoveJoyStick.Instance.GetJoyStickHorizonValue() < 0.01f;
+            }
         }
     }
-
 
     private void LimitMove()
     {
@@ -64,6 +68,7 @@ public class PlayerMoveMent : MonoBehaviour
     {
         SetFilp();
         float DashPower = dashPower * player.GetMoveSpeed() * Time.fixedDeltaTime;
-        player.Rigid.AddForce(DashPower * new Vector2(horizonValue, verticalValue), ForceMode2D.Impulse);
+        Vector2 direction = new(horizonValue, verticalValue);
+        transform.Translate(DashPower * direction);
     }
 }

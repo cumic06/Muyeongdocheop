@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ATypeSkill : SkillSystem
 {
+    private const float dashPower = 25f;
     public static ATypeSkill Instance;
     protected PlayerMoveMent playerMoveMent;
 
@@ -22,7 +23,6 @@ public class ATypeSkill : SkillSystem
 
     protected override void UseSkill()
     {
-        Debug.Log("UseSkill");
-        playerMoveMent.Dash(50f, AtypeSkillJoyStick.Instance.GetJoyStickHorizonValue() * 2, AtypeSkillJoyStick.Instance.GetJoyStickVerticalValue() * 2);
+        playerMoveMent.Dash(dashPower, AtypeSkillJoyStick.Instance.GetJoyStickHorizonValue() * 2, AtypeSkillJoyStick.Instance.GetJoyStickVerticalValue() * 2);
     }
 }

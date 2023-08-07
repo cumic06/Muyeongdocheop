@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkillSystem : MonoBehaviour
+public abstract class SkillSystem : MonoBehaviour
 {
     [SerializeField] protected List<Vector3> skillRange;
     [SerializeField] protected float skillCoolTime;
@@ -49,8 +49,5 @@ public class SkillSystem : MonoBehaviour
         return canUseSkill = true;
     }
 
-    protected virtual void UseSkill()
-    {
-
-    }
+    protected abstract void UseSkill();
 }
