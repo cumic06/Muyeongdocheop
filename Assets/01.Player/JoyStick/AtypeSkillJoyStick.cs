@@ -13,6 +13,7 @@ public class AtypeSkillJoyStick : JoyStick
     {
         base.OnPointerUp(eventData);
         ATypeSkill.Instance.Skill();
+        SetJoyStickHorizonValue();
     }
 
     public override bool CheckJoyStickMove()

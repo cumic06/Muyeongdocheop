@@ -23,6 +23,19 @@ public class ATypeSkill : SkillSystem
     protected override void UseSkill()
     {
         Debug.Log("UseSkill");
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+        playerMoveMent.Dash(25f, AtypeSkillJoyStick.Instance.GetJoyStickHorizonValue() * 2, AtypeSkillJoyStick.Instance.GetJoyStickVerticalValue() * 2);
+
+=======
         playerMoveMent.Dash(50f, AtypeSkillJoyStick.Instance.GetJoyStickHorizonValue() * 2, AtypeSkillJoyStick.Instance.GetJoyStickVerticalValue() * 2);
+>>>>>>> parent of 8f68c1d (Dash MoveWay & Background Settings & Change And Assets)
+=======
+        playerMoveMent.Dash(50f, AtypeSkillJoyStick.Instance.GetJoyStickHorizonValue() * 2, AtypeSkillJoyStick.Instance.GetJoyStickVerticalValue() * 2);
+>>>>>>> parent of 8f68c1d (Dash MoveWay & Background Settings & Change And Assets)
+=======
+        playerMoveMent.Dash(50f, AtypeSkillJoyStick.Instance.GetJoyStickHorizonValue() * 2, AtypeSkillJoyStick.Instance.GetJoyStickVerticalValue() * 2);
+>>>>>>> parent of 8f68c1d (Dash MoveWay & Background Settings & Change And Assets)
     }
 }

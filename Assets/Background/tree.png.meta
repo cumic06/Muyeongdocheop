@@ -123,16 +123,16 @@ TextureImporter:
         x: 0
         y: 0
         width: 128
-        height: 109
+        height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 21b06a0c500c3084f92539d72f713145
-      internalID: -978600706
+      spriteID: dea826651ee798540afcbbc27f25a0c9
+      internalID: -69057473
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      tree_0: -978600706
+      tree_0: -69057473
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
