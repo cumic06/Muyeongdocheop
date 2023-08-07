@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class rangedattackMonster : Monster, MonsterSkill
+public class RangedattackMonster : Monster, MonsterSkill
 {
-    
 
-    private void Awake()
+
+    protected override void Start()
     {
-        
+        diameter = 3;
+        base.Start();
     }
     public void Attack(GameObject Object)
     {
-
+        Debug.Log(Object);
     }
     
 }
