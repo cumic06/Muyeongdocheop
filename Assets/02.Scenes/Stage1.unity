@@ -547,7 +547,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: -69057473, guid: 8313627e6c3ecea43869d6136c697272, type: 3}
+  m_Sprite: {fileID: -978600706, guid: 8313627e6c3ecea43869d6136c697272, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -566,8 +566,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 246761127}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.12, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 2}
+  m_LocalPosition: {x: 0, y: 0.05, z: 0}
+  m_LocalScale: {x: 4, y: 4, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 900987634}
@@ -1530,7 +1530,7 @@ GameObject:
   - component: {fileID: 1579131998}
   - component: {fileID: 1579132002}
   m_Layer: 5
-  m_Name: UICanvas
+  m_Name: NonStaticUICanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
