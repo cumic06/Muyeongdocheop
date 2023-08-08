@@ -11,3 +11,8 @@ public interface MonsterSkill
 {
     public void Attack(GameObject Object);
 }
+
+public interface Fsm
+{
+    public void Fsm_Action();
+}

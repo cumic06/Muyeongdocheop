@@ -16,5 +16,4 @@ public class RangedattackMonster : Monster, MonsterSkill
     {
         Debug.Log(Object);
     }
-    
 }

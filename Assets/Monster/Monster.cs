@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEditor.Experimental.GraphView.GraphView;
 using UnityEngine.UIElements;
+using System;
 
 public class Monster : Unit, IDamageable
 {
@@ -21,29 +22,41 @@ public class Monster : Unit, IDamageable
     [SerializeField]
     private LayerMask layer;
 
+    Fsm[] _fsm = new Fsm[4];
     protected override void Start()
     {
-        if (_OnAndOff)
-        {
-            StartCoroutine(Move());
-            StartCoroutine(Flip());
-        }
+        _fsm[0] = new Fsm_Idle(_Monster);
+        _fsm[1] = new Fsm_recognize(_Monster);
+        _fsm[2] = new Fsm_Attack(_Monster);
+        _fsm[3] = _fsm[0];
+        //if (_OnAndOff)
+        //{
+        //    StartCoroutine(Move());
+        //    StartCoroutine(Flip());
+        //}
         base.Start();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        AttackRange(diameter);
+        _fsm[3].Fsm_Action();
+        //AttackRange(diameter);
     }
 
-    public IEnumerator Move()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        while (true)
-        {
-            yield return null;
-            _Monster.transform.Translate(new Vector3(0.0025f * _Monster.transform.localScale.x, 0, 0));
-        }
+        if (collision.collider.TryGetComponent(out Player player))
+            _Monster.GetComponent<MonsterSkill>().Attack(player.gameObject);
     }
+
+    //public IEnumerator Move()
+    //{
+    //    while (true)
+    //    {
+    //        yield return null;
+    //        _Monster.transform.Translate(new Vector3(0.0025f * _Monster.transform.localScale.x, 0, 0));
+    //    }
+    //}
     public IEnumerator Flip()
     {
 
@@ -55,17 +68,9 @@ public class Monster : Unit, IDamageable
         }
     }
 
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        //if(collision.collider.TryGetComponent(out Player player))
-        //    _Monster.GetComponent<MonsterSkill>().Attack(player.gameObject);
-    }
-
-
     public void AttackRange(float diameter)
     {
-        RaycastHit2D hit = Physics2D.CircleCast(_Monster.transform.position, diameter, Vector2.right, 1,layer);
+        RaycastHit2D hit = Physics2D.CircleCast(_Monster.transform.position, diameter, Vector2.right, 1, layer);
         if (hit)
         {
             _Monster.transform.Translate(hit.transform.position.normalized * 0.025f);
