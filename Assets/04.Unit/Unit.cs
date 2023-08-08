@@ -7,15 +7,20 @@ public struct UnitStatInfo
     public int MaxHp;
     public int MinHp;
     public float MoveSpeed;
-    public float AttackPower;
+    public int AttackPower;
 }
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Rigidbody2D))]
-public class Unit : MonoBehaviour, IDamageable
+public abstract class Unit : MonoBehaviour, IDamageable
 {
+    #region º¯¼ö
     [SerializeField] protected UnitStatInfo unitStat;
     public UnitStatInfo UnitStat => unitStat;
+
+    [Space]
+    [SerializeField] protected GameObject attackEffect;
+    [SerializeField] protected GameObject dashEffect;
 
     protected int hp;
     public int Hp => hp;
@@ -30,6 +35,7 @@ public class Unit : MonoBehaviour, IDamageable
 
     protected Rigidbody2D rigid;
     public Rigidbody2D Rigid => rigid;
+    #endregion
 
     protected void Awake()
     {
@@ -48,6 +54,7 @@ public class Unit : MonoBehaviour, IDamageable
     {
         ResetHp();
         ResetSpeed();
+        ResetAttackPower();
     }
 
     protected virtual void ResetHp()
@@ -56,10 +63,9 @@ public class Unit : MonoBehaviour, IDamageable
         unitStat.MinHp = 0;
     }
 
-    protected virtual void ResetSpeed()
-    {
+    protected abstract void ResetSpeed();
 
-    }
+    protected abstract void ResetAttackPower();
     #endregion
 
     #region Hp
@@ -77,16 +83,16 @@ public class Unit : MonoBehaviour, IDamageable
     {
         if (!isDead)
         {
-            UIManager.Instance.HpFunc?.Invoke(GetHp(), GetMaxHp());
-            hp += ClampHp(value);
+            ClampHp(ref value);
+            hp = value;
             if (Hp <= UnitStat.MinHp)
             {
-                isDead = true;
+                Death();
             }
         }
     }
 
-    protected int ClampHp(int value)
+    protected void ClampHp(ref int value)
     {
         if (Hp + value >= UnitStat.MaxHp)
         {
@@ -97,7 +103,6 @@ public class Unit : MonoBehaviour, IDamageable
         {
             hp = UnitStat.MinHp;
         }
-        return value;
     }
     #endregion
 
@@ -106,21 +111,25 @@ public class Unit : MonoBehaviour, IDamageable
     {
         return unitStat.MoveSpeed;
     }
+
     public int GetHp()
     {
         return hp;
     }
+
     public int GetMaxHp()
     {
         return unitStat.MaxHp;
+    }
+
+    public int GetAttackPower()
+    {
+        return unitStat.AttackPower;
     }
     #endregion
 
     protected virtual void Death()
     {
-        if (isDead)
-        {
-
-        }
+        Debug.Log("Dead");
     }
 }

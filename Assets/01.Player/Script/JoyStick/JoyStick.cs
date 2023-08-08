@@ -22,7 +22,7 @@ public abstract class JoyStick : MonoBehaviour, IPointerDownHandler, IPointerUpH
     #endregion
 
     #region OnDrag & OnPointer
-    public void OnDrag(PointerEventData eventData)
+    public virtual void OnDrag(PointerEventData eventData)
     {
         SetHandle(eventData);
     }
@@ -43,7 +43,7 @@ public abstract class JoyStick : MonoBehaviour, IPointerDownHandler, IPointerUpH
 
         joystickRect.anchoredPosition = joyStickPos;
 
-        SetJoyStickHorizonValue();
+        SetJoyStickHorizontalValue();
         SetJoyStickVerticalValue();
     }
     #endregion
@@ -65,12 +65,12 @@ public abstract class JoyStick : MonoBehaviour, IPointerDownHandler, IPointerUpH
     #endregion
 
     #region JoystickValue Get Set
-    protected void SetJoyStickHorizonValue()
+    protected void SetJoyStickHorizontalValue()
     {
         joyStickHorizontalValue = joystickRect.anchoredPosition.x / center.rect.width;
     }
 
-    public float GetJoyStickHorizonValue()
+    public virtual float GetJoyStickHorizontalValue()
     {
         return JoyStickHorizontalValue;
     }
@@ -80,7 +80,7 @@ public abstract class JoyStick : MonoBehaviour, IPointerDownHandler, IPointerUpH
         joyStickVerticalValue = joystickRect.anchoredPosition.y / center.rect.height;
     }
 
-    public float GetJoyStickVerticalValue()
+    public virtual float GetJoyStickVerticalValue()
     {
         return JoyStickVerticalValue;
     }

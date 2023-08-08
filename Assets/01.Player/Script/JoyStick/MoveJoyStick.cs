@@ -15,11 +15,11 @@ public class MoveJoyStick : JoyStick
     protected override void ReSetJoystickPos()
     {
         base.ReSetJoystickPos();
-        SetJoyStickHorizonValue();
+        SetJoyStickHorizontalValue();
     }
 
     public override bool CheckJoyStickMove()
     {
-        return GetJoyStickHorizonValue() != 0;
+        return GetJoyStickHorizontalValue() != 0;
     }
 }

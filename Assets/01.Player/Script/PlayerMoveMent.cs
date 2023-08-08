@@ -37,21 +37,21 @@ public class PlayerMoveMent : MonoBehaviour
     private void MoveMent()
     {
         float moveSpeed = player.GetMoveSpeed() * Time.fixedDeltaTime;
-        Vector2 direction = new(MoveJoyStick.Instance.GetJoyStickHorizonValue(), 0);
+        Vector2 direction = new(MoveJoyStick.Instance.GetJoyStickHorizontalValue(), 0);
         transform.Translate(moveSpeed * direction);
     }
 
     private void SetFilp()
     {
-        if (AtypeSkillJoyStick.Instance.CheckJoyStickMove())
+        if (BaldoSkillJoyStick.Instance.CheckJoyStickMove())
         {
-            player.SpriteRenderer.flipX = AtypeSkillJoyStick.Instance.GetJoyStickHorizonValue() < 0.01f;
+            player.SpriteRenderer.flipX = BaldoSkillJoyStick.Instance.GetJoyStickHorizontalValue() < 0.01f;
         }
         else
         {
             if (MoveJoyStick.Instance.CheckJoyStickMove())
             {
-                player.SpriteRenderer.flipX = MoveJoyStick.Instance.GetJoyStickHorizonValue() < 0.01f;
+                player.SpriteRenderer.flipX = MoveJoyStick.Instance.GetJoyStickHorizontalValue() < 0.01f;
             }
         }
     }
@@ -64,11 +64,9 @@ public class PlayerMoveMent : MonoBehaviour
         transform.position = new Vector3(LimitX, LimitY);
     }
 
-    public void Dash(float dashPower, float horizonValue, float verticalValue)
+    public void Dash(Vector3 dashRange, Vector3 direction)
     {
         SetFilp();
-        float DashPower = dashPower * player.GetMoveSpeed() * Time.fixedDeltaTime;
-        Vector2 direction = new(horizonValue, verticalValue);
-        transform.Translate(DashPower * direction);
+        transform.Translate(dashRange.x * dashRange.y * direction);
     }
 }

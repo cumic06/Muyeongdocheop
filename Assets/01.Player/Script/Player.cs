@@ -16,7 +16,11 @@ public class Player : Unit
     protected override void ResetSpeed()
     {
         unitStat.MoveSpeed = 7;
-        base.ResetSpeed();
+    }
+
+    protected override void ResetAttackPower()
+    {
+        unitStat.AttackPower = 10;
     }
 
     public override void TakeDamage(int damageValue)
@@ -30,4 +34,5 @@ public class Player : Unit
     {
         base.Death();
     }
+
 }
