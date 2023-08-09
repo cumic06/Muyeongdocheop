@@ -2,19 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fsm_Attack : Monster, Fsm
+public class Fsm_Patteren4 : Monster, Fsm
 {
-    private GameObject Monster_Type;
-    public Fsm_Attack(GameObject monster_Type)
+    private Monster Monster_Type;
+    public Fsm_Patteren4(Monster monster_Type)
     {
         Monster_Type = monster_Type;
     }
 
     public void Fsm_Action()
     {
-        Attack();
+        PatterenAttack4();
     }
-    public void Attack()
+    public void PatterenAttack4()
     {
 
     }

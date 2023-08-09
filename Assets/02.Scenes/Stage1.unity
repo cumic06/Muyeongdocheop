@@ -211,7 +211,6 @@ GameObject:
   - component: {fileID: 208149223}
   - component: {fileID: 208149225}
   - component: {fileID: 208149226}
-  - component: {fileID: 208149227}
   m_Layer: 0
   m_Name: Monster
   m_TagString: Untagged
@@ -333,28 +332,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &208149227
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 208149222}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c4c5b276008bd64cac62887be3d4874, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unitStat:
-    MaxHp: 0
-    MinHp: 0
-    MoveSpeed: 0
-    AttackPower: 0
-  monster: {fileID: 208149222}
-  OnAndOff: 0
-  layer:
-    serializedVersion: 2
-    m_Bits: 8
 --- !u!1 &213444733
 GameObject:
   m_ObjectHideFlags: 0

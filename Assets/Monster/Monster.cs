@@ -8,72 +8,50 @@ using System;
 public class Monster : Unit, IDamageable
 {
 
+    public Fsm[] _fsm { get; set; }
+    public Fsm Save_Fsm { get; set; }
 
-    [SerializeField]
-    private GameObject monster;
-    public GameObject _Monster { get => monster; }
-    //private MonsterSkill
-    [SerializeField]
-    private bool OnAndOff;
-    public bool _OnAndOff { get => OnAndOff; }
-
-    public float diameter { get; set; }
-
-    [SerializeField]
-    private LayerMask layer;
-
-    Fsm[] _fsm = new Fsm[4];
+    public RaycastHit2D hit { get; set; }
     protected override void Start()
     {
-        _fsm[0] = new Fsm_Idle(_Monster);
-        _fsm[1] = new Fsm_recognize(_Monster);
-        _fsm[2] = new Fsm_Attack(_Monster);
-        _fsm[3] = _fsm[0];
-        //if (_OnAndOff)
-        //{
-        //    StartCoroutine(Move());
-        //    StartCoroutine(Flip());
-        //}
+        gameObject.TryGetComponent(out Monster _monster);
+        _fsm = new Fsm[7];
+        _fsm[0] = new Fsm_Patteren1(_monster);
+        _fsm[1] = new Fsm_Patteren2(_monster);
+        _fsm[2] = new Fsm_Patteren3(_monster);
+        _fsm[3] = new Fsm_Patteren4(_monster);
+        _fsm[4] = new Fsm_Patteren5(_monster);
+        _fsm[5] = new Fsm_Patteren6(_monster);
+        _fsm[6] = _fsm[0];
+        StartCoroutine(Patteren());
         base.Start();
     }
 
     private void FixedUpdate()
     {
-        _fsm[3].Fsm_Action();
-        //AttackRange(diameter);
+        Debug.Log(hit);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    IEnumerator Patteren()
     {
-        if (collision.collider.TryGetComponent(out Player player))
-            _Monster.GetComponent<MonsterSkill>().Attack(player.gameObject);
-    }
-
-    //public IEnumerator Move()
-    //{
-    //    while (true)
-    //    {
-    //        yield return null;
-    //        _Monster.transform.Translate(new Vector3(0.0025f * _Monster.transform.localScale.x, 0, 0));
-    //    }
-    //}
-    public IEnumerator Flip()
-    {
-
-        WaitForSeconds wait = new WaitForSeconds(2.5f);
-        while (true)
+        while(true)
         {
-            yield return wait;
-            _Monster.transform.localScale = new Vector3(-(_Monster.transform.localScale.x), 2, 2);
-        }
-    }
-
-    public void AttackRange(float diameter)
-    {
-        RaycastHit2D hit = Physics2D.CircleCast(_Monster.transform.position, diameter, Vector2.right, 1, layer);
-        if (hit)
-        {
-            _Monster.transform.Translate(hit.transform.position.normalized * 0.025f);
+            _fsm[6].Fsm_Action();
+            yield return null;
         }
     }
 }
+    //public void AttackRange(float diameter)
+    //{
+    //    hit = Physics2D.CircleCast(_Monster.transform.position, diameter, Vector2.right, 1, layer);
+    //}
+
+//private void Fsm_Change()
+//{
+
+//}
+//private void OnCollisionEnter2D(Collision2D collision)
+//{
+//    if (collision.collider.TryGetComponent(out Player player))
+//        _Monster.GetComponent<MonsterSkill>().Attack(player.gameObject);
+//}
