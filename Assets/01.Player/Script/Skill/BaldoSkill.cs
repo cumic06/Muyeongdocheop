@@ -42,7 +42,6 @@ public class BaldoSkill : SkillSystem
 
     private void DrawSkillDirection()
     {
-
         Debug.DrawRay(GetSkillStartPos(), GetSkillDirection(), Color.red);
     }
 
@@ -59,17 +58,22 @@ public class BaldoSkill : SkillSystem
 
     protected override void UseSkill()
     {
-        playerMoveMent.Dash(GetSkillRange(), GetSkillDirection());
+        StartCoroutine(CheckPlayer());
 
-        RaycastHit2D[] ray = Physics2D.BoxCastAll(GetSkillStartPos(), GetSkillRange(), 0, GetSkillDirection(), GetSkillRange().x, monsterLayerMask);
-
-
-        foreach (var hit in ray)
+        IEnumerator CheckPlayer()
         {
-            Debug.Log(hit.collider.name);
-            hit.collider.TryGetComponent(out Monster monster);
-            monster.TakeDamage(player.GetAttackPower());
-        }
-    }
+            float angle = Mathf.Atan2(BaldoSkillJoyStick.Instance.GetJoyStickVerticalValue(), BaldoSkillJoyStick.Instance.GetJoyStickHorizontalValue()) * Mathf.Rad2Deg;
 
+            RaycastHit2D[] ray = Physics2D.BoxCastAll(GetSkillStartPos(), GetSkillRange(), angle, GetSkillDirection(), 0, monsterLayerMask);
+
+            foreach (var hit in ray)
+            {
+                Debug.Log(hit.collider.name);
+                hit.collider.TryGetComponent(out Monster monster);
+                monster.TakeDamage(player.GetAttackPower());
+                yield return null;
+            }
+        }
+        playerMoveMent.Dash(GetSkillRange(), GetSkillDirection());
+    }
 }

@@ -68,6 +68,7 @@ public class UIManager : Singleton<UIManager>
         Vector2 screenPos = Camera.main.WorldToScreenPoint(player.transform.position);
         Vector2 dir = new(BaldoSkillJoyStick.Instance.GetJoyStickHorizontalValue(), BaldoSkillJoyStick.Instance.GetJoyStickVerticalValue());
         dir.Normalize();
+
         baldoSkillDirectionImage.rectTransform.position = screenPos + (dir * 100);
     }
 

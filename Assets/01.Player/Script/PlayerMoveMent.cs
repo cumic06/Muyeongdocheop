@@ -6,6 +6,8 @@ public class PlayerMoveMent : MonoBehaviour
 {
     private Player player;
 
+    [SerializeField] private LayerMask wallMask = 1 << 6;
+
     private readonly float LimitXLowValue = -8.5f;
     private readonly float LimitYLowValue = -2.0f;
     private readonly float LimitXHighValue = 100.0f;
@@ -22,7 +24,7 @@ public class PlayerMoveMent : MonoBehaviour
     {
         LimitMove();
 
-        if (MoveJoyStick.Instance.CheckJoyStickMove())
+        if (MoveJoyStick.Instance.CheckJoyStickMove() && !BaldoSkillJoyStick.Instance.CheckJoyStickMove() && !BaldoSkillJoyStick.Instance.CheckIsClick())
         {
             player.Anim.SetBool(run, true);
             MoveMent();
@@ -64,9 +66,49 @@ public class PlayerMoveMent : MonoBehaviour
         transform.position = new Vector3(LimitX, LimitY);
     }
 
+    #region Dash
     public void Dash(Vector3 dashRange, Vector3 direction)
     {
+        BaldoSkillJoyStick.Instance.SetIsJoyStickClick(true);
         SetFilp();
-        transform.Translate(dashRange.x * dashRange.y * direction);
+        Vector3 DashPos = dashRange.x * dashRange.y * direction;
+        transform.Translate(DashPos);
+
+        if (CheckWall(dashRange, direction, out float angle))
+        {
+            StickWall(angle);
+        }
+        else
+        {
+
+        }
+
+        BaldoSkillJoyStick.Instance.SetIsJoyStickClick(false);
+
     }
+
+    private bool CheckWall(Vector3 dashRange, Vector3 direction, out float angle)
+    {
+        angle = 0;
+        Debug.DrawRay(transform.position, direction);
+
+        RaycastHit2D rayWall = Physics2D.Raycast(transform.position, direction, dashRange.x, wallMask);
+
+        if (rayWall)
+        {
+            //float wallRoatation = rayWall.collider.gameObject.transform.eulerAngles.z;
+            angle = Vector3.Angle(rayWall.transform.eulerAngles,direction);
+            Debug.Log(angle);
+            Debug.Log(rayWall.collider.name);
+        }
+        return rayWall;
+    }
+    #endregion
+
+    #region StickWall
+    private void StickWall(float wallAngle)
+    {
+        player.transform.eulerAngles = new(0, 0, wallAngle);
+    }
+    #endregion
 }

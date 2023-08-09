@@ -20,6 +20,7 @@ public abstract class Unit : MonoBehaviour, IDamageable
 
     [Space]
     [SerializeField] protected GameObject attackEffect;
+    [SerializeField] protected GameObject hitEffect;
     [SerializeField] protected GameObject dashEffect;
 
     protected int hp;
@@ -59,7 +60,7 @@ public abstract class Unit : MonoBehaviour, IDamageable
 
     protected virtual void ResetHp()
     {
-        hp = UnitStat.MaxHp;
+        hp = unitStat.MaxHp;
         unitStat.MinHp = 0;
     }
 
@@ -72,6 +73,14 @@ public abstract class Unit : MonoBehaviour, IDamageable
     public virtual void TakeDamage(int damageValue)
     {
         ChangeHp(-damageValue);
+        HitEffect();
+
+        void HitEffect()
+        {
+            GameObject hitEffectSpawn = Instantiate(hitEffect);
+            Vector3 randomPos = transform.position + (Vector3)Random.insideUnitCircle * 1.5f;
+            hitEffectSpawn.transform.position = randomPos;
+        }
     }
 
     public virtual void HealHp(int healValue)
@@ -84,10 +93,11 @@ public abstract class Unit : MonoBehaviour, IDamageable
         if (!isDead)
         {
             ClampHp(ref value);
-            hp = value;
+            hp += value;
             if (Hp <= UnitStat.MinHp)
             {
                 Death();
+                isDead = true;
             }
         }
     }
@@ -130,6 +140,7 @@ public abstract class Unit : MonoBehaviour, IDamageable
 
     protected virtual void Death()
     {
+        CameraShakeSystem.Instance.CameraShake(0.5f, 0.2f);
         Debug.Log("Dead");
     }
 }
