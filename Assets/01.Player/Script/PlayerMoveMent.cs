@@ -71,18 +71,16 @@ public class PlayerMoveMent : MonoBehaviour
     {
         BaldoSkillJoyStick.Instance.SetIsJoyStickClick(true);
         SetFilp();
-
-        if (CheckWall(dashRange, direction, out float wallAngle, out Vector2 point))
-        {
-            StickWall(wallAngle, point);
-            return;
-        }
         Vector3 DashPos = dashRange.x * dashRange.y * direction;
         transform.Translate(DashPos);
 
+        if (CheckWall(dashRange, direction, out float wallAngle, out var point))
+        {
+            StickWall(wallAngle, point);
+        }
+
         BaldoSkillJoyStick.Instance.SetIsJoyStickClick(false);
     }
-
     #endregion
 
     #region Wall
@@ -90,18 +88,17 @@ public class PlayerMoveMent : MonoBehaviour
     {
         wallAngle = 0;
         point = Vector2.zero;
-        Debug.DrawRay(transform.position, direction, Color.red, 100);
+        Debug.DrawRay(BaldoSkill.Instance.GetSkillStartPos(), direction, Color.red, 100);
 
         RaycastHit2D rayWall = Physics2D.Raycast(BaldoSkill.Instance.GetSkillStartPos(), direction, dashRange.x, wallMask);
 
         if (rayWall)
         {
-            Vector3 target = rayWall.normal;
+            Vector2 target = rayWall.normal;
 
-            wallAngle = Vector3.Angle(Vector3.up, target);
+            wallAngle = Vector2.Angle(Vector2.up, target);
+
             point = rayWall.point;
-
-            Debug.Log(wallAngle);
         }
         else
         {
