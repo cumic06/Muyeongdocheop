@@ -25,7 +25,7 @@ public class BaldoSkill : SkillSystem
 #endif
     }
 
-    protected override Vector3 GetSkillStartPos()
+    public override Vector3 GetSkillStartPos()
     {
         Vector3 skillStartPos = new(transform.position.x + (GetSkillHalfHorizontalRange() * BaldoSkillJoyStick.Instance.GetJoyStickHorizontalValue()), transform.position.y);
 
@@ -68,7 +68,6 @@ public class BaldoSkill : SkillSystem
 
             foreach (var hit in ray)
             {
-                Debug.Log(hit.collider.name);
                 hit.collider.TryGetComponent(out Monster monster);
                 monster.TakeDamage(player.GetAttackPower());
                 yield return null;

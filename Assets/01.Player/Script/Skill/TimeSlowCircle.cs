@@ -9,7 +9,7 @@ public class TimeSlowCircle : SkillSystem
         throw new System.NotImplementedException();
     }
 
-    protected override Vector3 GetSkillStartPos()
+    public override Vector3 GetSkillStartPos()
     {
         throw new System.NotImplementedException();
     }

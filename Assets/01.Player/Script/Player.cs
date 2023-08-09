@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Internal;
 
 public class Player : Unit
 {
@@ -28,6 +29,11 @@ public class Player : Unit
         base.TakeDamage(damageValue);
         UIManager.Instance.HitAction?.Invoke();
         CameraShakeSystem.Instance.CameraShake(hitShakeTime, hitShakePower);
+    }
+
+    public void SetGravityScale(float value)
+    {
+        rigid.gravityScale = value;
     }
 
     protected override void Death()

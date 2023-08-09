@@ -35,7 +35,7 @@ public abstract class SkillSystem : MonoBehaviour
         return skillRange;
     }
 
-    protected abstract Vector3 GetSkillStartPos();
+    public abstract Vector3 GetSkillStartPos();
 
     protected abstract Vector3 GetSkillDirection();
     #endregion

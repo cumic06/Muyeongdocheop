@@ -71,44 +71,51 @@ public class PlayerMoveMent : MonoBehaviour
     {
         BaldoSkillJoyStick.Instance.SetIsJoyStickClick(true);
         SetFilp();
+
+        if (CheckWall(dashRange, direction, out float wallAngle, out Vector2 point))
+        {
+            StickWall(wallAngle, point);
+            return;
+        }
         Vector3 DashPos = dashRange.x * dashRange.y * direction;
         transform.Translate(DashPos);
 
-        if (CheckWall(dashRange, direction, out float angle))
-        {
-            StickWall(angle);
-        }
-        else
-        {
-
-        }
-
         BaldoSkillJoyStick.Instance.SetIsJoyStickClick(false);
-
     }
 
-    private bool CheckWall(Vector3 dashRange, Vector3 direction, out float angle)
-    {
-        angle = 0;
-        Debug.DrawRay(transform.position, direction);
+    #endregion
 
-        RaycastHit2D rayWall = Physics2D.Raycast(transform.position, direction, dashRange.x, wallMask);
+    #region Wall
+    private bool CheckWall(Vector3 dashRange, Vector3 direction, out float wallAngle, out Vector2 point)
+    {
+        wallAngle = 0;
+        point = Vector2.zero;
+        Debug.DrawRay(transform.position, direction, Color.red, 100);
+
+        RaycastHit2D rayWall = Physics2D.Raycast(BaldoSkill.Instance.GetSkillStartPos(), direction, dashRange.x, wallMask);
 
         if (rayWall)
         {
-            //float wallRoatation = rayWall.collider.gameObject.transform.eulerAngles.z;
-            angle = Vector3.Angle(rayWall.transform.eulerAngles,direction);
-            Debug.Log(angle);
-            Debug.Log(rayWall.collider.name);
+            Vector3 target = rayWall.normal;
+
+            wallAngle = Vector3.Angle(Vector3.up, target);
+            point = rayWall.point;
+
+            Debug.Log(wallAngle);
+        }
+        else
+        {
+            player.transform.eulerAngles = Vector3.zero;
+            player.SetGravityScale(1);
         }
         return rayWall;
     }
-    #endregion
 
-    #region StickWall
-    private void StickWall(float wallAngle)
+    private void StickWall(float wallAngle, Vector2 point)
     {
         player.transform.eulerAngles = new(0, 0, wallAngle);
+        player.transform.position = point;
+        player.SetGravityScale(0);
     }
     #endregion
 }
