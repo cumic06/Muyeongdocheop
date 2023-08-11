@@ -35,11 +35,13 @@ public class BaldoSkillJoyStick : JoyStick
         BaldoSkill.Instance.Skill();
         SetJoyStickHorizontalValue();
         UIManager.Instance.BaldoSkillUIActive(false);
+        BaldoSkill.Instance.SetCharging(false);
     }
 
     public override void OnPointerDown(PointerEventData eventData)
     {
         base.OnPointerDown(eventData);
+        BaldoSkill.Instance.SetCharging(true);
     }
 
     public override void OnDrag(PointerEventData eventData)

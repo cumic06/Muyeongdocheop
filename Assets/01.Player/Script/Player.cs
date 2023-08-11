@@ -36,9 +36,15 @@ public class Player : Unit
         rigid.gravityScale = value;
     }
 
+    #region Animation
+    public void ChangeAnimation(int animationValue, bool value)
+    {
+        Anim.SetBool(animationValue, value);
+    }
+    #endregion
+
     protected override void Death()
     {
         base.Death();
     }
-
 }

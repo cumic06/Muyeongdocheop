@@ -23,6 +23,9 @@ public abstract class Unit : MonoBehaviour, IDamageable
     [SerializeField] protected GameObject hitEffect;
     [SerializeField] protected GameObject dashEffect;
 
+    [Space]
+    [SerializeField] private AudioClip hitSound;
+
     protected int hp;
     public int Hp => hp;
 
@@ -74,12 +77,18 @@ public abstract class Unit : MonoBehaviour, IDamageable
     {
         ChangeHp(-damageValue);
         HitEffect();
+        HitSound();
 
         void HitEffect()
         {
             GameObject hitEffectSpawn = Instantiate(hitEffect);
             Vector3 randomPos = transform.position + (Vector3)Random.insideUnitCircle * 1.5f;
             hitEffectSpawn.transform.position = randomPos;
+        }
+
+        void HitSound()
+        {
+            SoundSystem.Instance.PlaySound(hitSound);
         }
     }
 

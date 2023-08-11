@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class PlayerMoveMent : MonoBehaviour
 {
+    #region º¯¼ö 
     private Player player;
 
-    [SerializeField] private LayerMask wallMask = 1 << 6;
+    private LayerMask wallMask = 1 << 6;
 
     private readonly float LimitXLowValue = -8.5f;
     private readonly float LimitYLowValue = -2.0f;
     private readonly float LimitXHighValue = 100.0f;
     private readonly float LimitYHighValue = 10.0f;
 
-    private readonly int run = Animator.StringToHash("IsRun");
+    private readonly int runAnimation = Animator.StringToHash("IsRun");
+
+    [SerializeField] private AudioClip runSound;
+    #endregion
 
     private void Awake()
     {
@@ -23,19 +27,21 @@ public class PlayerMoveMent : MonoBehaviour
     private void FixedUpdate()
     {
         LimitMove();
+        CheckDown();
 
         if (MoveJoyStick.Instance.CheckJoyStickMove() && !BaldoSkillJoyStick.Instance.CheckJoyStickMove() && !BaldoSkillJoyStick.Instance.CheckIsClick())
         {
-            player.Anim.SetBool(run, true);
             MoveMent();
             SetFilp();
+            player.ChangeAnimation(runAnimation, true);
         }
         else
         {
-            player.Anim.SetBool(run, false);
+            player.ChangeAnimation(runAnimation, false);
         }
     }
 
+    #region Move
     private void MoveMent()
     {
         float moveSpeed = player.GetMoveSpeed() * Time.fixedDeltaTime;
@@ -43,6 +49,21 @@ public class PlayerMoveMent : MonoBehaviour
         transform.Translate(moveSpeed * direction);
     }
 
+    public void MoveSound()
+    {
+        SoundSystem.Instance.PlaySound(runSound);
+    }
+
+    private void LimitMove()
+    {
+        float LimitX = Mathf.Clamp(transform.position.x, LimitXLowValue, LimitXHighValue);
+        float LimitY = Mathf.Clamp(transform.position.y, LimitYLowValue, LimitYHighValue);
+
+        transform.position = new Vector3(LimitX, LimitY);
+    }
+    #endregion
+
+    #region Filp
     private void SetFilp()
     {
         if (BaldoSkillJoyStick.Instance.CheckJoyStickMove())
@@ -57,40 +78,48 @@ public class PlayerMoveMent : MonoBehaviour
             }
         }
     }
-
-    private void LimitMove()
-    {
-        float LimitX = Mathf.Clamp(transform.position.x, LimitXLowValue, LimitXHighValue);
-        float LimitY = Mathf.Clamp(transform.position.y, LimitYLowValue, LimitYHighValue);
-
-        transform.position = new Vector3(LimitX, LimitY);
-    }
+    #endregion
 
     #region Dash
     public void Dash(Vector3 dashRange, Vector3 direction)
     {
         BaldoSkillJoyStick.Instance.SetIsJoyStickClick(true);
         SetFilp();
-        Vector3 DashPos = dashRange.x * dashRange.y * direction;
-        transform.Translate(DashPos);
 
         if (CheckWall(dashRange, direction, out float wallAngle, out var point))
         {
             StickWall(wallAngle, point);
         }
-
+        else
+        {
+            Vector3 DashPos = dashRange.x * dashRange.y * direction;
+            transform.Translate(DashPos);
+        }
         BaldoSkillJoyStick.Instance.SetIsJoyStickClick(false);
     }
     #endregion
 
-    #region Wall
+    #region CheckRay
+    private void CheckDown()
+    {
+        RaycastHit2D rayDown = Physics2D.Raycast(transform.position, -transform.up, 1.5f, wallMask);
+        if (!rayDown)
+        {
+            player.SetGravityScale(1);
+            transform.eulerAngles = Vector3.zero;
+        }
+        else
+        {
+            player.SetGravityScale(0);
+        }
+    }
+
     private bool CheckWall(Vector3 dashRange, Vector3 direction, out float wallAngle, out Vector2 point)
     {
         wallAngle = 0;
         point = Vector2.zero;
-        Debug.DrawRay(BaldoSkill.Instance.GetSkillStartPos(), direction, Color.red, 100);
 
-        RaycastHit2D rayWall = Physics2D.Raycast(BaldoSkill.Instance.GetSkillStartPos(), direction, dashRange.x, wallMask);
+        RaycastHit2D rayWall = Physics2D.Raycast(transform.position, direction, dashRange.x, wallMask);
 
         if (rayWall)
         {

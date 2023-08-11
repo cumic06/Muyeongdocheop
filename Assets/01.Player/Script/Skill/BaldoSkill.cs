@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class BaldoSkill : SkillSystem
 {
+    #region º¯¼ö
     public static BaldoSkill Instance;
     private PlayerMoveMent playerMoveMent;
     private Player player;
 
     private LayerMask monsterLayerMask = 1 << 3;
+
+    private readonly int skillAnimation = Animator.StringToHash("IsAttack");
+
+    private bool IsCharging;
+    #endregion
 
     protected override void Awake()
     {
@@ -28,7 +34,6 @@ public class BaldoSkill : SkillSystem
     public override Vector3 GetSkillStartPos()
     {
         Vector3 skillStartPos = new(transform.position.x + (GetSkillHalfHorizontalRange() * BaldoSkillJoyStick.Instance.GetJoyStickHorizontalValue()), transform.position.y);
-
         return skillStartPos;
     }
 
@@ -42,7 +47,7 @@ public class BaldoSkill : SkillSystem
 
     private void DrawSkillDirection()
     {
-        Debug.DrawRay(GetSkillStartPos(), GetSkillDirection(), Color.red);
+        Debug.DrawRay(transform.position, GetSkillDirection(), Color.red);
     }
 
     private void OnDrawGizmos()
@@ -55,6 +60,18 @@ public class BaldoSkill : SkillSystem
         }
 #endif
     }
+
+    #region Charging
+    public void SetCharging(bool charging)
+    {
+        IsCharging = charging;
+    }
+
+    public bool CheckCharging()
+    {
+        return IsCharging;
+    }
+    #endregion
 
     protected override void UseSkill()
     {
