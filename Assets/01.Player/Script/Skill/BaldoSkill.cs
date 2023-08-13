@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class BaldoSkill : SkillSystem
 {
@@ -75,21 +76,85 @@ public class BaldoSkill : SkillSystem
 
     protected override void UseSkill()
     {
-        StartCoroutine(CheckPlayer());
+        Dash(GetSkillRange(), GetSkillDirection());
+    }
 
-        IEnumerator CheckPlayer()
+    #region Dash
+    public void Dash(Vector3 dashRange, Vector3 direction)
+    {
+        if (CheckMonster(out Monster resultMonster))
         {
-            float angle = Mathf.Atan2(BaldoSkillJoyStick.Instance.GetJoyStickVerticalValue(), BaldoSkillJoyStick.Instance.GetJoyStickHorizontalValue()) * Mathf.Rad2Deg;
-
-            RaycastHit2D[] ray = Physics2D.BoxCastAll(GetSkillStartPos(), GetSkillRange(), angle, GetSkillDirection(), 0, monsterLayerMask);
-
-            foreach (var hit in ray)
-            {
-                hit.collider.TryGetComponent(out Monster monster);
-                monster.TakeDamage(player.GetAttackPower());
-                yield return null;
-            }
+            playerMoveMent.transform.position = resultMonster.transform.position;
+            return;
         }
-        playerMoveMent.Dash(GetSkillRange(), GetSkillDirection());
+        else if (CheckWall(dashRange, direction, out float wallAngle, out var point))
+        {
+            StickWall(wallAngle, point);
+        }
+        else
+        {
+            Vector3 DashPos = dashRange.x * dashRange.y * direction;
+            transform.Translate(DashPos);
+        }
+    }
+    #endregion
+
+    #region Check
+    private bool CheckWall(Vector3 dashRange, Vector3 direction, out float wallAngle, out Vector2 point)
+    {
+        wallAngle = 0;
+        point = Vector2.zero;
+
+        RaycastHit2D rayWall = Physics2D.Raycast(transform.position + new Vector3(BaldoSkillJoyStick.Instance.GetJoyStickHorizontalValue(), BaldoSkillJoyStick.Instance.GetJoyStickVerticalValue()), direction, dashRange.x, playerMoveMent.wallLayerMask);
+
+        if (rayWall)
+        {
+            Vector2 target = rayWall.normal;
+
+            wallAngle = Vector2.Angle(Vector2.up, target);
+
+            point = rayWall.point;
+        }
+        else
+        {
+            player.transform.eulerAngles = Vector3.zero;
+            player.SetGravityScale(1);
+        }
+        return rayWall;
+    }
+
+    private bool CheckMonster(out Monster resultMonster)
+    {
+        float angle = Mathf.Atan2(BaldoSkillJoyStick.Instance.GetJoyStickVerticalValue(), BaldoSkillJoyStick.Instance.GetJoyStickHorizontalValue()) * Mathf.Rad2Deg;
+
+        RaycastHit2D[] ray = Physics2D.BoxCastAll(GetSkillStartPos(), GetSkillRange(), angle, GetSkillDirection(), 0, monsterLayerMask);
+
+        bool checkMonster = false;
+        resultMonster = null;
+
+        List<Monster> monsterList = new();
+
+        foreach (var hit in ray)
+        {
+            checkMonster = hit.collider.TryGetComponent(out Monster monster);
+            monsterList.Add(monster);
+            monster.TakeDamage(player.GetAttackPower());
+        }
+
+        if (checkMonster)
+        {
+            resultMonster = monsterList[^1];
+            Debug.Log(monsterList[^1].name);
+        }
+        return checkMonster;
+    }
+    #endregion
+
+    private void StickWall(float wallAngle, Vector2 point)
+    {
+        player.transform.eulerAngles = new(0, 0, wallAngle);
+        player.transform.position = point;
+        player.SetGravityScale(0);
+        playerMoveMent.SetCanMove(false);
     }
 }

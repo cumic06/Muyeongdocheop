@@ -5,8 +5,6 @@ public class BaldoSkillJoyStick : JoyStick
 {
     public static BaldoSkillJoyStick Instance;
 
-    private bool isJoystickClick;
-
     private void Awake()
     {
         Instance = GetComponent<BaldoSkillJoyStick>();
@@ -21,11 +19,6 @@ public class BaldoSkillJoyStick : JoyStick
     public override float GetJoyStickVerticalValue()
     {
         return base.GetJoyStickVerticalValue();
-    }
-
-    public void SetIsJoyStickClick(bool isClick)
-    {
-        isJoystickClick = isClick;
     }
     #endregion
 
@@ -54,11 +47,6 @@ public class BaldoSkillJoyStick : JoyStick
     public override bool CheckJoyStickMove()
     {
         return GetJoyStickHorizontalValue() != 0;
-    }
-
-    public bool CheckIsClick()
-    {
-        return isJoystickClick;
     }
     #endregion
 }

@@ -7,8 +7,6 @@ public class PlayerMoveMent : MonoBehaviour
     #region º¯¼ö 
     private Player player;
 
-    private LayerMask wallMask = 1 << 6;
-
     private readonly float LimitXLowValue = -8.5f;
     private readonly float LimitYLowValue = -2.0f;
     private readonly float LimitXHighValue = 100.0f;
@@ -16,7 +14,13 @@ public class PlayerMoveMent : MonoBehaviour
 
     private readonly int runAnimation = Animator.StringToHash("IsRun");
 
+    public LayerMask wallLayerMask = 1 << 6;
+
     [SerializeField] private AudioClip runSound;
+
+    [SerializeField] private GameObject ChargingEffect;
+
+    private bool IsCanMove = true;
     #endregion
 
     private void Awake()
@@ -29,11 +33,11 @@ public class PlayerMoveMent : MonoBehaviour
         LimitMove();
         CheckDown();
 
-        if (MoveJoyStick.Instance.CheckJoyStickMove() && !BaldoSkillJoyStick.Instance.CheckJoyStickMove() && !BaldoSkillJoyStick.Instance.CheckIsClick())
+        if (MoveJoyStick.Instance.CheckJoyStickMove() && !BaldoSkillJoyStick.Instance.CheckJoyStickMove() && IsCanMove)
         {
             MoveMent();
-            SetFilp();
             player.ChangeAnimation(runAnimation, true);
+            SetFilp();
         }
         else
         {
@@ -61,6 +65,11 @@ public class PlayerMoveMent : MonoBehaviour
 
         transform.position = new Vector3(LimitX, LimitY);
     }
+
+    public void SetCanMove(bool value)
+    {
+        IsCanMove = value;
+    }
     #endregion
 
     #region Filp
@@ -80,31 +89,13 @@ public class PlayerMoveMent : MonoBehaviour
     }
     #endregion
 
-    #region Dash
-    public void Dash(Vector3 dashRange, Vector3 direction)
-    {
-        BaldoSkillJoyStick.Instance.SetIsJoyStickClick(true);
-        SetFilp();
-
-        if (CheckWall(dashRange, direction, out float wallAngle, out var point))
-        {
-            StickWall(wallAngle, point);
-        }
-        else
-        {
-            Vector3 DashPos = dashRange.x * dashRange.y * direction;
-            transform.Translate(DashPos);
-        }
-        BaldoSkillJoyStick.Instance.SetIsJoyStickClick(false);
-    }
-    #endregion
-
     #region CheckRay
     private void CheckDown()
     {
-        RaycastHit2D rayDown = Physics2D.Raycast(transform.position, -transform.up, 1.5f, wallMask);
+        RaycastHit2D rayDown = Physics2D.Raycast(transform.position, -transform.up, 1.5f, wallLayerMask);
         if (!rayDown)
         {
+            SetCanMove(true);
             player.SetGravityScale(1);
             transform.eulerAngles = Vector3.zero;
         }
@@ -112,36 +103,6 @@ public class PlayerMoveMent : MonoBehaviour
         {
             player.SetGravityScale(0);
         }
-    }
-
-    private bool CheckWall(Vector3 dashRange, Vector3 direction, out float wallAngle, out Vector2 point)
-    {
-        wallAngle = 0;
-        point = Vector2.zero;
-
-        RaycastHit2D rayWall = Physics2D.Raycast(transform.position, direction, dashRange.x, wallMask);
-
-        if (rayWall)
-        {
-            Vector2 target = rayWall.normal;
-
-            wallAngle = Vector2.Angle(Vector2.up, target);
-
-            point = rayWall.point;
-        }
-        else
-        {
-            player.transform.eulerAngles = Vector3.zero;
-            player.SetGravityScale(1);
-        }
-        return rayWall;
-    }
-
-    private void StickWall(float wallAngle, Vector2 point)
-    {
-        player.transform.eulerAngles = new(0, 0, wallAngle);
-        player.transform.position = point;
-        player.SetGravityScale(0);
     }
     #endregion
 }

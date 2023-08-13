@@ -82,7 +82,7 @@ public abstract class Unit : MonoBehaviour, IDamageable
         void HitEffect()
         {
             GameObject hitEffectSpawn = Instantiate(hitEffect);
-            Vector3 randomPos = transform.position + (Vector3)Random.insideUnitCircle * 1.5f;
+            Vector3 randomPos = transform.position + (Vector3)Random.insideUnitCircle * 0.5f;
             hitEffectSpawn.transform.position = randomPos;
         }
 
@@ -150,6 +150,5 @@ public abstract class Unit : MonoBehaviour, IDamageable
     protected virtual void Death()
     {
         CameraShakeSystem.Instance.CameraShake(0.5f, 0.2f);
-        Debug.Log("Dead");
     }
 }

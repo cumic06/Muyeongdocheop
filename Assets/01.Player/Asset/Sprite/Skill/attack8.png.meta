@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 916257253a612d748944830a444a8b34
+guid: e22595ec8cebf5f47b29f59b79ed9885
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -117,13 +117,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Skill_03_color2_0
+      name: attack8_0
       rect:
         serializedVersion: 2
-        x: 56
-        y: 85
-        width: 29
-        height: 26
+        x: 55
+        y: 48
+        width: 56
+        height: 15
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -131,20 +131,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d2521003f420143459977d5747ca5e2a
-      internalID: -758074517
+      spriteID: 8ad923c18790ad04892cc5832187d1d1
+      internalID: -455233894
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Skill_03_color2_1
+      name: attack8_1
       rect:
         serializedVersion: 2
-        x: 122
-        y: 73
-        width: 54
-        height: 36
+        x: 183
+        y: 48
+        width: 111
+        height: 17
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -152,20 +152,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8017d38f40f7b7d4281c7df2f9bd03b4
-      internalID: -204870428
+      spriteID: ccb92553760311c468329d40916833ad
+      internalID: 1392644412
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Skill_03_color2_2
+      name: attack8_2
       rect:
         serializedVersion: 2
-        x: 189
-        y: 69
-        width: 73
-        height: 47
+        x: 334
+        y: 48
+        width: 123
+        height: 21
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -173,20 +173,62 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: deb9f67730c0c2b4f80f7e09708b30f7
-      internalID: -1384368967
+      spriteID: a4a3cf02d88f5724984d30e7c99d6385
+      internalID: -477599076
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Skill_03_color2_3
+      name: attack8_3
       rect:
         serializedVersion: 2
-        x: 0
+        x: 492
+        y: 48
+        width: 128
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 099bf54e7e58a5b4e906b636bdd31fca
+      internalID: -1074610874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack8_4
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 2
+        width: 43
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3117b27454ba14e4b85092d9bc9e9a39
+      internalID: 1054075201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack8_5
+      rect:
+        serializedVersion: 2
+        x: 104
         y: 0
-        width: 83
-        height: 60
+        width: 37
+        height: 23
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -194,20 +236,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 700a1f3cb3bb39444a9ca16e01d74984
-      internalID: -683247071
+      spriteID: d0a896fecca390249a89a5c1b5dba72c
+      internalID: 1022143795
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Skill_03_color2_4
+      name: attack8_6
       rect:
         serializedVersion: 2
-        x: 94
-        y: 6
-        width: 53
-        height: 43
+        x: 171
+        y: 4
+        width: 47
+        height: 22
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -215,20 +257,62 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d46df703248f9c5429b151e94854dec7
-      internalID: -2011395591
+      spriteID: 2f6925720e0b3c64db5b91c8ab639ea5
+      internalID: -483152195
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Skill_03_color2_5
+      name: attack8_7
       rect:
         serializedVersion: 2
-        x: 176
-        y: 3
-        width: 53
-        height: 49
+        x: 263
+        y: 0
+        width: 39
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48679b8450b620247b3798a65e0e00d8
+      internalID: 1591129821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack8_8
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 4
+        width: 50
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 807b411d1983e144aae7f4380ecdeeb4
+      internalID: 222414145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack8_9
+      rect:
+        serializedVersion: 2
+        x: 422
+        y: 0
+        width: 41
+        height: 24
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -236,8 +320,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d161d4841f2c8614e9697d84523688d2
-      internalID: 1004445383
+      spriteID: 599c4d674eb4f5741ab07eb24a2c5a4c
+      internalID: -1221613075
       vertices: []
       indices: 
       edges: []
@@ -253,23 +337,38 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Skill_03_color2_16: -1242864002
-      Skill_03_color2_7: 903073075
-      Skill_03_color2_12: 1738266220
-      Skill_03_color2_3: -683247071
-      Skill_03_color2_2: -1384368967
-      Skill_03_color2_15: -1512112763
-      Skill_03_color2_5: 1004445383
-      Skill_03_color2_6: 568915859
-      Skill_03_color2_9: -750768368
-      Skill_03_color2_13: 193705805
-      Skill_03_color2_10: -1972169870
-      Skill_03_color2_4: -2011395591
-      Skill_03_color2_0: -758074517
-      Skill_03_color2_8: -800548871
-      Skill_03_color2_14: -331248618
-      Skill_03_color2_1: -204870428
-      Skill_03_color2_11: -182343286
+      attack8_23: -1444375675
+      attack8_15: -1564852733
+      attack8_17: -1353017738
+      attack8_0: -455233894
+      attack8_7: 1591129821
+      attack8_5: 1022143795
+      attack8_10: 1557047043
+      attack8_25: 1253923832
+      attack8_16: 605687886
+      attack8_30: 1148172040
+      attack8_1: 1392644412
+      attack8_22: -621960044
+      attack8_11: -1981922977
+      attack8_12: -851801691
+      attack8_2: -477599076
+      attack8_9: -1221613075
+      attack8_18: -898076515
+      attack8_19: -587073298
+      attack8_6: -483152195
+      attack8_14: -1465324698
+      attack8_4: 1054075201
+      attack8_3: -1074610874
+      attack8_8: 222414145
+      attack8_20: 1287012510
+      attack8_28: 1293295942
+      attack8_31: 113296920
+      attack8_26: 591344131
+      attack8_27: -537100899
+      attack8_29: -274381436
+      attack8_21: -1435162248
+      attack8_13: 1602446074
+      attack8_24: -51110175
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
