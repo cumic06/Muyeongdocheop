@@ -14,18 +14,18 @@ public class SoundSystem : Singleton<SoundSystem>
         sfx = GetComponent<AudioSource>();
     }
 
-    private void Start()
-    {
-        PlayBGM();
-    }
+    //private void Start()
+    //{
+    //    PlayBGM();
+    //}
 
     public void PlaySound(AudioClip audioClip, float volume = 0.5f)
     {
         sfx.PlayOneShot(audioClip, volume);
     }
 
-    public void PlayBGM()
-    {
+    //public void PlayBGM()
+    //{
 
-    }
+    //}
 }
