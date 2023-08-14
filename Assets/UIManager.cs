@@ -21,14 +21,14 @@ public class UIManager : Singleton<UIManager>
 
     private void FixedUpdate()
     {
-        if (baldoSkillDirectionImage.gameObject.activeSelf)
-        {
-            BaldoSkillPos();
-        }
-        else
-        {
-            BaldoSkillUIResetPos();
-        }
+        //if (baldoSkillDirectionImage.gameObject.activeSelf)
+        //{
+        //    BaldoSkillPos();
+        //}
+        //else
+        //{
+        //    BaldoSkillUIResetPos();
+        //}
     }
 
     #region UIActiveSystem
@@ -63,14 +63,14 @@ public class UIManager : Singleton<UIManager>
     #endregion
 
     #region BaldoSkillDirection
-    private void BaldoSkillPos()
-    {
-        Vector2 screenPos = Camera.main.WorldToScreenPoint(player.transform.position);
-        Vector2 dir = new(BaldoSkillJoyStick.Instance.GetJoyStickHorizontalValue(), BaldoSkillJoyStick.Instance.GetJoyStickVerticalValue());
-        dir.Normalize();
+    //private void BaldoSkillPos()
+    //{
+    //    Vector2 screenPos = Camera.main.WorldToScreenPoint(player.transform.position);
+    //    Vector2 dir = new(BaldoSkillJoyStick.Instance.GetJoyStickHorizontalValue(), BaldoSkillJoyStick.Instance.GetJoyStickVerticalValue());
+    //    dir.Normalize();
 
-        baldoSkillDirectionImage.rectTransform.position = screenPos + (dir * 100);
-    }
+    //    baldoSkillDirectionImage.rectTransform.position = screenPos + (dir * 100);
+    //}
 
     public void BaldoSkillUIActive(bool active)
     {
