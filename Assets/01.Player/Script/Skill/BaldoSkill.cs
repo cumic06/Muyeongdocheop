@@ -7,7 +7,6 @@ public class BaldoSkill : SkillSystem
 {
     #region º¯¼ö
     public static BaldoSkill Instance;
-    private PlayerMoveMent playerMoveMent;
     private Player player;
 
     private LayerMask monsterLayerMask = 1 << 3;
@@ -20,7 +19,6 @@ public class BaldoSkill : SkillSystem
     protected override void Awake()
     {
         base.Awake();
-        playerMoveMent = GetComponent<PlayerMoveMent>();
         Instance = GetComponent<BaldoSkill>();
         player = GetComponent<Player>();
     }
@@ -32,15 +30,15 @@ public class BaldoSkill : SkillSystem
 #endif
     }
 
-    public override Vector3 GetSkillStartPos()
+    public override Vector2 GetSkillStartPos()
     {
-        Vector3 skillStartPos = new(transform.position.x + (GetSkillHalfHorizontalRange() * BaldoSkillJoyStick.Instance.GetJoyStickHorizontalValue()), transform.position.y);
-        return skillStartPos;
+        Vector2 startPos = new(transform.position.x * GetSkillDirection().x, transform.position.y);
+        return startPos;
     }
 
-    protected override Vector3 GetSkillDirection()
+    protected override Vector2 GetSkillDirection()
     {
-        Vector3 skillDirection = new(BaldoSkillJoyStick.Instance.GetJoyStickHorizontalValue(), GetSkillRange().y * BaldoSkillJoyStick.Instance.GetJoyStickVerticalValue());
+        Vector2 skillDirection = new(BaldoSkillJoyStick.Instance.GetJoyStickHorizontalValue(), BaldoSkillJoyStick.Instance.GetJoyStickVerticalValue());
         skillDirection.Normalize();
 
         return skillDirection;
@@ -48,7 +46,7 @@ public class BaldoSkill : SkillSystem
 
     private void DrawSkillDirection()
     {
-        Debug.DrawRay(transform.position, GetSkillDirection(), Color.red);
+        Debug.DrawRay(GetSkillStartPos(), GetSkillDirection(), Color.red);
     }
 
     private void OnDrawGizmos()
@@ -80,12 +78,11 @@ public class BaldoSkill : SkillSystem
     }
 
     #region Dash
-    public void Dash(Vector3 dashRange, Vector3 direction)
+    public void Dash(Vector2 dashRange, Vector2 direction)
     {
         if (CheckMonster(out Monster resultMonster))
         {
-            playerMoveMent.transform.position = resultMonster.transform.position;
-            return;
+            PlayerMoveMent.Instance.transform.position = resultMonster.transform.position;
         }
         else if (CheckWall(dashRange, direction, out float wallAngle, out var point))
         {
@@ -93,19 +90,19 @@ public class BaldoSkill : SkillSystem
         }
         else
         {
-            Vector3 DashPos = dashRange.x * dashRange.y * direction;
+            Vector2 DashPos = dashRange.x * dashRange.y * direction;
             transform.Translate(DashPos);
         }
     }
     #endregion
 
     #region Check
-    private bool CheckWall(Vector3 dashRange, Vector3 direction, out float wallAngle, out Vector2 point)
+    private bool CheckWall(Vector2 dashRange, Vector2 direction, out float wallAngle, out Vector2 point)
     {
         wallAngle = 0;
         point = Vector2.zero;
 
-        RaycastHit2D rayWall = Physics2D.Raycast(transform.position + new Vector3(BaldoSkillJoyStick.Instance.GetJoyStickHorizontalValue(), BaldoSkillJoyStick.Instance.GetJoyStickVerticalValue()), direction, dashRange.x, playerMoveMent.wallLayerMask);
+        RaycastHit2D rayWall = Physics2D.Raycast(GetSkillStartPos(), direction, dashRange.x, PlayerMoveMent.Instance.wallLayerMask);
 
         if (rayWall)
         {
@@ -117,7 +114,7 @@ public class BaldoSkill : SkillSystem
         }
         else
         {
-            player.transform.eulerAngles = Vector3.zero;
+            player.transform.eulerAngles = Vector2.zero;
             player.SetGravityScale(1);
         }
         return rayWall;
@@ -125,28 +122,28 @@ public class BaldoSkill : SkillSystem
 
     private bool CheckMonster(out Monster resultMonster)
     {
+        resultMonster = null;
+
         float angle = Mathf.Atan2(BaldoSkillJoyStick.Instance.GetJoyStickVerticalValue(), BaldoSkillJoyStick.Instance.GetJoyStickHorizontalValue()) * Mathf.Rad2Deg;
 
         RaycastHit2D[] ray = Physics2D.BoxCastAll(GetSkillStartPos(), GetSkillRange(), angle, GetSkillDirection(), 0, monsterLayerMask);
 
-        bool checkMonster = false;
-        resultMonster = null;
-
-        List<Monster> monsterList = new();
-
-        foreach (var hit in ray)
+        if (ray.Length > 0)
         {
-            checkMonster = hit.collider.TryGetComponent(out Monster monster);
-            monsterList.Add(monster);
-            monster.TakeDamage(player.GetAttackPower());
-        }
+            List<Monster> monsterList = new();
 
-        if (checkMonster)
-        {
-            resultMonster = monsterList[^1];
-            Debug.Log(monsterList[^1].name);
+            foreach (var hit in ray)
+            {
+                hit.collider.TryGetComponent(out Monster monster);
+                monsterList.Add(monster);
+                monster.TakeDamage(player.GetAttackPower());
+            }
+
+            monsterList = monsterList.OrderByDescending((mob) => { return Mathf.Abs(mob.transform.position.magnitude - transform.position.magnitude); }).ToList();
+
+            resultMonster = monsterList[0];
         }
-        return checkMonster;
+        return ray.Length > 0;
     }
     #endregion
 
@@ -155,6 +152,7 @@ public class BaldoSkill : SkillSystem
         player.transform.eulerAngles = new(0, 0, wallAngle);
         player.transform.position = point;
         player.SetGravityScale(0);
-        playerMoveMent.SetCanMove(false);
+        PlayerMoveMent.Instance.SetCanMove(false);
+        PlayerMoveMent.Instance.landingAction?.Invoke(true);
     }
 }

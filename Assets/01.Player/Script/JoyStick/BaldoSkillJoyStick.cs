@@ -41,6 +41,7 @@ public class BaldoSkillJoyStick : JoyStick
     {
         base.OnDrag(eventData);
         UIManager.Instance.BaldoSkillUIActive(true);
+        PlayerMoveMent.Instance.SetFilp();
     }
 
     #region Check

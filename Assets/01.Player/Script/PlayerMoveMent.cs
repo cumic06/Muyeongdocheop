@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class PlayerMoveMent : MonoBehaviour
+public class PlayerMoveMent : Singleton<PlayerMoveMent>
 {
     #region º¯¼ö 
     private Player player;
+
+    public Action<bool> landingAction;
 
     private readonly float LimitXLowValue = -8.5f;
     private readonly float LimitYLowValue = -2.0f;
@@ -13,6 +16,7 @@ public class PlayerMoveMent : MonoBehaviour
     private readonly float LimitYHighValue = 10.0f;
 
     private readonly int runAnimation = Animator.StringToHash("IsRun");
+    private readonly int landingAnimation = Animator.StringToHash("IsLanding");
 
     public LayerMask wallLayerMask = 1 << 6;
 
@@ -23,9 +27,11 @@ public class PlayerMoveMent : MonoBehaviour
     private bool IsCanMove = true;
     #endregion
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         player = GetComponent<Player>();
+        landingAction += Landing;
     }
 
     private void FixedUpdate()
@@ -33,6 +39,18 @@ public class PlayerMoveMent : MonoBehaviour
         LimitMove();
         CheckDown();
 
+#if UNITY_EDITOR || UNITY_STANDALONE_WIN
+        if (Input.GetAxisRaw("Horizontal") != 0 && IsCanMove && !BaldoSkillJoyStick.Instance.CheckJoyStickMove())
+        {
+            MoveMent();
+            player.ChangeAnimation(runAnimation, true);
+            SetFilp();
+        }
+        else
+        {
+            player.ChangeAnimation(runAnimation, false);
+        }
+#else
         if (MoveJoyStick.Instance.CheckJoyStickMove() && !BaldoSkillJoyStick.Instance.CheckJoyStickMove() && IsCanMove)
         {
             MoveMent();
@@ -43,13 +61,19 @@ public class PlayerMoveMent : MonoBehaviour
         {
             player.ChangeAnimation(runAnimation, false);
         }
+#endif
     }
 
     #region Move
     private void MoveMent()
     {
         float moveSpeed = player.GetMoveSpeed() * Time.fixedDeltaTime;
+
+#if UNITY_EDITOR || UNITY_STANDALONE_WIN
+        Vector2 direction = new(Input.GetAxisRaw("Horizontal"), 0);
+#else
         Vector2 direction = new(MoveJoyStick.Instance.GetJoyStickHorizontalValue(), 0);
+#endif
         transform.Translate(moveSpeed * direction);
     }
 
@@ -73,8 +97,21 @@ public class PlayerMoveMent : MonoBehaviour
     #endregion
 
     #region Filp
-    private void SetFilp()
+    public void SetFilp()
     {
+#if UNITY_EDITOR || UNITY_STANDALONE_WIN
+        if (BaldoSkillJoyStick.Instance.CheckJoyStickMove())
+        {
+            player.SpriteRenderer.flipX = BaldoSkillJoyStick.Instance.GetJoyStickHorizontalValue() < 0.01f;
+        }
+        else
+        {
+            if (Input.GetAxisRaw("Horizontal") != 0)
+            {
+                player.SpriteRenderer.flipX = Input.GetAxisRaw("Horizontal") < 0.01f;
+            }
+        }
+#else
         if (BaldoSkillJoyStick.Instance.CheckJoyStickMove())
         {
             player.SpriteRenderer.flipX = BaldoSkillJoyStick.Instance.GetJoyStickHorizontalValue() < 0.01f;
@@ -86,6 +123,7 @@ public class PlayerMoveMent : MonoBehaviour
                 player.SpriteRenderer.flipX = MoveJoyStick.Instance.GetJoyStickHorizontalValue() < 0.01f;
             }
         }
+#endif
     }
     #endregion
 
@@ -97,12 +135,21 @@ public class PlayerMoveMent : MonoBehaviour
         {
             SetCanMove(true);
             player.SetGravityScale(1);
+            player.ChangeAnimation(landingAnimation, false);
             transform.eulerAngles = Vector3.zero;
+            landingAction?.Invoke(false);
         }
         else
         {
             player.SetGravityScale(0);
         }
+    }
+    #endregion
+
+    #region Landing
+    private void Landing(bool value)
+    {
+        player.ChangeAnimation(landingAnimation, value);
     }
     #endregion
 }
