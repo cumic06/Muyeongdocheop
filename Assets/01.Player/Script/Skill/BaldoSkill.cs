@@ -34,8 +34,8 @@ public class BaldoSkill : SkillSystem
 
     public Vector2 GetSkillStartPosMonster()
     {
-        Vector2 startPos = GetSkillStartPos() + new Vector2(GetSkillHalfDistance(), 0) * GetSkillDirection();
-        return startPos;
+        Vector2 monsterStartPos = new(transform.position.x + GetSkillHalfDistance() * GetSkillDirection().x, transform.position.y + GetSkillHalfDistance() * GetSkillDirection().y);
+        return monsterStartPos;
     }
 
     protected override Vector2 GetSkillDirection()
@@ -51,6 +51,12 @@ public class BaldoSkill : SkillSystem
         Vector2 skillRadius = GetSkillDistance() * GetSkillDirection();
         return skillRadius;
     }
+
+    private Vector2 GetDashLastPos()
+    {
+        Vector2 lastPos = (Vector2)transform.position + GetSkillRadius();
+        return lastPos;
+    }
     #endregion
 
     #region DrawRange
@@ -58,6 +64,13 @@ public class BaldoSkill : SkillSystem
     {
 #if UNITY_EDITOR
         if (Application.isPlaying)
+        {
+            WallRay();
+
+            MonsterRay();
+        }
+
+        void WallRay()
         {
             RaycastHit2D wallHit = Physics2D.Raycast(GetSkillStartPos(), GetSkillDirection(), GetSkillDistance(), PlayerMoveMent.Instance.wallLayerMask);
 
@@ -71,23 +84,27 @@ public class BaldoSkill : SkillSystem
                 Gizmos.color = Color.blue;
                 Gizmos.DrawRay(GetSkillStartPos(), GetSkillRadius());
             }
+        }
 
-            //float angle = Mathf.Atan2(BaldoSkillJoyStick.Instance.GetJoyStickVerticalValue(), BaldoSkillJoyStick.Instance.GetJoyStickHorizontalValue()) * Mathf.Rad2Deg;
+        void MonsterRay()
+        {
+            float angle = Mathf.Atan2(BaldoSkillJoyStick.Instance.GetJoyStickVerticalValue(), BaldoSkillJoyStick.Instance.GetJoyStickHorizontalValue()) * Mathf.Rad2Deg;
 
-            //Vector2 skillSize = new(GetSkillDistance(), 1);
+            Vector2 skillSize = new(GetSkillDistance(), 1);
 
-            //RaycastHit2D monsterHit = Physics2D.BoxCast(GetSkillStartPosMonster(), skillSize, angle, GetSkillDirection(), GetSkillDistance(), monsterLayerMask);
-            //if (monsterHit)
-            //{
-            //    Debug.Log(monsterHit.collider.name);
-            //    Gizmos.color = Color.red;
-            //    Gizmos.DrawRay(GetSkillStartPosMonster(), GetSkillRadius());
-            //}
-            //else
-            //{
-            //    Gizmos.color = Color.green;
-            //    Gizmos.DrawRay(GetSkillStartPosMonster(), GetSkillRadius());
-            //}
+            Collider2D monsterHit = Physics2D.OverlapBox(GetSkillStartPosMonster(), skillSize, angle, monsterLayerMask);
+
+            if (monsterHit)
+            {
+                Gizmos.color = Color.red;
+                Debug.Log(monsterHit.name);
+                Gizmos.DrawWireCube(GetSkillStartPosMonster(), skillSize);
+            }
+            else
+            {
+                Gizmos.color = Color.green;
+                Gizmos.DrawWireCube(GetSkillStartPosMonster(), skillSize);
+            }
         }
 #endif
     }
@@ -124,8 +141,7 @@ public class BaldoSkill : SkillSystem
         }
         else
         {
-            Vector2 lastPos = (Vector2)transform.position + GetSkillRadius();
-            StartCoroutine(DashCor(lastPos));
+            StartCoroutine(DashCor(GetDashLastPos()));
         }
 
     }
@@ -136,10 +152,9 @@ public class BaldoSkill : SkillSystem
         Vector2 startPos = player.transform.position;
 
         while (t <= 1f)
-        { 
+        {
             t += Time.deltaTime * player.GetMoveSpeed();
             player.transform.position = Vector2.Lerp(startPos, lastPos, t);
-            Debug.Log(Vector2.Distance(transform.position, lastPos));
             yield return null;
             if (Vector2.Distance(transform.position, lastPos) <= 0.5f)
             {
@@ -185,7 +200,7 @@ public class BaldoSkill : SkillSystem
 
         Vector2 skillSize = new(GetSkillDistance(), 1);
 
-        RaycastHit2D[] monsterHit = Physics2D.BoxCastAll(GetSkillStartPosMonster(), skillSize, angle, GetSkillDirection(), GetSkillDistance(), monsterLayerMask);
+        Collider2D[] monsterHit = Physics2D.OverlapBoxAll(GetSkillStartPosMonster(), skillSize, angle, monsterLayerMask);
 
         if (monsterHit.Length > 0)
         {
@@ -193,7 +208,7 @@ public class BaldoSkill : SkillSystem
 
             foreach (var hit in monsterHit)
             {
-                hit.collider.TryGetComponent(out Monster monster);
+                hit.TryGetComponent(out Monster monster);
                 monsterList.Add(monster);
                 monster.TakeDamage(player.GetAttackPower());
             }
