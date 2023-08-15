@@ -4,7 +4,8 @@ using UnityEngine;
 
 public abstract class SkillSystem : MonoBehaviour
 {
-    [SerializeField] protected Vector2 skillRange;
+    [SerializeField] protected float skillDistance;
+
     [SerializeField] protected float skillCoolTime;
 
     protected bool canUseSkill;
@@ -20,19 +21,15 @@ public abstract class SkillSystem : MonoBehaviour
     }
 
     #region GetValue
-    protected float GetSkillHalfHorizontalRange()
+    public float GetSkillDistance()
     {
-        return skillRange.x * 0.5f;
+        return skillDistance;
     }
 
-    protected float GetSkillHalfVerticalRange()
+    public float GetSkillHalfDistance()
     {
-        return skillRange.y * 0.5f;
-    }
-
-    public Vector2 GetSkillRange()
-    {
-        return skillRange;
+        float skillHalfDistance = skillDistance * 0.5f;
+        return skillHalfDistance;
     }
 
     public abstract Vector2 GetSkillStartPos();

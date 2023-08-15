@@ -37,7 +37,7 @@ public class PlayerMoveMent : Singleton<PlayerMoveMent>
     private void FixedUpdate()
     {
         LimitMove();
-        CheckDown();
+        RayDown();
 
 #if UNITY_EDITOR || UNITY_STANDALONE_WIN
         if (Input.GetAxisRaw("Horizontal") != 0 && IsCanMove && !BaldoSkillJoyStick.Instance.CheckJoyStickMove())
@@ -128,20 +128,37 @@ public class PlayerMoveMent : Singleton<PlayerMoveMent>
     #endregion
 
     #region CheckRay
-    private void CheckDown()
+    private void OnDrawGizmos()
     {
-        RaycastHit2D rayDown = Physics2D.Raycast(transform.position, -transform.up, 1.5f, wallLayerMask);
-        if (!rayDown)
+        RaycastHit2D rayDown = Physics2D.Raycast(transform.position, -transform.up, 2f, wallLayerMask);
+
+        if (rayDown)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawRay(transform.position, -transform.up * 2f);
+        }
+        else
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawRay(transform.position, -transform.up * 2f);
+        }
+    }
+
+    private void RayDown()
+    {
+        RaycastHit2D rayDown = Physics2D.Raycast(transform.position, -transform.up, 2f, wallLayerMask);
+
+        if (rayDown)
+        {
+            player.SetGravityScale(0);
+        }
+        else
         {
             SetCanMove(true);
             player.SetGravityScale(1);
             player.ChangeAnimation(landingAnimation, false);
             transform.eulerAngles = Vector3.zero;
             landingAction?.Invoke(false);
-        }
-        else
-        {
-            player.SetGravityScale(0);
         }
     }
     #endregion
