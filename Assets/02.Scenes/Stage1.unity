@@ -3572,6 +3572,9 @@ MonoBehaviour:
   wallLayerMask:
     serializedVersion: 2
     m_Bits: 64
+  floorLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
   runSound: {fileID: 8300000, guid: 5b35d7f3bf77aa646a27e9e465dc8d4f, type: 3}
   ChargingEffect: {fileID: 0}
 --- !u!114 &1627979504
@@ -3964,7 +3967,7 @@ GameObject:
   - component: {fileID: 1806651510}
   - component: {fileID: 1806651512}
   - component: {fileID: 1806651511}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}

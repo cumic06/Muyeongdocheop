@@ -19,6 +19,7 @@ public class PlayerMoveMent : Singleton<PlayerMoveMent>
     private readonly int landingAnimation = Animator.StringToHash("IsLanding");
 
     public LayerMask wallLayerMask = 1 << 6;
+    public LayerMask floorLayerMask = 1 << 7;
 
     [SerializeField] private AudioClip runSound;
 

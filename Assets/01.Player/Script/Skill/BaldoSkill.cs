@@ -119,6 +119,7 @@ public class BaldoSkill : SkillSystem
         }
         else if (CheckWall(out float wallAngle, out var point))
         {
+            StartCoroutine(DashCor(point));
             StickWall(wallAngle, point);
         }
         else
@@ -132,17 +133,18 @@ public class BaldoSkill : SkillSystem
     private IEnumerator DashCor(Vector2 lastPos)
     {
         float t = 0;
-        Vector2 pos = player.transform.position;
+        Vector2 startPos = player.transform.position;
 
         while (t <= 1f)
-        {
+        { 
             t += Time.deltaTime * player.GetMoveSpeed();
-            player.transform.position = Vector2.Lerp(pos, lastPos, t);
-            if (Vector2.Distance(pos, lastPos) >= 0.25f)
+            player.transform.position = Vector2.Lerp(startPos, lastPos, t);
+            Debug.Log(Vector2.Distance(transform.position, lastPos));
+            yield return null;
+            if (Vector2.Distance(transform.position, lastPos) <= 0.5f)
             {
                 break;
             }
-            yield return null;
         }
         player.transform.position = lastPos;
         yield return null;
@@ -171,7 +173,6 @@ public class BaldoSkill : SkillSystem
                 wallAngle = Vector2.Angle(Vector2.up, target) * target.y;
             }
             point = wallHit.point;
-            StartCoroutine(DashCor(point));
         }
         return wallHit;
     }
