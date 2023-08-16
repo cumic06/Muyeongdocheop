@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class UIManager : Singleton<UIManager>
 {
     public Action HitAction;
+    public Action<Vector2> RayUIAction;
 
     [SerializeField] private Image hitImage;
     [SerializeField] private Image playerHpSlider;
@@ -17,18 +18,7 @@ public class UIManager : Singleton<UIManager>
     {
         base.Awake();
         HitAction += () => UIActiveSystem(0.5f, hitImage.gameObject);
-    }
-
-    private void FixedUpdate()
-    {
-        //if (baldoSkillDirectionImage.gameObject.activeSelf)
-        //{
-        //    BaldoSkillPos();
-        //}
-        //else
-        //{
-        //    BaldoSkillUIResetPos();
-        //}
+        RayUIAction += BaldoSkillUIResetPos;
     }
 
     #region UIActiveSystem
@@ -63,24 +53,15 @@ public class UIManager : Singleton<UIManager>
     #endregion
 
     #region BaldoSkillDirection
-    //private void BaldoSkillPos()
-    //{
-    //    Vector2 screenPos = Camera.main.WorldToScreenPoint(player.transform.position);
-    //    Vector2 dir = new(BaldoSkillJoyStick.Instance.GetJoyStickHorizontalValue(), BaldoSkillJoyStick.Instance.GetJoyStickVerticalValue());
-    //    dir.Normalize();
-
-    //    baldoSkillDirectionImage.rectTransform.position = screenPos + (dir * 100);
-    //}
-
     public void BaldoSkillUIActive(bool active)
     {
         baldoSkillDirectionImage.gameObject.SetActive(active);
     }
 
-    public void BaldoSkillUIResetPos()
+    public void BaldoSkillUIResetPos(Vector2 targetPos)
     {
-        Vector2 screenPos = Camera.main.WorldToScreenPoint(player.transform.position);
-        baldoSkillDirectionImage.rectTransform.position = screenPos;
+        Vector2 screenTargetPos = Camera.main.WorldToScreenPoint(targetPos);
+        baldoSkillDirectionImage.rectTransform.position = screenTargetPos;
     }
     #endregion
 }

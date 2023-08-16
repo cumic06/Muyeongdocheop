@@ -19,7 +19,6 @@ public class PlayerMoveMent : Singleton<PlayerMoveMent>
     private readonly int landingAnimation = Animator.StringToHash("IsLanding");
 
     public LayerMask wallLayerMask = 1 << 6;
-    public LayerMask floorLayerMask = 1 << 7;
 
     [SerializeField] private AudioClip runSound;
 
@@ -32,15 +31,26 @@ public class PlayerMoveMent : Singleton<PlayerMoveMent>
     {
         base.Awake();
         player = GetComponent<Player>();
-        landingAction += Landing;
     }
 
-    private void FixedUpdate()
+    private void Start()
+    {
+        landingAction += Landing;
+        UpdateSystem.Instance.AddFixedUpdateAction(MoveManager);
+    }
+
+    private void MoveManager()
     {
         LimitMove();
         RayDown();
 
+        MoveSystem();
+    }
+
+    private void MoveSystem()
+    {
 #if UNITY_EDITOR || UNITY_STANDALONE_WIN
+        #region PC
         if (Input.GetAxisRaw("Horizontal") != 0 && IsCanMove && !BaldoSkillJoyStick.Instance.CheckJoyStickMove())
         {
             MoveMent();
@@ -51,7 +61,9 @@ public class PlayerMoveMent : Singleton<PlayerMoveMent>
         {
             player.ChangeAnimation(runAnimation, false);
         }
+        #endregion
 #else
+        #region Mobile
         if (MoveJoyStick.Instance.CheckJoyStickMove() && !BaldoSkillJoyStick.Instance.CheckJoyStickMove() && IsCanMove)
         {
             MoveMent();
@@ -62,6 +74,7 @@ public class PlayerMoveMent : Singleton<PlayerMoveMent>
         {
             player.ChangeAnimation(runAnimation, false);
         }
+        #endregion
 #endif
     }
 
@@ -101,6 +114,7 @@ public class PlayerMoveMent : Singleton<PlayerMoveMent>
     public void SetFilp()
     {
 #if UNITY_EDITOR || UNITY_STANDALONE_WIN
+        #region PC
         if (BaldoSkillJoyStick.Instance.CheckJoyStickMove())
         {
             player.SpriteRenderer.flipX = BaldoSkillJoyStick.Instance.GetJoyStickHorizontalValue() < 0.01f;
@@ -112,7 +126,9 @@ public class PlayerMoveMent : Singleton<PlayerMoveMent>
                 player.SpriteRenderer.flipX = Input.GetAxisRaw("Horizontal") < 0.01f;
             }
         }
+        #endregion
 #else
+        #region Mobile
         if (BaldoSkillJoyStick.Instance.CheckJoyStickMove())
         {
             player.SpriteRenderer.flipX = BaldoSkillJoyStick.Instance.GetJoyStickHorizontalValue() < 0.01f;
@@ -124,6 +140,7 @@ public class PlayerMoveMent : Singleton<PlayerMoveMent>
                 player.SpriteRenderer.flipX = MoveJoyStick.Instance.GetJoyStickHorizontalValue() < 0.01f;
             }
         }
+        #endregion
 #endif
     }
     #endregion
@@ -145,11 +162,20 @@ public class PlayerMoveMent : Singleton<PlayerMoveMent>
         }
     }
 
+    private RaycastHit2D GetRayDown()
+    {
+        RaycastHit2D rayDown = Physics2D.Raycast(transform.position, -transform.up, 1.5f, wallLayerMask);
+        return rayDown;
+    }
+
+    public bool CheckRayDown()
+    {
+        return GetRayDown();
+    }
+
     private void RayDown()
     {
-        RaycastHit2D rayDown = Physics2D.Raycast(transform.position, -transform.up, 2f, wallLayerMask);
-
-        if (rayDown)
+        if (GetRayDown())
         {
             player.SetGravityScale(0);
         }

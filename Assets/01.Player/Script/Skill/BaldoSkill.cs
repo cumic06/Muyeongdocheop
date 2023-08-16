@@ -11,12 +11,15 @@ public class BaldoSkill : SkillSystem
 
     private LayerMask monsterLayerMask = 1 << 3;
 
-    private readonly int skillAnimation = Animator.StringToHash("IsAttack");
+    private readonly int balldoAnimation = Animator.StringToHash("IsAttack");
+    private readonly int chargingAnimation = Animator.StringToHash("IsCharging");
 
     private bool IsCharging;
+    public bool IsDash;
 
     [SerializeField] private ParticleSystem afterImage;
     #endregion
+
 
     protected override void Awake()
     {
@@ -97,7 +100,6 @@ public class BaldoSkill : SkillSystem
             if (monsterHit)
             {
                 Gizmos.color = Color.red;
-                Debug.Log(monsterHit.name);
                 Gizmos.DrawWireCube(GetSkillStartPosMonster(), skillSize);
             }
             else
@@ -115,11 +117,6 @@ public class BaldoSkill : SkillSystem
     {
         IsCharging = charging;
     }
-
-    public bool CheckCharging()
-    {
-        return IsCharging;
-    }
     #endregion
 
     protected override void UseSkill()
@@ -130,20 +127,35 @@ public class BaldoSkill : SkillSystem
     #region Dash
     public void Dash()
     {
-        if (CheckMonster(out Monster resultMonster))
+        if (TryAttackMonster(out List<Monster> resultMonster))
         {
-            PlayerMoveMent.Instance.transform.position = resultMonster.transform.position;
+            for (int i = 0; i < resultMonster.Count; i++)
+            {
+                resultMonster[i].TakeDamage(player.GetAttackPower());
+            }
+
+            PlayerMoveMent.Instance.transform.position = resultMonster[0].transform.position;
+            player.ChangeAnimation(balldoAnimation, true);
         }
-        else if (CheckWall(out float wallAngle, out var point))
+        else if (TryWall(out float wallAngle, out Vector2Int normal, out RaycastHit2D wallHit, out Vector2 point))
         {
+            PlayerMoveMent.Instance.landingAction?.Invoke(true);
             StartCoroutine(DashCor(point));
-            StickWall(wallAngle, point);
+            if (normal.y == 1)
+            {
+                transform.position = wallHit.transform.position;
+            }
+            else
+            {
+                StickWall(wallAngle, point);
+            }
+            player.ChangeAnimation(balldoAnimation, false);
         }
         else
         {
             StartCoroutine(DashCor(GetDashLastPos()));
+            player.ChangeAnimation(balldoAnimation, false);
         }
-
     }
 
     private IEnumerator DashCor(Vector2 lastPos)
@@ -167,32 +179,7 @@ public class BaldoSkill : SkillSystem
     #endregion
 
     #region Check
-    private bool CheckWall(out float wallAngle, out Vector2 point)
-    {
-        wallAngle = 0;
-        point = Vector2.zero;
-
-        RaycastHit2D wallHit = Physics2D.Raycast(GetSkillStartPos(), GetSkillDirection(), GetSkillDistance(), PlayerMoveMent.Instance.wallLayerMask);
-
-        if (wallHit)
-        {
-            PlayerMoveMent.Instance.landingAction?.Invoke(true);
-            Vector2 target = wallHit.normal;
-
-            if (target.x != 0)
-            {
-                wallAngle = Vector2.Angle(Vector2.up, target) * target.x;
-            }
-            else
-            {
-                wallAngle = Vector2.Angle(Vector2.up, target) * target.y;
-            }
-            point = wallHit.point;
-        }
-        return wallHit;
-    }
-
-    private bool CheckMonster(out Monster resultMonster)
+    public bool TryAttackMonster(out List<Monster> resultMonster)
     {
         resultMonster = null;
 
@@ -210,21 +197,57 @@ public class BaldoSkill : SkillSystem
             {
                 hit.TryGetComponent(out Monster monster);
                 monsterList.Add(monster);
-                monster.TakeDamage(player.GetAttackPower());
+                UIManager.Instance.RayUIAction?.Invoke(monster.transform.position);
             }
 
             monsterList = monsterList.OrderByDescending((mob) => { return Mathf.Abs(mob.transform.position.magnitude - transform.position.magnitude); }).ToList();
 
-            resultMonster = monsterList[0];
+            resultMonster = monsterList;
         }
         return monsterHit.Length > 0;
+    }
+
+    public bool TryWall(out float wallAngle, out Vector2Int normalInt, out RaycastHit2D wallHit, out Vector2 point)
+    {
+        wallAngle = 0;
+        point = Vector2.zero;
+        normalInt = Vector2Int.zero;
+
+
+        wallHit = Physics2D.Raycast(GetSkillStartPos(), GetSkillDirection(), GetSkillDistance(), PlayerMoveMent.Instance.wallLayerMask);
+
+        if (wallHit)
+        {
+            Vector2Int normal2Int = new((int)wallHit.normal.x, (int)wallHit.normal.y);
+            normalInt = normal2Int;
+            wallAngle = WallAngle(normalInt);
+
+            point = wallHit.point;
+            Debug.Log(point);
+        }
+        return wallHit;
+
+        static float WallAngle(Vector2Int normal)
+        {
+            float wallAngle;
+
+            if (normal.x != 0)
+            {
+                wallAngle = Vector2.Angle(Vector2.up, normal) * normal.x;
+            }
+            else
+            {
+                wallAngle = Vector2.Angle(Vector2.up, normal) * normal.y;
+            }
+            return wallAngle;
+        }
     }
     #endregion
 
     private void StickWall(float wallAngle, Vector2 point)
     {
-        player.transform.eulerAngles = new(0, 0, -wallAngle);
         transform.position = point;
+        player.transform.eulerAngles = new(0, 0, -wallAngle);
         PlayerMoveMent.Instance.SetCanMove(false);
     }
 }

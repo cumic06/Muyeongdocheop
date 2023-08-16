@@ -8,7 +8,13 @@ public class TimerSystem : Singleton<TimerSystem>
     private HashSet<TimeAgent> timeAgentHashSet = new();
     private HashSet<TimeAgent> destroyTimeAgentHashSet = new();
 
-    private void FixedUpdate()
+    private void Start()
+    {
+        UpdateSystem.Instance.AddUpdateAction(TimeManager);
+    }
+
+
+    private void TimeManager()
     {
         if (timeAgentHashSet.Count > 0)
         {
@@ -26,7 +32,7 @@ public class TimerSystem : Singleton<TimerSystem>
     {
         foreach (var updateTimeAgent in timeAgentHashSet)
         {
-            updateTimeAgent.AddTime(Time.fixedDeltaTime);
+            updateTimeAgent.AddTime(Time.deltaTime);
             updateTimeAgent.UpdateTimeAction?.Invoke(updateTimeAgent);
             if (updateTimeAgent.IsTimeUp)
             {
