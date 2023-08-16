@@ -7,11 +7,15 @@ using System;
 
 public class Monster : Unit, IDamageable
 {
-
+    [SerializeField]
+    private bool Check = false;
+    public bool _check { get => Check; }
     public Fsm[] _fsm { get; set; }
     public Fsm Save_Fsm { get; set; }
-
     public RaycastHit2D hit { get; set; }
+    [SerializeField]
+    public GameObject Skill1_;
+    public GameObject Skill1 { get => Skill1_; }
     protected override void Start()
     {
         gameObject.TryGetComponent(out Monster _monster);
@@ -26,25 +30,22 @@ public class Monster : Unit, IDamageable
         StartCoroutine(Patteren());
         base.Start();
     }
-
-    private void FixedUpdate()
-    {
-        Debug.Log(hit);
-    }
-
     IEnumerator Patteren()
     {
-        while(true)
+        WaitForSeconds wait = new WaitForSeconds(3);
+        while (true)
         {
+            yield return wait;
             _fsm[6].Fsm_Action();
-            yield return null;
+            yield return new WaitUntil(() => _check);
+
         }
     }
 }
-    //public void AttackRange(float diameter)
-    //{
-    //    hit = Physics2D.CircleCast(_Monster.transform.position, diameter, Vector2.right, 1, layer);
-    //}
+//public void AttackRange(float diameter)
+//{
+//    hit = Physics2D.CircleCast(_Monster.transform.position, diameter, Vector2.right, 1, layer);
+//}
 
 //private void Fsm_Change()
 //{

@@ -12,10 +12,14 @@ public class Fsm_Patteren1 : Monster, Fsm
 
     public void Fsm_Action()
     {
+        if(Monster_Type._check)
+        {
+            _fsm[6] = _fsm[Random.Range(1,6)-1];
+        }
         PatterenAttack();
     }
     public void PatterenAttack()
     {
-        Debug.Log("∆–≈œ1");
+        Monster_Type.Skill1.gameObject.SetActive(true);
     }
 }
