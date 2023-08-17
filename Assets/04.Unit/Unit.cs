@@ -97,7 +97,7 @@ public abstract class Unit : MonoBehaviour, IDamageable
         ChangeHp(healValue);
     }
 
-    protected void ChangeHp(int value)
+    protected virtual void ChangeHp(int value)
     {
         if (!isDead)
         {

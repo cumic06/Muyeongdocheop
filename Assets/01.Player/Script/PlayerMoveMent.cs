@@ -35,7 +35,7 @@ public class PlayerMoveMent : Singleton<PlayerMoveMent>
 
     private void Start()
     {
-        landingAction += Landing;
+        landingAction += LandingAnim;
         UpdateSystem.Instance.AddFixedUpdateAction(MoveManager);
     }
 
@@ -178,12 +178,15 @@ public class PlayerMoveMent : Singleton<PlayerMoveMent>
         if (GetRayDown())
         {
             player.SetGravityScale(0);
+            player.SetDrag(0, 0);
+            Debug.Log("DownWall");
         }
         else
         {
+            Debug.Log("DownFloor");
             SetCanMove(true);
             player.SetGravityScale(1);
-            player.Rigid.drag = 0;
+            player.SetDrag(1, 0.05f);
             player.ChangeAnimation(landingAnimation, false);
             transform.eulerAngles = Vector3.zero;
             landingAction?.Invoke(false);
@@ -192,7 +195,7 @@ public class PlayerMoveMent : Singleton<PlayerMoveMent>
     #endregion
 
     #region Landing
-    private void Landing(bool value)
+    private void LandingAnim(bool value)
     {
         player.ChangeAnimation(landingAnimation, value);
     }

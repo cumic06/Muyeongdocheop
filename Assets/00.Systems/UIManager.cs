@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class UIManager : Singleton<UIManager>
 {
     public Action HitAction;
+    public Action<float, float> PlayerHpAction;
     public Action<Vector2> RayUIAction;
 
     [SerializeField] private Image hitImage;
@@ -19,6 +20,7 @@ public class UIManager : Singleton<UIManager>
         base.Awake();
         HitAction += () => UIActiveSystem(0.5f, hitImage.gameObject);
         RayUIAction += BaldoSkillUIResetPos;
+        PlayerHpAction += PlayerHpHandler;
     }
 
     #region UIActiveSystem
@@ -46,9 +48,9 @@ public class UIManager : Singleton<UIManager>
     #endregion
 
     #region HpHandler
-    private void PlayerHpHandler()
+    private void PlayerHpHandler(float maxHp, float hp)
     {
-        //playerHpSlider.fillAmount =  / ;
+        playerHpSlider.fillAmount = hp / maxHp;
     }
     #endregion
 

@@ -31,9 +31,21 @@ public class Player : Unit
         CameraShakeSystem.Instance.CameraShake(hitShakeTime, hitShakePower);
     }
 
+    protected override void ChangeHp(int value)
+    {
+        base.ChangeHp(value);
+        UIManager.Instance.PlayerHpAction?.Invoke(GetMaxHp(), GetHp());
+    }
+
     public void SetGravityScale(float value)
     {
         rigid.gravityScale = value;
+    }
+
+    public void SetDrag(int dragValue, float angularDrag)
+    {
+        rigid.drag = dragValue;
+        rigid.angularDrag = angularDrag;
     }
 
     #region Animation

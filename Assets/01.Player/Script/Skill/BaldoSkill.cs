@@ -217,7 +217,6 @@ public class BaldoSkill : SkillSystem
         if (wallHit)
         {
             normalInt = new Vector2Int((int)wallHit.normal.x, (int)wallHit.normal.y);
-            Debug.Log(normalInt);
             wallAngle = WallAngle(normalInt);
 
             point = wallHit.point;
@@ -244,7 +243,6 @@ public class BaldoSkill : SkillSystem
     private void StickWall(float wallAngle, Vector2 point)
     {
         transform.position = point;
-        player.Rigid.drag = 1;
         player.transform.eulerAngles = new(0, 0, -wallAngle);
         PlayerMoveMent.Instance.SetCanMove(false);
     }
