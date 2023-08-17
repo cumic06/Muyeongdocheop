@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fsm_Patteren1 : Monster, Fsm
+public class Fsm_Patteren1 : Fsm
 {
     private Monster Monster_Type;
     public Fsm_Patteren1(Monster monster_Type)
@@ -12,9 +12,9 @@ public class Fsm_Patteren1 : Monster, Fsm
 
     public void Fsm_Action()
     {
-        if(Monster_Type._check)
+        if (Monster_Type._check)
         {
-            _fsm[6] = _fsm[Random.Range(1,6)-1];
+            Monster_Type._fsm[6] = Monster_Type._fsm[Random.Range(1, 6) - 1];
         }
         PatterenAttack();
     }

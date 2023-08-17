@@ -93,7 +93,7 @@ public class PlayerMoveMent : Singleton<PlayerMoveMent>
 
     public void MoveSound()
     {
-        SoundSystem.Instance.PlaySound(runSound);
+        SoundSystem.Instance.PlayFXSound(runSound, 0.5f);
     }
 
     private void LimitMove()
@@ -179,11 +179,9 @@ public class PlayerMoveMent : Singleton<PlayerMoveMent>
         {
             player.SetGravityScale(0);
             player.SetDrag(0, 0);
-            Debug.Log("DownWall");
         }
         else
         {
-            Debug.Log("DownFloor");
             SetCanMove(true);
             player.SetGravityScale(1);
             player.SetDrag(1, 0.05f);

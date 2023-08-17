@@ -15,13 +15,41 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private Image baldoSkillDirectionImage;
     [SerializeField] private GameObject player;
 
+    [SerializeField] private Slider bgmHandler;
+    [SerializeField] private Slider fxHandler;
+
     protected override void Awake()
     {
         base.Awake();
         HitAction += () => UIActiveSystem(0.5f, hitImage.gameObject);
         RayUIAction += BaldoSkillUIResetPos;
         PlayerHpAction += PlayerHpHandler;
+        bgmHandler.value = SoundSystem.Instance.GetBGMVolume();
+        fxHandler.value = SoundSystem.Instance.GetFXVolume();
     }
+
+    private void Start()
+    {
+        UpdateSystem.Instance.AddUpdateAction(BGMHandlerManager);
+    }
+
+    #region VolumeHandler
+    private void BGMHandlerManager()
+    {
+        BGMVolumeHandler();
+        FXVolumeHandler();
+    }
+
+    private void BGMVolumeHandler()
+    {
+        SoundSystem.Instance.SetBGMVolume(bgmHandler.value);
+    }
+
+    private void FXVolumeHandler()
+    {
+        SoundSystem.Instance.SetFXVolume(fxHandler.value);
+    }
+    #endregion
 
     #region UIActiveSystem
     private void UIActiveSystem(float disableTime, GameObject ui)

@@ -89,7 +89,7 @@ public abstract class Unit : MonoBehaviour, IDamageable
 
         void HitSound()
         {
-            SoundSystem.Instance.PlaySound(hitSound);
+            SoundSystem.Instance.PlayFXSound(hitSound, 0.5f);
         }
     }
 

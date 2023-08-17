@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fsm_Patteren4 : Monster, Fsm
+public class Fsm_Patteren4 : Fsm
 {
     private Monster Monster_Type;
     public Fsm_Patteren4(Monster monster_Type)
