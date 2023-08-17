@@ -151,8 +151,12 @@ public class BaldoSkill : SkillSystem
         }
         else
         {
-            StartCoroutine(DashCor(GetDashLastPos()));
-            player.ChangeAnimation(balldoAnimation, false);
+            if (!PlayerMoveMent.Instance.CheckRayFloorDown())
+            {
+                StartCoroutine(DashCor(GetDashLastPos()));
+                player.ChangeAnimation(balldoAnimation, false);
+                return;
+            }
         }
     }
 

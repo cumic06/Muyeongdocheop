@@ -19,6 +19,7 @@ public class PlayerMoveMent : Singleton<PlayerMoveMent>
     private readonly int landingAnimation = Animator.StringToHash("IsLanding");
 
     public LayerMask wallLayerMask = 1 << 6;
+    public LayerMask floorLayerMask = 1 << 7;
 
     [SerializeField] private AudioClip runSound;
 
@@ -42,7 +43,7 @@ public class PlayerMoveMent : Singleton<PlayerMoveMent>
     private void MoveManager()
     {
         LimitMove();
-        RayDown();
+        RayWallDown();
 
         MoveSystem();
     }
@@ -162,20 +163,41 @@ public class PlayerMoveMent : Singleton<PlayerMoveMent>
         }
     }
 
-    private RaycastHit2D GetRayDown()
+    private RaycastHit2D GetRayFloorDown()
     {
-        RaycastHit2D rayDown = Physics2D.Raycast(transform.position, -transform.up, 1.5f, wallLayerMask);
-        return rayDown;
+        RaycastHit2D rayFloorDown = Physics2D.Raycast(transform.position, -transform.up, BaldoSkill.Instance.GetSkillDistance(), floorLayerMask);
+        return rayFloorDown;
     }
 
-    public bool CheckRayDown()
+    public bool CheckRayFloorDown()
     {
-        return GetRayDown();
+        Debug.Log("CheckRayFloorDown" + GetRayFloorDown());
+        return GetRayFloorDown();
     }
 
-    private void RayDown()
+    private void RayFloorDown()
     {
-        if (GetRayDown())
+        if (GetRayFloorDown())
+        {
+
+        }
+    }
+
+    #region WallCheck
+    private RaycastHit2D GetRayWallDown()
+    {
+        RaycastHit2D rayWallDown = Physics2D.Raycast(transform.position, -transform.up, 1.5f, wallLayerMask);
+        return rayWallDown;
+    }
+
+    public bool CheckRayWallDown()
+    {
+        return GetRayWallDown();
+    }
+
+    private void RayWallDown()
+    {
+        if (GetRayWallDown())
         {
             player.SetGravityScale(0);
             player.SetDrag(0, 0);
@@ -190,6 +212,8 @@ public class PlayerMoveMent : Singleton<PlayerMoveMent>
             landingAction?.Invoke(false);
         }
     }
+
+    #endregion
     #endregion
 
     #region Landing
