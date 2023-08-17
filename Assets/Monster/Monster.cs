@@ -41,6 +41,14 @@ public class Monster : Unit, IDamageable
 
         }
     }
+
+    protected override void ResetSpeed()
+    {
+    }
+
+    protected override void ResetAttackPower()
+    {
+    }
 }
 //public void AttackRange(float diameter)
 //{
