@@ -183,6 +183,7 @@ public class PlayerMoveMent : Singleton<PlayerMoveMent>
         {
             SetCanMove(true);
             player.SetGravityScale(1);
+            player.Rigid.drag = 0;
             player.ChangeAnimation(landingAnimation, false);
             transform.eulerAngles = Vector3.zero;
             landingAction?.Invoke(false);

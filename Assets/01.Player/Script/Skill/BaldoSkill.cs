@@ -20,7 +20,6 @@ public class BaldoSkill : SkillSystem
     [SerializeField] private ParticleSystem afterImage;
     #endregion
 
-
     protected override void Awake()
     {
         base.Awake();
@@ -213,17 +212,15 @@ public class BaldoSkill : SkillSystem
         point = Vector2.zero;
         normalInt = Vector2Int.zero;
 
-
         wallHit = Physics2D.Raycast(GetSkillStartPos(), GetSkillDirection(), GetSkillDistance(), PlayerMoveMent.Instance.wallLayerMask);
 
         if (wallHit)
         {
-            Vector2Int normal2Int = new((int)wallHit.normal.x, (int)wallHit.normal.y);
-            normalInt = normal2Int;
+            normalInt = new Vector2Int((int)wallHit.normal.x, (int)wallHit.normal.y);
+            Debug.Log(normalInt);
             wallAngle = WallAngle(normalInt);
 
             point = wallHit.point;
-            Debug.Log(point);
         }
         return wallHit;
 
@@ -247,6 +244,7 @@ public class BaldoSkill : SkillSystem
     private void StickWall(float wallAngle, Vector2 point)
     {
         transform.position = point;
+        player.Rigid.drag = 1;
         player.transform.eulerAngles = new(0, 0, -wallAngle);
         PlayerMoveMent.Instance.SetCanMove(false);
     }
