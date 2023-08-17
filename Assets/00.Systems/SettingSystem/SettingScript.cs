@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class SettingScript : MonoBehaviour
 {
     [SerializeField] private GameObject SettingUI;
-    [SerializeField] private GameObject GameUI;
     [SerializeField] private Toggle Vibrate_Toggle;
     [SerializeField] private int VibrateInt;
 
@@ -23,13 +22,11 @@ public class SettingScript : MonoBehaviour
     public void Setting_Window()
     {
         SettingUI.SetActive(true);
-        GameUI.SetActive(false);
     }
 
     public void Setting_Exit()
     {
         SettingUI.SetActive(false);
-        GameUI.SetActive(true);
     }
 
     public void Vibrate()
