@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UIAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: afb12cc7ebbc6844aa713925008afcc0, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: -1318310373, guid: 3cbc3986a79cc3848af514a7214009bd, type: 3}
+  - {fileID: -1450059206, guid: 26aa14b696ebdc74c842ccef2e491a55, type: 3}
+  - {fileID: 2134099785, guid: 2d41f4f7595e85147adac65a5c7fcb96, type: 3}
+  - {fileID: -1537439196, guid: 42cff34957aea4c4ba8d5214346c5072, type: 3}
+  - {fileID: 704400591, guid: 9de02eb9473b69c44ba1ebdb07c85d6d, type: 3}
+  - {fileID: 2081949218, guid: a73cee6bb2dfc474da128dd79314c3ce, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - HpBar1_0
+  - MoveBtn2_0
+  - AtkBtn1_0
+  - HpBar2_0
+  - AtkBtn2_0
+  - MoveBtn1_0
+  m_RenderDataMap: {}
+  m_Tag: UIAtlas
+  m_IsVariant: 0
