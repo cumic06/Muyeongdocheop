@@ -139,7 +139,6 @@ public class BaldoSkill : SkillSystem
         else if (TryWall(out float wallAngle, out Vector2Int normal, out RaycastHit2D wallHit, out Vector2 point))
         {
             PlayerMoveMent.Instance.landingAction?.Invoke(true);
-            StartCoroutine(DashCor(point));
             if (normal.y == 1)
             {
                 transform.position = wallHit.transform.position;
