@@ -24,12 +24,12 @@ public class UIManager : Singleton<UIManager>
         HitAction += () => UIActiveSystem(0.5f, hitImage.gameObject);
         RayUIAction += BaldoSkillUIResetPos;
         PlayerHpAction += PlayerHpHandler;
-        bgmHandler.value = SoundSystem.Instance.GetBGMVolume();
-        fxHandler.value = SoundSystem.Instance.GetFXVolume();
     }
 
     private void Start()
     {
+        bgmHandler.value = SoundSystem.Instance.GetBGMVolume();
+        fxHandler.value = SoundSystem.Instance.GetFXVolume();
         UpdateSystem.Instance.AddUpdateAction(BGMHandlerManager);
     }
 

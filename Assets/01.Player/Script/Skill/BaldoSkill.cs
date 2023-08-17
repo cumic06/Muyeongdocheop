@@ -9,7 +9,7 @@ public class BaldoSkill : SkillSystem
     public static BaldoSkill Instance;
     private Player player;
 
-    private LayerMask monsterLayerMask = 1 << 3;
+    [SerializeField] private LayerMask monsterLayerMask = 1 << 3;
 
     private readonly int balldoAnimation = Animator.StringToHash("IsAttack");
     private readonly int chargingAnimation = Animator.StringToHash("IsCharging");
@@ -194,6 +194,7 @@ public class BaldoSkill : SkillSystem
 
             foreach (var hit in monsterHit)
             {
+                Debug.Log(hit.name);
                 hit.TryGetComponent(out Monster monster);
                 monsterList.Add(monster);
                 UIManager.Instance.RayUIAction?.Invoke(monster.transform.position);
