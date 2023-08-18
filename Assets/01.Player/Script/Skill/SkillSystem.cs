@@ -15,7 +15,7 @@ public abstract class SkillSystem : MonoBehaviour
 
     }
 
-    protected void Start()
+    protected virtual void Start()
     {
         canUseSkill = true;
     }

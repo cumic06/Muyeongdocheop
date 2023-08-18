@@ -163,26 +163,6 @@ public class PlayerMoveMent : Singleton<PlayerMoveMent>
         }
     }
 
-    private RaycastHit2D GetRayFloorDown()
-    {
-        RaycastHit2D rayFloorDown = Physics2D.Raycast(transform.position, -transform.up, BaldoSkill.Instance.GetSkillDistance(), floorLayerMask);
-        return rayFloorDown;
-    }
-
-    public bool CheckRayFloorDown()
-    {
-        Debug.Log("CheckRayFloorDown" + GetRayFloorDown());
-        return GetRayFloorDown();
-    }
-
-    private void RayFloorDown()
-    {
-        if (GetRayFloorDown())
-        {
-
-        }
-    }
-
     #region WallCheck
     private RaycastHit2D GetRayWallDown()
     {
@@ -200,13 +180,12 @@ public class PlayerMoveMent : Singleton<PlayerMoveMent>
         if (GetRayWallDown())
         {
             player.SetGravityScale(0);
-            player.SetDrag(0, 0);
+            player.VelocityReset();
         }
         else
         {
             SetCanMove(true);
-            player.SetGravityScale(4);
-            player.SetDrag(1, 0.05f);
+            player.SetGravityScale(3);
             player.ChangeAnimation(landingAnimation, false);
             transform.eulerAngles = Vector3.zero;
             landingAction?.Invoke(false);

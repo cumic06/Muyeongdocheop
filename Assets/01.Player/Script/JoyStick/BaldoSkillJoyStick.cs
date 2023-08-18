@@ -30,19 +30,21 @@ public class BaldoSkillJoyStick : JoyStick
         base.OnPointerUp(eventData);
         BaldoSkill.Instance.Skill();
         SetJoyStickHorizontalValue();
-        BaldoSkill.Instance.SetCharging(false);
         UIManager.Instance.BaldoSkillUIActive(false);
+        BaldoSkill.Instance.SetCharging(false);
+        Debug.Log("up");
     }
 
     public override void OnPointerDown(PointerEventData eventData)
     {
         base.OnPointerDown(eventData);
+        BaldoSkill.Instance.SetCharging(true);
+        Debug.Log("down");
     }
 
     public override void OnDrag(PointerEventData eventData)
     {
         base.OnDrag(eventData);
-        BaldoSkill.Instance.SetCharging(true);
         PlayerMoveMent.Instance.SetFilp();
 
         if (BaldoSkill.Instance.TryAttackMonster(out List<Monster> monster))

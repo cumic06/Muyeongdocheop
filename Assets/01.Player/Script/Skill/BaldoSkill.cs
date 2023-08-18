@@ -18,6 +18,7 @@ public class BaldoSkill : SkillSystem
     public bool IsDash;
 
     [SerializeField] private ParticleSystem afterImage;
+    [SerializeField] private GameObject chargingEffect;
     #endregion
 
     protected override void Awake()
@@ -115,7 +116,21 @@ public class BaldoSkill : SkillSystem
     public void SetCharging(bool charging)
     {
         IsCharging = charging;
+        Charging();
     }
+
+    public void Charging()
+    {
+        if (IsCharging)
+        {
+
+        }
+        else
+        {
+
+        }
+    }
+
     #endregion
 
     protected override void UseSkill()
@@ -138,20 +153,22 @@ public class BaldoSkill : SkillSystem
         }
         else if (TryWall(out float wallAngle, out Vector2Int normal, out RaycastHit2D wallHit, out Vector2 point))
         {
-            PlayerMoveMent.Instance.landingAction?.Invoke(true);
             if (normal.y == 1)
             {
-                transform.position = wallHit.transform.position;
+                transform.position = point;
+                PlayerMoveMent.Instance.landingAction?.Invoke(false);
+                player.SetGravityScale(3);
             }
             else
             {
-                StickWall(wallAngle, point);
+                PlayerMoveMent.Instance.landingAction?.Invoke(true);
+                StickWall(wallAngle, point, false);
             }
             player.ChangeAnimation(balldoAnimation, false);
         }
         else
         {
-            if (!PlayerMoveMent.Instance.CheckRayFloorDown())
+            if (!TryFloor())
             {
                 StartCoroutine(DashCor(GetDashLastPos()));
                 player.ChangeAnimation(balldoAnimation, false);
@@ -242,12 +259,20 @@ public class BaldoSkill : SkillSystem
             return wallAngle;
         }
     }
+
+    public bool TryFloor()
+    {
+        RaycastHit2D floorHit;
+        floorHit = Physics2D.Raycast(GetSkillStartPos(), GetSkillDirection(), GetSkillDistance(), PlayerMoveMent.Instance.floorLayerMask);
+
+        return floorHit;
+    }
     #endregion
 
-    private void StickWall(float wallAngle, Vector2 point)
+    private void StickWall(float wallAngle, Vector2 point, bool setCanMove)
     {
         transform.position = point;
         player.transform.eulerAngles = new(0, 0, -wallAngle);
-        PlayerMoveMent.Instance.SetCanMove(false);
+        PlayerMoveMent.Instance.SetCanMove(setCanMove);
     }
 }

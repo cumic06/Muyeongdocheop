@@ -12,7 +12,7 @@ public class EffectSystem : MonoBehaviour
         TimerSystem.Instance.AddTimer(agent);
     }
 
-    private void DestroyEffect()
+    public void DestroyEffect()
     {
         Destroy(gameObject);
     }

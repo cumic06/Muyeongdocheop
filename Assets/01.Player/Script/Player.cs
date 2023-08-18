@@ -42,12 +42,6 @@ public class Player : Unit
         rigid.gravityScale = value;
     }
 
-    public void SetDrag(int dragValue, float angularDrag)
-    {
-        rigid.drag = dragValue;
-        rigid.angularDrag = angularDrag;
-    }
-
     #region Animation
     public void ChangeAnimation(int animationValue, bool value)
     {
@@ -58,5 +52,10 @@ public class Player : Unit
     protected override void Death()
     {
         base.Death();
+    }
+
+    public void VelocityReset()
+    {
+        rigid.velocity = Vector2.zero;
     }
 }
