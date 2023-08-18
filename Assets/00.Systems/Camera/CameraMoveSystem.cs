@@ -37,7 +37,7 @@ public class CameraMoveSystem : MonoBehaviour
         float limitY = Mathf.Clamp(transform.position.y, LimitYLowValue, LimitYHighValue);
         float limitX = Mathf.Clamp(transform.position.x, LimitXLowValue, LimitXHighValue);
 
-        Vector3 limitVec = new(limitX, limitY, -10);
+        Vector3 limitVec = new(limitX, limitY+0.2f, -10);
 
         transform.position = limitVec;
     }

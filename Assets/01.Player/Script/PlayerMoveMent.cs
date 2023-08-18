@@ -11,7 +11,7 @@ public class PlayerMoveMent : Singleton<PlayerMoveMent>
     public Action<bool> landingAction;
 
     private readonly float LimitXLowValue = -8.5f;
-    private readonly float LimitYLowValue = -2.0f;
+    private readonly float LimitYLowValue = -200; //Á¦°Å
     private readonly float LimitXHighValue = 100.0f;
     private readonly float LimitYHighValue = 10.0f;
 
