@@ -18,8 +18,8 @@ public class PlayerMoveMent : Singleton<PlayerMoveMent>
     private readonly int runAnimation = Animator.StringToHash("IsRun");
     private readonly int landingAnimation = Animator.StringToHash("IsLanding");
 
-    public LayerMask wallLayerMask = 1 << 6;
-    public LayerMask floorLayerMask = 1 << 7;
+    public readonly LayerMask wallLayerMask = 1 << 6;
+    public readonly LayerMask floorLayerMask = 1 << 7;
 
     [SerializeField] private AudioClip runSound;
 
@@ -50,32 +50,23 @@ public class PlayerMoveMent : Singleton<PlayerMoveMent>
 
     private void MoveSystem()
     {
+        bool move = IsMoveInput() && IsCanMove && !BaldoSkillJoyStick.Instance.CheckJoyStickMove();
+
+        player.ChangeAnimation(runAnimation, move);
+        
+        if (move)
+        {
+            MoveMent();
+            SetFilp();
+        }
+    }
+
+    private bool IsMoveInput()
+    {
 #if UNITY_EDITOR || UNITY_STANDALONE_WIN
-        #region PC
-        if (Input.GetAxisRaw("Horizontal") != 0 && IsCanMove && !BaldoSkillJoyStick.Instance.CheckJoyStickMove())
-        {
-            MoveMent();
-            player.ChangeAnimation(runAnimation, true);
-            SetFilp();
-        }
-        else
-        {
-            player.ChangeAnimation(runAnimation, false);
-        }
-        #endregion
+        return Input.GetAxisRaw("Horizontal") != 0;
 #else
-        #region Mobile
-        if (MoveJoyStick.Instance.CheckJoyStickMove() && !BaldoSkillJoyStick.Instance.CheckJoyStickMove() && IsCanMove)
-        {
-            MoveMent();
-            player.ChangeAnimation(runAnimation, true);
-            SetFilp();
-        }
-        else
-        {
-            player.ChangeAnimation(runAnimation, false);
-        }
-        #endregion
+        return MoveJoyStick.Instance.CheckJoyStickMove();
 #endif
     }
 
@@ -83,13 +74,17 @@ public class PlayerMoveMent : Singleton<PlayerMoveMent>
     private void MoveMent()
     {
         float moveSpeed = player.GetMoveSpeed() * Time.fixedDeltaTime;
-
-#if UNITY_EDITOR || UNITY_STANDALONE_WIN
-        Vector2 direction = new(Input.GetAxisRaw("Horizontal"), 0);
-#else
-        Vector2 direction = new(MoveJoyStick.Instance.GetJoyStickHorizontalValue(), 0);
-#endif
+        Vector2 direction = GetDirection(); 
         transform.Translate(moveSpeed * direction);
+    }
+
+    private Vector2 GetDirection()
+    {
+#if UNITY_EDITOR || UNITY_STANDALONE_WIN
+        return new(Input.GetAxisRaw("Horizontal"), 0);
+#else
+        return new(MoveJoyStick.Instance.GetJoyStickHorizontalValue(), 0);
+#endif
     }
 
     public void MoveSound()
