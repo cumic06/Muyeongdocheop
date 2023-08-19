@@ -15,13 +15,31 @@ public class CameraMoveSystem : MonoBehaviour
 
     private void Start()
     {
-        UpdateSystem.Instance.AddFixedUpdateAction(CameraMoveManager);
+        UpdateSystem.Instance.AddUpdateAction(CameraMoveManager);
     }
 
     private void CameraMoveManager()
     {
-        FollowPlayer();
-        LimitMove();
+        bool Charging = UIManager.Instance.GetBaldoSkillUIActive() & BaldoSkill.Instance.CheckCharging() && BaldoSkill.Instance.TryWall(out float wallAngle, out Vector2Int normalInt, out RaycastHit2D wallHit, out Vector2 point);
+
+        point = Vector2.zero;
+
+        if (!Charging)
+        {
+            FollowPlayer();
+        }
+        else
+        {
+            FollowBalldoUI(point);
+        }
+    }
+
+    private void FollowBalldoUI(Vector2 point)
+    {
+
+        Vector3 balldoUIVec = new(point.x, point.y, -10);
+
+        transform.position = balldoUIVec;
     }
 
     private void FollowPlayer()
@@ -30,15 +48,5 @@ public class CameraMoveSystem : MonoBehaviour
 
         Vector3 moveVec = new(slowPlayerFollow.x, slowPlayerFollow.y, -10);
         transform.position = moveVec;
-    }
-
-    private void LimitMove()
-    {
-        float limitY = Mathf.Clamp(transform.position.y, LimitYLowValue, LimitYHighValue);
-        float limitX = Mathf.Clamp(transform.position.x, LimitXLowValue, LimitXHighValue);
-
-        Vector3 limitVec = new(limitX, limitY, -10);
-
-        transform.position = limitVec;
     }
 }

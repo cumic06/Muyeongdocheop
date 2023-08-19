@@ -121,7 +121,7 @@ public class BaldoSkill : SkillSystem
 
     public void Charging()
     {
-        if (IsCharging)
+        if (CheckCharging())
         {
             chargingEffect.SetActive(true);
         }
@@ -129,6 +129,11 @@ public class BaldoSkill : SkillSystem
         {
             chargingEffect.SetActive(false);
         }
+    }
+
+    public bool CheckCharging()
+    {
+        return IsCharging;
     }
 
     #endregion

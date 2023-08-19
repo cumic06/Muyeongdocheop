@@ -86,7 +86,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb67889ecf64a1c42a9edba571779870, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillDistance: 5
+  skillDistance: 7
   skillCoolTime: 1
   monsterLayerMask:
     serializedVersion: 2

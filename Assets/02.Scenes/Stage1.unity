@@ -128,7 +128,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5720971221152577259, guid: bf99fe411d08c28479c3c19334ae8a01, type: 3}
   m_PrefabInstance: {fileID: 749696362}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 749696363}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef5e4a7a7a0be7f419eae7591f9e8e24, type: 3}
@@ -846,6 +846,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf99fe411d08c28479c3c19334ae8a01, type: 3}
+--- !u!1 &749696363 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5720971221152577262, guid: bf99fe411d08c28479c3c19334ae8a01, type: 3}
+  m_PrefabInstance: {fileID: 749696362}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &759093146 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1385919356223691310, guid: 0de54acd408e4064cabf8c8d519caee5, type: 3}
@@ -858,6 +863,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2112470387, guid: bcd668614cb9d43458ea361128eaba48, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 749696363}
     - target: {fileID: 4839524305605228272, guid: bcd668614cb9d43458ea361128eaba48, type: 3}
       propertyPath: m_Name
       value: StageCanvas
