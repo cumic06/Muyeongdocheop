@@ -17,9 +17,9 @@ public class Skill3 : MonoBehaviour
 
     void Bring()
     {
-        for (int i = 0; i < Map.Length; i++)
+        for (int i = 0; i < 3; i++)
         {
-            Map[i] = MapManager.Instance.all.Save_Map[1].transform.GetChild(0).gameObject;
+            Map[i] = MapManager.Instance.all.Save_Map[1].transform.GetChild(i).gameObject;
         }
     }
 }

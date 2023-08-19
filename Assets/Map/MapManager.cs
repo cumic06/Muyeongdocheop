@@ -13,7 +13,7 @@ public class MapManager : Singleton<MapManager>
     public All_Map all = new All_Map();
     private void Start()
     {
-        DisableAllMap();
+        //DisableAllMap();
     }
 
     public void EnableMap( )
