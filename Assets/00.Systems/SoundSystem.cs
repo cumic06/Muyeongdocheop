@@ -3,19 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-[RequireComponent(typeof(AudioSource))]
 public class SoundSystem : Singleton<SoundSystem>
 {
+    #region º¯¼ö
     [SerializeField] private AudioSource bgmSource;
 
     [SerializeField] private AudioSource fxSource;
-
-    protected override void Awake()
-    {
-        base.Awake();
-        bgmSource = GetComponent<AudioSource>();
-        fxSource = GetComponent<AudioSource>();
-    }
+    #endregion
 
     private void Start()
     {
@@ -29,6 +23,7 @@ public class SoundSystem : Singleton<SoundSystem>
         }
     }
 
+    #region Play
     public void PlayFXSound(AudioClip fxClip, float soundValue)
     {
         fxSource.PlayOneShot(fxClip, soundValue);
@@ -39,7 +34,9 @@ public class SoundSystem : Singleton<SoundSystem>
         bgmSource.PlayOneShot(bgmClip, bgmValue);
         bgmSource.volume = bgmValue;
     }
+    #endregion
 
+    #region GetSet
     public float GetBGMVolume()
     {
         return bgmSource.volume;
@@ -59,5 +56,5 @@ public class SoundSystem : Singleton<SoundSystem>
     {
         fxSource.volume = volumeValue;
     }
-
+    #endregion
 }

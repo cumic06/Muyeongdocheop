@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class UIManager : Singleton<UIManager>
 {
+    #region º¯¼ö
     public Action HitAction;
     public Action<float, float> PlayerHpAction;
     public Action<Vector2> RayUIAction;
@@ -14,9 +15,16 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private Image playerHpSlider;
     [SerializeField] private Image baldoSkillDirectionImage;
     [SerializeField] private GameObject player;
+    [Space]
 
-    [SerializeField] private Slider bgmHandler;
+    [Header("Setting")]
     [SerializeField] private Slider fxHandler;
+    [SerializeField] private Slider bgmHandler;
+    [SerializeField] private Button XBtn;
+    [SerializeField] private GameObject SettingImage;
+    [SerializeField] private Toggle Vibrate_Toggle;
+    [SerializeField] private int VibrateInt;
+    #endregion
 
     protected override void Awake()
     {
@@ -24,13 +32,14 @@ public class UIManager : Singleton<UIManager>
         HitAction += () => UIActiveSystem(0.5f, hitImage.gameObject);
         RayUIAction += BaldoSkillUIResetPos;
         PlayerHpAction += PlayerHpHandler;
+        XBtn.onClick.AddListener(() => UIDisable(SettingImage));
     }
 
     private void Start()
     {
+        UpdateSystem.Instance.AddUpdateAction(BGMHandlerManager);
         bgmHandler.value = SoundSystem.Instance.GetBGMVolume();
         fxHandler.value = SoundSystem.Instance.GetFXVolume();
-        UpdateSystem.Instance.AddUpdateAction(BGMHandlerManager);
     }
 
     #region VolumeHandler
@@ -48,6 +57,16 @@ public class UIManager : Singleton<UIManager>
     private void FXVolumeHandler()
     {
         SoundSystem.Instance.SetFXVolume(fxHandler.value);
+    }
+    #endregion
+
+    #region Vibrate
+    public void Vibrate()
+    {
+        if (Vibrate_Toggle.isOn)
+        {
+            Vibration.Vibrate(150);
+        }
     }
     #endregion
 

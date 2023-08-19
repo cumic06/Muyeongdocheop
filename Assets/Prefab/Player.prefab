@@ -54,8 +54,8 @@ MonoBehaviour:
   unitStat:
     MaxHp: 10
     MinHp: 0
-    MoveSpeed: 0
-    AttackPower: 0
+    MoveSpeed: 6
+    AttackPower: 5
   attackEffect: {fileID: 0}
   hitEffect: {fileID: 6108084238071318285, guid: b6b4165663574a44fb0b5630762503dd, type: 3}
   dashEffect: {fileID: 0}
@@ -181,7 +181,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.4, y: 1}
+  m_Size: {x: 0.4, y: 0.79}
   m_Direction: 0
 --- !u!95 &5720971221152577269
 Animator:

@@ -21,9 +21,6 @@ public class Sawblade : MonoBehaviour
         StartCoroutine(Bagier());
     }
 
-
-
-
     IEnumerator Bagier()
     {
         while (true)

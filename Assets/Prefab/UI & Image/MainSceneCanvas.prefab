@@ -123,7 +123,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StageSelect, Assembly-CSharp
-        m_MethodName: Main_Stage
+        m_MethodName: stage_number1
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 3406909630323760895}
   - component: {fileID: 3406909630323760892}
   m_Layer: 5
-  m_Name: Canvas 1
+  m_Name: MainSceneCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
