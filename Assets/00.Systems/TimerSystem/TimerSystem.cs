@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class TimerSystem : Singleton<TimerSystem>
+public class TimerSystem : MonoSingleton<TimerSystem>
 {
     private HashSet<TimeAgent> timeAgentHashSet = new();
     private HashSet<TimeAgent> destroyTimeAgentHashSet = new();

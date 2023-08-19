@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class SoundSystem : Singleton<SoundSystem>
+public class SoundSystem : MonoSingleton<SoundSystem>
 {
     #region º¯¼ö
     [SerializeField] private AudioSource bgmSource;

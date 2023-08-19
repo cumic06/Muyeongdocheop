@@ -7,7 +7,7 @@ public struct All_Map
 {
     public List<GameObject> Save_Map;
 }
-public class MapManager : Singleton<MapManager>
+public class MapManager : MonoSingleton<MapManager>
 {
 
     public All_Map all = new All_Map();

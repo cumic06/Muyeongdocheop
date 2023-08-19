@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using UnityEngine.UI;
 
-public class UIManager : Singleton<UIManager>
+public class UIManager : MonoSingleton<UIManager>
 {
     #region º¯¼ö
     public Action HitAction;
@@ -22,6 +22,8 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private Slider fxHandler;
     [SerializeField] private Slider bgmHandler;
     [SerializeField] private Button xBtn;
+    [SerializeField] private Button frame30Btn;
+    [SerializeField] private Button frame60Btn;
     [SerializeField] private GameObject settingImage;
     [SerializeField] private Toggle vibrate_Toggle;
     [SerializeField] private int vibrateInt;
@@ -35,6 +37,8 @@ public class UIManager : Singleton<UIManager>
         PlayerHpAction += PlayerHpHandler;
         xBtn.onClick.AddListener(() => UIDisable(settingImage));
         optionBtn.onClick.AddListener(() => UIActive(settingImage));
+        frame30Btn.onClick.AddListener(() => FrameRate.Instance.SetMaxFrame(30));
+        frame60Btn.onClick.AddListener(() => FrameRate.Instance.SetMaxFrame(60));
     }
 
     private void Start()

@@ -2,18 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FrameRate : MonoBehaviour
+public class FrameRate : MonoSingleton<FrameRate>
 {
     [Range(1, 100)]
     public int fFont_Size;
     [Range(0, 1)]
     public float Red, Green, Blue;
-    float deltaTime;
+    private float deltaTime;
 
     private void Start()
     {
         Application.targetFrameRate = -1;
         UpdateSystem.Instance.AddUpdateAction(AddTime);
+        UpdateSystem.Instance.AddUpdateAction(GetMaxFrame);
+    }
+
+    private void GetMaxFrame()
+    {
+        Application.targetFrameRate = Application.targetFrameRate;
+    }
+
+    public void SetMaxFrame(int maxFrame)
+    {
+        Application.targetFrameRate = maxFrame;
     }
 
     private void AddTime()

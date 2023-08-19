@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SlowSystem : Singleton<SlowSystem>
+public class SlowSystem : MonoSingleton<SlowSystem>
 {
     private readonly int normalTime = 1;
 

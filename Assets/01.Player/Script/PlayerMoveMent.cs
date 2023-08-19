@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class PlayerMoveMent : Singleton<PlayerMoveMent>
+public class PlayerMoveMent : MonoSingleton<PlayerMoveMent>
 {
     #region º¯¼ö 
     private Player player;
@@ -42,9 +42,11 @@ public class PlayerMoveMent : Singleton<PlayerMoveMent>
 
     private void MoveManager()
     {
-        LimitMove();
-
-        MoveSystem();
+        if (!GameManager.Instance.CheckGameOver())
+        {
+            LimitMove();
+            MoveSystem();
+        }
     }
 
     private void MoveSystem()
@@ -60,7 +62,7 @@ public class PlayerMoveMent : Singleton<PlayerMoveMent>
         }
     }
 
-    private bool IsMoveInput()
+    public bool IsMoveInput()
     {
 #if UNITY_EDITOR || UNITY_STANDALONE_WIN
         return Input.GetAxisRaw("Horizontal") != 0;

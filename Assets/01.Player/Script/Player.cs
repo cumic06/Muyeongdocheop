@@ -52,6 +52,7 @@ public class Player : Unit
     protected override void Death()
     {
         base.Death();
+        GameManager.Instance.GameOverAction?.Invoke();
     }
 
     public void VelocityReset()

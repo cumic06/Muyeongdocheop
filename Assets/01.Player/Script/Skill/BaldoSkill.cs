@@ -12,7 +12,6 @@ public class BaldoSkill : SkillSystem
     [SerializeField] private LayerMask monsterLayerMask = 1 << 3;
 
     private readonly int balldoAnimation = Animator.StringToHash("IsAttack");
-    private readonly int chargingAnimation = Animator.StringToHash("IsCharging");
 
     private bool IsCharging;
     public bool IsDash;
@@ -121,14 +120,8 @@ public class BaldoSkill : SkillSystem
 
     public void Charging()
     {
-        if (CheckCharging())
-        {
-            chargingEffect.SetActive(true);
-        }
-        else
-        {
-            chargingEffect.SetActive(false);
-        }
+        chargingEffect.SetActive(CheckCharging());
+        player.ChangeAnimation(balldoAnimation, CheckCharging());
     }
 
     public bool CheckCharging()
@@ -140,12 +133,16 @@ public class BaldoSkill : SkillSystem
 
     protected override void UseSkill()
     {
-        Dash();
+        if (!GameManager.Instance.CheckGameOver())
+        {
+            Dash();
+        }
     }
 
     #region Dash
     public void Dash()
     {
+        player.ChangeAnimation(balldoAnimation, true);
         if (TryAttackMonster(out List<Monster> resultMonster))
         {
             for (int i = 0; i < resultMonster.Count; i++)
@@ -154,7 +151,6 @@ public class BaldoSkill : SkillSystem
             }
 
             PlayerMoveMent.Instance.transform.position = resultMonster[0].transform.position;
-            player.ChangeAnimation(balldoAnimation, true);
         }
         else if (TryWall(out float wallAngle, out Vector2Int normal, out RaycastHit2D wallHit, out Vector2 point))
         {
@@ -169,7 +165,6 @@ public class BaldoSkill : SkillSystem
                 PlayerMoveMent.Instance.landingAction?.Invoke(true);
                 StickWall(wallAngle, point, false);
             }
-            player.ChangeAnimation(balldoAnimation, false);
         }
         else
         {
@@ -177,9 +172,9 @@ public class BaldoSkill : SkillSystem
             if (!TryFloor())
             {
                 StartCoroutine(DashCor(GetDashLastPos()));
-                player.ChangeAnimation(balldoAnimation, false);
             }
         }
+        player.ChangeAnimation(balldoAnimation, false);
     }
 
     private IEnumerator DashCor(Vector2 lastPos)

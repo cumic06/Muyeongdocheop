@@ -1716,7 +1716,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Skill3Map
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 890524059586882235, guid: ec0fb223c05f3984eb08549489981588, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ec0fb223c05f3984eb08549489981588, type: 3}
 --- !u!1001 &928056640524386080
 PrefabInstance:
@@ -1976,7 +1977,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5818846561497469214, guid: 1cb722632d509e14fbd35ff8c6f084ee, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1cb722632d509e14fbd35ff8c6f084ee, type: 3}
 --- !u!1001 &6290528678444864765
 PrefabInstance:
