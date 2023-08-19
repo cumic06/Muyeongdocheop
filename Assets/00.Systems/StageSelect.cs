@@ -3,18 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+public enum StageNum
+{
+    MainScene,
+    StageSelectScene,
+    Stage1Scene,
+    Stage2Scene,
+    LoadScene
+}
+
 public class StageSelect : MonoBehaviour
 {
-    public void stage_number1()
+    public void StageSelect_Scene()
     {
-        SceneManager.LoadScene(0);
+        int stageSelect_Scene = (int)StageNum.StageSelectScene;
+        SceneManager.LoadScene(stageSelect_Scene);
     }
-    public void Main_Stage()
+
+    public void Stage1_Scene()
     {
-        SceneManager.LoadScene(4);
+        int stage1_Scene = (int)StageNum.Stage1Scene;
+        SceneManager.LoadScene(stage1_Scene);
     }
-    public void stage_number2()
+
+    public void Stage2_Scene()
     {
-        SceneManager.LoadScene(3);
+        int stage2_Scene = (int)StageNum.Stage2Scene;
+        SceneManager.LoadScene(stage2_Scene);
     }
 }

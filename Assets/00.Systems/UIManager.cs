@@ -18,12 +18,13 @@ public class UIManager : Singleton<UIManager>
     [Space]
 
     [Header("Setting")]
+    [SerializeField] private Button optionBtn;
     [SerializeField] private Slider fxHandler;
     [SerializeField] private Slider bgmHandler;
-    [SerializeField] private Button XBtn;
-    [SerializeField] private GameObject SettingImage;
-    [SerializeField] private Toggle Vibrate_Toggle;
-    [SerializeField] private int VibrateInt;
+    [SerializeField] private Button xBtn;
+    [SerializeField] private GameObject settingImage;
+    [SerializeField] private Toggle vibrate_Toggle;
+    [SerializeField] private int vibrateInt;
     #endregion
 
     protected override void Awake()
@@ -32,7 +33,8 @@ public class UIManager : Singleton<UIManager>
         HitAction += () => UIActiveSystem(0.5f, hitImage.gameObject);
         RayUIAction += BaldoSkillUIResetPos;
         PlayerHpAction += PlayerHpHandler;
-        XBtn.onClick.AddListener(() => UIDisable(SettingImage));
+        xBtn.onClick.AddListener(() => UIDisable(settingImage));
+        optionBtn.onClick.AddListener(() => UIActive(settingImage));
     }
 
     private void Start()
@@ -63,7 +65,7 @@ public class UIManager : Singleton<UIManager>
     #region Vibrate
     public void Vibrate()
     {
-        if (Vibrate_Toggle.isOn)
+        if (vibrate_Toggle.isOn)
         {
             Vibration.Vibrate(150);
         }
@@ -111,6 +113,16 @@ public class UIManager : Singleton<UIManager>
     {
         Vector2 screenTargetPos = Camera.main.WorldToScreenPoint(targetPos);
         baldoSkillDirectionImage.rectTransform.position = screenTargetPos;
+    }
+
+    public Vector2 GetBaldoSkillUIPos()
+    {
+        Vector2 balldoSkillUIPos = Camera.main.ScreenToWorldPoint(baldoSkillDirectionImage.rectTransform.position);
+        return balldoSkillUIPos;
+    }
+    public bool GetBaldoSkillUIActive()
+    {
+        return baldoSkillDirectionImage.gameObject.activeSelf;
     }
     #endregion
 }
