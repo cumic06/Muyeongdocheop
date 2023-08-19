@@ -43,7 +43,6 @@ public class PlayerMoveMent : Singleton<PlayerMoveMent>
     private void MoveManager()
     {
         LimitMove();
-        RayWallDown();
 
         MoveSystem();
     }
@@ -53,7 +52,7 @@ public class PlayerMoveMent : Singleton<PlayerMoveMent>
         bool move = IsMoveInput() && IsCanMove && !BaldoSkillJoyStick.Instance.CheckJoyStickMove();
 
         player.ChangeAnimation(runAnimation, move);
-        
+
         if (move)
         {
             MoveMent();
@@ -74,7 +73,7 @@ public class PlayerMoveMent : Singleton<PlayerMoveMent>
     private void MoveMent()
     {
         float moveSpeed = player.GetMoveSpeed() * Time.fixedDeltaTime;
-        Vector2 direction = GetDirection(); 
+        Vector2 direction = GetDirection();
         transform.Translate(moveSpeed * direction);
     }
 
@@ -141,54 +140,15 @@ public class PlayerMoveMent : Singleton<PlayerMoveMent>
     }
     #endregion
 
-    #region CheckRay
-    private void OnDrawGizmos()
+    public void ReSetMoveMent()
     {
-        RaycastHit2D rayDown = Physics2D.Raycast(transform.position, -transform.up, 2f, wallLayerMask);
-
-        if (rayDown)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawRay(transform.position, -transform.up * 2f);
-        }
-        else
-        {
-            Gizmos.color = Color.green;
-            Gizmos.DrawRay(transform.position, -transform.up * 2f);
-        }
+        SetCanMove(true);
+        player.SetGravityScale(3);
+        player.ChangeAnimation(landingAnimation, false);
+        transform.eulerAngles = Vector3.zero;
+        landingAction?.Invoke(false);
+        player.VelocityReset();
     }
-
-    #region WallCheck
-    private RaycastHit2D GetRayWallDown()
-    {
-        RaycastHit2D rayWallDown = Physics2D.Raycast(transform.position, -transform.up, 1.5f, wallLayerMask);
-        return rayWallDown;
-    }
-
-    public bool CheckRayWallDown()
-    {
-        return GetRayWallDown();
-    }
-
-    private void RayWallDown()
-    {
-        if (GetRayWallDown())
-        {
-            player.SetGravityScale(0);
-            player.VelocityReset();
-        }
-        else
-        {
-            SetCanMove(true);
-            player.SetGravityScale(3);
-            player.ChangeAnimation(landingAnimation, false);
-            transform.eulerAngles = Vector3.zero;
-            landingAction?.Invoke(false);
-        }
-    }
-
-    #endregion
-    #endregion
 
     #region Landing
     private void LandingAnim(bool value)

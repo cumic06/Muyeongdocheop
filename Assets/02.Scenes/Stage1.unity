@@ -3201,9 +3201,7 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 0}
-    - {fileID: -5695581831053375846, guid: e4926d492c8d3ee4eadca029ea7728e1, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e4926d492c8d3ee4eadca029ea7728e1, type: 3}
 --- !u!1 &2052607581 stripped
 GameObject:
@@ -3390,10 +3388,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 5720971221152577271, guid: bf99fe411d08c28479c3c19334ae8a01, type: 3}
-      propertyPath: chargingEffect
-      value: 
-      objectReference: {fileID: 8120537418130517573, guid: f2e92456c7a969f469283c3416e550fd, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf99fe411d08c28479c3c19334ae8a01, type: 3}
 --- !u!1001 &6290528678444864765

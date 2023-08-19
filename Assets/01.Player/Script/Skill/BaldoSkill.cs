@@ -123,11 +123,11 @@ public class BaldoSkill : SkillSystem
     {
         if (IsCharging)
         {
-
+            chargingEffect.SetActive(true);
         }
         else
         {
-
+            chargingEffect.SetActive(false);
         }
     }
 
@@ -157,7 +157,7 @@ public class BaldoSkill : SkillSystem
             {
                 transform.position = point;
                 PlayerMoveMent.Instance.landingAction?.Invoke(false);
-                player.SetGravityScale(3);
+                PlayerMoveMent.Instance.ReSetMoveMent();
             }
             else
             {
@@ -168,11 +168,11 @@ public class BaldoSkill : SkillSystem
         }
         else
         {
+            PlayerMoveMent.Instance.ReSetMoveMent();
             if (!TryFloor())
             {
                 StartCoroutine(DashCor(GetDashLastPos()));
                 player.ChangeAnimation(balldoAnimation, false);
-                return;
             }
         }
     }
@@ -271,6 +271,8 @@ public class BaldoSkill : SkillSystem
 
     private void StickWall(float wallAngle, Vector2 point, bool setCanMove)
     {
+        player.SetGravityScale(0);
+        player.VelocityReset();
         transform.position = point;
         player.transform.eulerAngles = new(0, 0, -wallAngle);
         PlayerMoveMent.Instance.SetCanMove(setCanMove);
