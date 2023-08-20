@@ -393,6 +393,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1192245790}
     - target: {fileID: 3406909629995363378, guid: f97bda952197d1a41a4077cd4172fef4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3406909629995363378, guid: f97bda952197d1a41a4077cd4172fef4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: StageSelect_Scene
       objectReference: {fileID: 0}
