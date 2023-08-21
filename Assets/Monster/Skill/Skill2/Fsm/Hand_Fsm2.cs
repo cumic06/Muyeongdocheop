@@ -12,6 +12,7 @@ public class Hand_Fsm2 : Fsm
     }
     public void Fsm_Action()
     {
-        Debug.Log("∆–≈œ2");
+        Main._check = false;
+        Main._coroutine = Main.StartCoroutine(Main.PosMove(Main._position2));
     }
 }
