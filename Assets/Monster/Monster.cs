@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+[System.Serializable]
 public class Monster : Unit, IDamageable
 {
+   public  Dictionary<int ,float> a = new Dictionary<int, float>();
     [SerializeField]
     private bool Check = false;
     public bool _check { get => Check; }

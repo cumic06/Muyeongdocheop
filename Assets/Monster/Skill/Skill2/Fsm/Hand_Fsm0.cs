@@ -18,7 +18,7 @@ public class Hand_Fsm0 : MonoBehaviour, Fsm
         Main._check = false;
         Main._coroutine = Main.StartCoroutine(UP());
         Debug.Log("∆–≈œ0");
-        Main.StartCoroutine(Main.Timer(0));
+        //Main.StartCoroutine(Main.Timer(0));
     }
     IEnumerator UP()
     {
