@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraMoveSystem : MonoBehaviour
@@ -36,17 +34,21 @@ public class CameraMoveSystem : MonoBehaviour
 
     private void FollowBalldoUI(Vector2 point)
     {
-
-        Vector3 balldoUIVec = new(point.x, point.y, -10);
+        Vector3 balldoUIVec = new(SlowFollow(point).x, SlowFollow(point).y, -10);
 
         transform.position = balldoUIVec;
     }
 
     private void FollowPlayer()
     {
-        Vector2 slowPlayerFollow = Vector2.Lerp(transform.position, player.transform.position, cameraSpeed * Time.fixedDeltaTime);
 
-        Vector3 moveVec = new(slowPlayerFollow.x, slowPlayerFollow.y, -10);
+        Vector3 moveVec = new(SlowFollow(player.transform.position).x, SlowFollow(player.transform.position).y, -10);
         transform.position = moveVec;
+    }
+
+    private Vector2 SlowFollow(Vector2 target)
+    {
+        Vector2 slowPlayerFollow = Vector2.Lerp(transform.position, target, cameraSpeed * Time.fixedDeltaTime);
+        return slowPlayerFollow;
     }
 }

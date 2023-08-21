@@ -13,30 +13,28 @@ public enum GameScene
 public class GameManager : MonoSingleton<GameManager>
 {
     #region º¯¼ö
-    private Action gameOverAction;
-    public Action GameOverAction => gameOverAction;
-
     private readonly GameScene gameScene;
 
     private bool isGameOver;
 
-
+    private float time;
     #endregion
 
     private void Start()
     {
-        gameOverAction += SetGameOver;
+        AddTime();
+        UpdateSystem.Instance.AddUpdateAction(AddTime);
     }
 
     #region GameOver
-    private void SetGameOver()
-    {
-        isGameOver = true;
-    }
-
     public bool CheckGameOver()
     {
         return isGameOver;
+    }
+
+    public void GameOver()
+    {
+
     }
     #endregion
 
@@ -44,4 +42,16 @@ public class GameManager : MonoSingleton<GameManager>
     {
         return gameScene;
     }
+
+    #region Time
+    private void AddTime()
+    {
+        time += Time.deltaTime;
+    }
+
+    public float GetTime()
+    {
+        return time;
+    }
+    #endregion
 }

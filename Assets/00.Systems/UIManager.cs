@@ -17,6 +17,8 @@ public class UIManager : MonoSingleton<UIManager>
     [SerializeField] private GameObject player;
     [Space]
 
+    [SerializeField] private Text timeTxt;
+
     [Header("Setting")]
     [SerializeField] private Button optionBtn;
     [SerializeField] private Slider fxHandler;
@@ -43,10 +45,32 @@ public class UIManager : MonoSingleton<UIManager>
 
     private void Start()
     {
-        UpdateSystem.Instance.AddUpdateAction(BGMHandlerManager);
+        UpdateSystem.Instance.AddUpdateAction(() => { BGMHandlerManager(); TimeTextUI(); });
         bgmHandler.value = SoundSystem.Instance.GetBGMVolume();
         fxHandler.value = SoundSystem.Instance.GetFXVolume();
     }
+
+    private void TimeTextUI()
+    {
+        float time = GameManager.Instance.GetTime();
+        int min = 0;
+        int hour = 0;
+
+        while (time >= 60)
+        {
+            time -= 60;
+            min++;
+        }
+
+        while (min >= 60)
+        {
+            min -= 60;
+            hour++;
+        }
+
+        timeTxt.text = $"PlayTime : {hour}시간 {min}분 {time:F1}초";
+    }
+
 
     #region VolumeHandler
     private void BGMHandlerManager()
@@ -124,6 +148,7 @@ public class UIManager : MonoSingleton<UIManager>
         Vector2 balldoSkillUIPos = Camera.main.ScreenToWorldPoint(baldoSkillDirectionImage.rectTransform.position);
         return balldoSkillUIPos;
     }
+
     public bool GetBaldoSkillUIActive()
     {
         return baldoSkillDirectionImage.gameObject.activeSelf;

@@ -75,6 +75,11 @@ SpriteAtlas:
   - {fileID: -1174915272, guid: d56a0eb52a222f64dbcc049274782a64, type: 3}
   - {fileID: -917511828, guid: 4156ff066449c964086096649c11c24d, type: 3}
   - {fileID: 1605800773, guid: 4c9b82760f084804582a95520ba97f8b, type: 3}
+  - {fileID: 1108293747, guid: bd4af597ed7b5e64aa80a95f799a453d, type: 3}
+  - {fileID: -331324227, guid: bd4af597ed7b5e64aa80a95f799a453d, type: 3}
+  - {fileID: -431239482, guid: bd4af597ed7b5e64aa80a95f799a453d, type: 3}
+  - {fileID: 1712185321, guid: bd4af597ed7b5e64aa80a95f799a453d, type: 3}
+  - {fileID: 774443390, guid: bd4af597ed7b5e64aa80a95f799a453d, type: 3}
   - {fileID: -1606533746, guid: a73c54383f641904a9d301f32ec12ddb, type: 3}
   - {fileID: -1817999702, guid: c554c848ce266d94fa718c56d7d42c29, type: 3}
   - {fileID: 1442195768, guid: 1af536681254ef147b7165a250b540b0, type: 3}
@@ -170,6 +175,11 @@ SpriteAtlas:
   - Player_Attack6_0
   - Player6_run1_0
   - Player6_run10_0
+  - attack5_4
+  - attack5_1
+  - attack5_0
+  - attack5_3
+  - attack5_2
   - Player_Attack3_0
   - Player6_run7_0
   - Player_landing2_0
