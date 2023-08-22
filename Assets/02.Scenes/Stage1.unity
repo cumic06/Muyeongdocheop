@@ -208,7 +208,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &208149224
@@ -796,13 +796,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5720971221152577259, guid: bf99fe411d08c28479c3c19334ae8a01, type: 3}
+      propertyPath: dashEffect
+      value: 
+      objectReference: {fileID: 8120537418130517573, guid: f2e92456c7a969f469283c3416e550fd, type: 3}
     - target: {fileID: 5720971221152577260, guid: bf99fe411d08c28479c3c19334ae8a01, type: 3}
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5720971221152577260, guid: bf99fe411d08c28479c3c19334ae8a01, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.89
+      value: -3.9
       objectReference: {fileID: 0}
     - target: {fileID: 5720971221152577260, guid: bf99fe411d08c28479c3c19334ae8a01, type: 3}
       propertyPath: m_LocalPosition.y
@@ -867,6 +871,26 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 749696363}
+    - target: {fileID: 3323982053726499735, guid: bcd668614cb9d43458ea361128eaba48, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3323982054162508659, guid: bcd668614cb9d43458ea361128eaba48, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3323982054281205438, guid: bcd668614cb9d43458ea361128eaba48, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3323982054451207427, guid: bcd668614cb9d43458ea361128eaba48, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3323982055054105160, guid: bcd668614cb9d43458ea361128eaba48, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4839524305605228272, guid: bcd668614cb9d43458ea361128eaba48, type: 3}
       propertyPath: m_Name
       value: StageCanvas
@@ -1987,6 +2011,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1737777310, guid: 836fd6d3092ae9341a8227f53459175a, type: 3}
+      propertyPath: gameScene
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6290528679088945115, guid: 836fd6d3092ae9341a8227f53459175a, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -2038,6 +2066,10 @@ PrefabInstance:
     - target: {fileID: 6290528679600595763, guid: 836fd6d3092ae9341a8227f53459175a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6470236044634354620, guid: 836fd6d3092ae9341a8227f53459175a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 836fd6d3092ae9341a8227f53459175a, type: 3}

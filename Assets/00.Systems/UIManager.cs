@@ -45,9 +45,14 @@ public class UIManager : MonoSingleton<UIManager>
 
     private void Start()
     {
-        UpdateSystem.Instance.AddUpdateAction(() => { BGMHandlerManager(); TimeTextUI(); });
+        UpdateSystem.Instance.AddUpdateAction(() => { BGMHandlerManager(); });
+
         bgmHandler.value = SoundSystem.Instance.GetBGMVolume();
         fxHandler.value = SoundSystem.Instance.GetFXVolume();
+        if (GameManager.Instance.GetGameScene().Equals(GameScene.Stage))
+        {
+            UpdateSystem.Instance.AddUpdateAction(TimeTextUI);
+        }
     }
 
     private void TimeTextUI()
@@ -154,4 +159,6 @@ public class UIManager : MonoSingleton<UIManager>
         return baldoSkillDirectionImage.gameObject.activeSelf;
     }
     #endregion
+
+
 }

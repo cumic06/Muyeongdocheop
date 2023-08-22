@@ -8,6 +8,16 @@ public class Player : Unit
     private readonly float hitShakeTime = 0.5f;
     private readonly float hitShakePower = 0.15f;
 
+    private readonly int attackAnimLayer = 1;
+
+    public static Player Instance;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        Instance = GetComponent<Player>();
+    }
+
     protected override void ResetHp()
     {
         unitStat.MaxHp = 100;
@@ -43,9 +53,14 @@ public class Player : Unit
     }
 
     #region Animation
+    public void ChangeAnimationLayer(int animationValue, float weight)
+    {
+        anim.SetLayerWeight(animationValue, weight);
+    }
+
     public void ChangeAnimation(int animationValue, bool value)
     {
-        Anim.SetBool(animationValue, value);
+        anim.SetBool(animationValue, value);
     }
     #endregion
 

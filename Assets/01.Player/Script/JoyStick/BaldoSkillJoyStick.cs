@@ -32,6 +32,7 @@ public class BaldoSkillJoyStick : JoyStick
         SetJoyStickHorizontalValue();
         UIManager.Instance.BaldoSkillUIActive(false);
         BaldoSkill.Instance.SetCharging(false);
+        Player.Instance.ChangeAnimationLayer(1, 0);
     }
 
     public override void OnPointerDown(PointerEventData eventData)
@@ -47,6 +48,7 @@ public class BaldoSkillJoyStick : JoyStick
         PlayerMoveMent.Instance.SetFilp();
         BalldoMonsterUI();
         BalldoWallUI();
+        Player.Instance.ChangeAnimationLayer(1, 1);
     }
 
     private void BalldoMonsterUI()

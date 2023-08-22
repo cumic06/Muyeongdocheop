@@ -6,8 +6,6 @@ using System;
 public class PlayerMoveMent : MonoSingleton<PlayerMoveMent>
 {
     #region º¯¼ö 
-    private Player player;
-
     public Action<bool> landingAction;
 
     private readonly float LimitXLowValue = -8.5f;
@@ -31,7 +29,6 @@ public class PlayerMoveMent : MonoSingleton<PlayerMoveMent>
     protected override void Awake()
     {
         base.Awake();
-        player = GetComponent<Player>();
     }
 
     private void Start()
@@ -53,10 +50,11 @@ public class PlayerMoveMent : MonoSingleton<PlayerMoveMent>
     {
         bool move = IsMoveInput() && IsCanMove && !BaldoSkillJoyStick.Instance.CheckJoyStickMove();
 
-        player.ChangeAnimation(runAnimation, move);
+        Player.Instance.ChangeAnimation(runAnimation, move);
 
         if (move)
         {
+            Player.Instance.ChangeAnimationLayer(1, 0);
             MoveMent();
             SetFilp();
         }
@@ -74,7 +72,7 @@ public class PlayerMoveMent : MonoSingleton<PlayerMoveMent>
     #region Move
     private void MoveMent()
     {
-        float moveSpeed = player.GetMoveSpeed() * Time.fixedDeltaTime;
+        float moveSpeed = Player.Instance.GetMoveSpeed() * Time.fixedDeltaTime;
         Vector2 direction = GetDirection();
         transform.Translate(moveSpeed * direction);
     }
@@ -114,13 +112,13 @@ public class PlayerMoveMent : MonoSingleton<PlayerMoveMent>
         #region PC
         if (BaldoSkillJoyStick.Instance.CheckJoyStickMove())
         {
-            player.SpriteRenderer.flipX = BaldoSkillJoyStick.Instance.GetJoyStickHorizontalValue() < 0.01f;
+            Player.Instance.SpriteRenderer.flipX = BaldoSkillJoyStick.Instance.GetJoyStickHorizontalValue() < 0.01f;
         }
         else
         {
             if (Input.GetAxisRaw("Horizontal") != 0)
             {
-                player.SpriteRenderer.flipX = Input.GetAxisRaw("Horizontal") < 0.01f;
+                Player.Instance.SpriteRenderer.flipX = Input.GetAxisRaw("Horizontal") < 0.01f;
             }
         }
         #endregion
@@ -145,17 +143,17 @@ public class PlayerMoveMent : MonoSingleton<PlayerMoveMent>
     public void ReSetMoveMent()
     {
         SetCanMove(true);
-        player.SetGravityScale(3);
-        player.ChangeAnimation(landingAnimation, false);
+        Player.Instance.SetGravityScale(3);
+        Player.Instance.ChangeAnimation(landingAnimation, false);
         transform.eulerAngles = Vector3.zero;
         landingAction?.Invoke(false);
-        player.VelocityReset();
+        Player.Instance.VelocityReset();
     }
 
     #region Landing
     private void LandingAnim(bool value)
     {
-        player.ChangeAnimation(landingAnimation, value);
+        Player.Instance.ChangeAnimation(landingAnimation, value);
     }
     #endregion
 }

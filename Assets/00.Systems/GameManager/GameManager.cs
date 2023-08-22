@@ -13,7 +13,7 @@ public enum GameScene
 public class GameManager : MonoSingleton<GameManager>
 {
     #region º¯¼ö
-    private readonly GameScene gameScene;
+    [SerializeField] private GameScene gameScene;
 
     private bool isGameOver;
 
@@ -38,7 +38,7 @@ public class GameManager : MonoSingleton<GameManager>
     }
     #endregion
 
-    public GameScene CheckGameScene()
+    public GameScene GetGameScene()
     {
         return gameScene;
     }

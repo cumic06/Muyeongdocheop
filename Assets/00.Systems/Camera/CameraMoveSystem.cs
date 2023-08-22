@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class CameraMoveSystem : MonoBehaviour
 {
-    [SerializeField] private Player player;
-
     [SerializeField] private float cameraSpeed;
 
     [SerializeField] private float LimitYLowValue;
@@ -42,7 +40,7 @@ public class CameraMoveSystem : MonoBehaviour
     private void FollowPlayer()
     {
 
-        Vector3 moveVec = new(SlowFollow(player.transform.position).x, SlowFollow(player.transform.position).y, -10);
+        Vector3 moveVec = new(SlowFollow(Player.Instance.transform.position).x, SlowFollow(Player.Instance.transform.position).y, -10);
         transform.position = moveVec;
     }
 

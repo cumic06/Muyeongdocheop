@@ -7,7 +7,6 @@ public class BaldoSkill : SkillSystem
 {
     #region º¯¼ö
     public static BaldoSkill Instance;
-    private Player player;
 
     [SerializeField] private LayerMask monsterLayerMask = 1 << 3;
 
@@ -24,7 +23,6 @@ public class BaldoSkill : SkillSystem
     {
         base.Awake();
         Instance = GetComponent<BaldoSkill>();
-        player = GetComponent<Player>();
     }
 
     #region Get
@@ -121,7 +119,6 @@ public class BaldoSkill : SkillSystem
     public void Charging()
     {
         chargingEffect.SetActive(CheckCharging());
-        player.ChangeAnimation(balldoAnimation, CheckCharging());
     }
 
     public bool CheckCharging()
@@ -142,12 +139,12 @@ public class BaldoSkill : SkillSystem
     #region Dash
     public void Dash()
     {
-        player.ChangeAnimation(balldoAnimation, true);
+        Player.Instance.ChangeAnimationLayer(1, 1);
         if (TryAttackMonster(out List<Monster> resultMonster))
         {
             for (int i = 0; i < resultMonster.Count; i++)
             {
-                resultMonster[i].TakeDamage(player.GetAttackPower());
+                resultMonster[i].TakeDamage(Player.Instance.GetAttackPower());
             }
 
             PlayerMoveMent.Instance.transform.position = resultMonster[0].transform.position;
@@ -174,25 +171,24 @@ public class BaldoSkill : SkillSystem
                 StartCoroutine(DashCor(GetDashLastPos()));
             }
         }
-        player.ChangeAnimation(balldoAnimation, false);
     }
 
     private IEnumerator DashCor(Vector2 lastPos)
     {
         float t = 0;
-        Vector2 startPos = player.transform.position;
+        Vector2 startPos = Player.Instance.transform.position;
 
         while (t <= 1f)
         {
-            t += Time.deltaTime * player.GetMoveSpeed();
-            player.transform.position = Vector2.Lerp(startPos, lastPos, t);
+            t += Time.deltaTime * Player.Instance.GetMoveSpeed();
+            Player.Instance.transform.position = Vector2.Lerp(startPos, lastPos, t);
             yield return null;
             if (Vector2.Distance(transform.position, lastPos) <= 0.5f)
             {
                 break;
             }
         }
-        player.transform.position = lastPos;
+        Player.Instance.transform.position = lastPos;
         yield return null;
     }
     #endregion
@@ -271,10 +267,10 @@ public class BaldoSkill : SkillSystem
 
     private void StickWall(float wallAngle, Vector2 point, bool setCanMove)
     {
-        player.SetGravityScale(0);
-        player.VelocityReset();
+        Player.Instance.SetGravityScale(0);
+        Player.Instance.VelocityReset();
         transform.position = point;
-        player.transform.eulerAngles = new(0, 0, -wallAngle);
+        Player.Instance.transform.eulerAngles = new(0, 0, -wallAngle);
         PlayerMoveMent.Instance.SetCanMove(setCanMove);
     }
 }

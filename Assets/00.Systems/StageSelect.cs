@@ -12,7 +12,7 @@ public enum StageNum
     LoadScene
 }
 
-public class StageSelect : MonoBehaviour
+public class StageSelect : MonoSingleton<StageSelect>
 {
     public void StageSelect_Scene()
     {
