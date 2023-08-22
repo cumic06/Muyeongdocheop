@@ -36,7 +36,6 @@ public class CameraMoveSystem : MonoBehaviour
 
     private void FollowBalldoUI(Vector2 point)
     {
-
         Vector3 balldoUIVec = new(point.x, point.y, -10);
 
         transform.position = balldoUIVec;

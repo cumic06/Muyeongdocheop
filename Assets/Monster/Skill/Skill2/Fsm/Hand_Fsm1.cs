@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Hand_Fsm1 : Fsm
+public class Hand_Fsm1 : IFsm
 {
     private Hand Main;
     private Vector3 Player_Target;
@@ -16,8 +16,8 @@ public class Hand_Fsm1 : Fsm
     }
     public void Fsm_Action()
     {
-        Main._check = false;
-        Main._coroutine = Main.StartCoroutine(Main.PosMove(Main._position1));
+        Main.Check = false;
+        Main._coroutine = Main.StartCoroutine(Main.PosMove(Main.Position1));
         //Main.StartCoroutine(Main.Timer(1));
     }
 }

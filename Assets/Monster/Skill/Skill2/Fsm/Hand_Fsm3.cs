@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Hand_Fsm3 : Fsm
+public class Hand_Fsm3 : IFsm
 {
     private Hand Main;
 
@@ -13,6 +13,8 @@ public class Hand_Fsm3 : Fsm
 
     public void Fsm_Action()
     {
-        Debug.Log("∆–≈œ3");
+        
     }
+
+    
 }

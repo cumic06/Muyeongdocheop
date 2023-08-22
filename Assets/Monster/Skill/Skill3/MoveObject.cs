@@ -31,24 +31,26 @@ public class MoveObject : MonoBehaviour
             {3,Position_3},
             {4,Position_4}
         };
-        StartCoroutine(Bagier());
+        StartCoroutine(BeziorMove());
     }
 
-    IEnumerator Bagier()
+    IEnumerator BeziorMove()
     {
+        WaitForFixedUpdate fixedWait = new WaitForFixedUpdate();
+        
         while (true)
         {
             foreach (GameObject item in Position[((int)index)])
             {
                 Vector3 startPos = transform.position;
                 Vector3 targetPos = item.transform.position;
+
                 for (float j = 0; j < 1; j += Time.fixedDeltaTime * Time_)
                 {
                     gameObject.transform.position = Vector3.Lerp(startPos, targetPos, j);
-                    yield return new WaitForFixedUpdate();
+                    yield return fixedWait;
                 }
             }
         }
     }
-
 }

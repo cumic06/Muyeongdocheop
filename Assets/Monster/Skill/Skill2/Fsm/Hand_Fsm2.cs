@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Hand_Fsm2 : Fsm
+public class Hand_Fsm2 : IFsm
 {
     private Hand Main;
 
@@ -12,7 +12,7 @@ public class Hand_Fsm2 : Fsm
     }
     public void Fsm_Action()
     {
-        Main._check = false;
-        Main._coroutine = Main.StartCoroutine(Main.PosMove(Main._position2));
+        Main.Check = false;
+        Main._coroutine = Main.StartCoroutine(Main.PosMove(Main.Position2));
     }
 }

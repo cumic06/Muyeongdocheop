@@ -10,8 +10,8 @@ public class Monster : Unit, IDamageable
     [SerializeField]
     private bool Check = false;
     public bool _check { get => Check; }
-    public Fsm[] _fsm { get; set; }
-    public Fsm Save_Fsm { get; set; }
+    public IFsm[] _fsm { get; set; }
+    public IFsm Save_Fsm { get; set; }
     public RaycastHit2D hit { get; set; }
     [SerializeField]
     public GameObject Skill1_;
@@ -19,7 +19,7 @@ public class Monster : Unit, IDamageable
     protected override void Start()
     {
         gameObject.TryGetComponent(out Monster _monster);
-        _fsm = new Fsm[7];
+        _fsm = new IFsm[7];
         _fsm[0] = new Fsm_Patteren1(_monster);
         _fsm[1] = new Fsm_Patteren2(_monster);
         _fsm[2] = new Fsm_Patteren3(_monster);
