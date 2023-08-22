@@ -37,8 +37,8 @@ public class UIManager : MonoSingleton<UIManager>
         HitAction += () => UIActiveSystem(0.5f, hitImage.gameObject);
         RayUIAction += BaldoSkillUIResetPos;
         PlayerHpAction += PlayerHpHandler;
-        xBtn.onClick.AddListener(() => UIDisable(settingImage));
-        optionBtn.onClick.AddListener(() => UIActive(settingImage));
+        xBtn.onClick.AddListener(() => { UIDisable(settingImage); GameTimeSystem.Instance.NormalTime(); });
+        optionBtn.onClick.AddListener(() => { UIActive(settingImage); GameTimeSystem.Instance.TimeStop(); });
         frame30Btn.onClick.AddListener(() => FrameRate.Instance.SetMaxFrame(30));
         frame60Btn.onClick.AddListener(() => FrameRate.Instance.SetMaxFrame(60));
     }
@@ -49,6 +49,7 @@ public class UIManager : MonoSingleton<UIManager>
 
         bgmHandler.value = SoundSystem.Instance.GetBGMVolume();
         fxHandler.value = SoundSystem.Instance.GetFXVolume();
+
         if (GameManager.Instance.GetGameScene().Equals(GameScene.Stage))
         {
             UpdateSystem.Instance.AddUpdateAction(TimeTextUI);
@@ -76,6 +77,9 @@ public class UIManager : MonoSingleton<UIManager>
         timeTxt.text = $"PlayTime : {hour}시간 {min}분 {time:F1}초";
     }
 
+    #region Blur
+
+    #endregion
 
     #region VolumeHandler
     private void BGMHandlerManager()
@@ -159,6 +163,4 @@ public class UIManager : MonoSingleton<UIManager>
         return baldoSkillDirectionImage.gameObject.activeSelf;
     }
     #endregion
-
-
 }

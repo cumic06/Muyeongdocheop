@@ -883,26 +883,6 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 749696363}
-    - target: {fileID: 3323982053726499735, guid: bcd668614cb9d43458ea361128eaba48, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3323982054162508659, guid: bcd668614cb9d43458ea361128eaba48, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3323982054281205438, guid: bcd668614cb9d43458ea361128eaba48, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3323982054451207427, guid: bcd668614cb9d43458ea361128eaba48, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3323982055054105160, guid: bcd668614cb9d43458ea361128eaba48, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4839524305605228272, guid: bcd668614cb9d43458ea361128eaba48, type: 3}
       propertyPath: m_Name
       value: StageCanvas
@@ -951,6 +931,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4839524306186996995, guid: bcd668614cb9d43458ea361128eaba48, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 519420031}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bcd668614cb9d43458ea361128eaba48, type: 3}
 --- !u!1 &1084175912 stripped

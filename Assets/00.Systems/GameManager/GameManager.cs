@@ -38,10 +38,12 @@ public class GameManager : MonoSingleton<GameManager>
     }
     #endregion
 
+    #region GameScene
     public GameScene GetGameScene()
     {
         return gameScene;
     }
+    #endregion
 
     #region Time
     private void AddTime()
