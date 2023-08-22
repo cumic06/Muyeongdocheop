@@ -10,12 +10,12 @@ public class BaldoSkill : SkillSystem
 
     [SerializeField] private LayerMask monsterLayerMask = 1 << 3;
 
-    private readonly int balldoAnimation = Animator.StringToHash("IsAttack");
+    private readonly int balldoAnimation = Animator.StringToHash("IsAttackIdle");
+    public int BalldoAnimation => balldoAnimation;
 
     private bool IsCharging;
     public bool IsDash;
 
-    [SerializeField] private ParticleSystem afterImage;
     [SerializeField] private GameObject chargingEffect;
     #endregion
 
@@ -132,6 +132,7 @@ public class BaldoSkill : SkillSystem
     {
         if (!GameManager.Instance.CheckGameOver())
         {
+            SoundSystem.Instance.PlayFXSound(Player.Instance.DashSound, 0.5f);
             Dash();
         }
     }
@@ -140,13 +141,17 @@ public class BaldoSkill : SkillSystem
     public void Dash()
     {
         Player.Instance.ChangeAnimationLayer(1, 1);
+        Player.Instance.ChangeAnimation(BalldoAnimation, true);
+
+        CameraShakeSystem.Instance.CameraShake(0.25f, 0.15f);
+
+
         if (TryAttackMonster(out List<Monster> resultMonster))
         {
             for (int i = 0; i < resultMonster.Count; i++)
             {
                 resultMonster[i].TakeDamage(Player.Instance.GetAttackPower());
             }
-
             PlayerMoveMent.Instance.transform.position = resultMonster[0].transform.position;
         }
         else if (TryWall(out float wallAngle, out Vector2Int normal, out RaycastHit2D wallHit, out Vector2 point))
@@ -160,6 +165,7 @@ public class BaldoSkill : SkillSystem
             else
             {
                 PlayerMoveMent.Instance.landingAction?.Invoke(true);
+                Player.Instance.ChangeAnimationLayer(1, 0);
                 StickWall(wallAngle, point, false);
             }
         }
@@ -171,6 +177,7 @@ public class BaldoSkill : SkillSystem
                 StartCoroutine(DashCor(GetDashLastPos()));
             }
         }
+        Player.Instance.ChangeAnimationLayer(1, 0);
     }
 
     private IEnumerator DashCor(Vector2 lastPos)

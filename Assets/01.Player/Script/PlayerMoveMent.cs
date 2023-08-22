@@ -41,7 +41,6 @@ public class PlayerMoveMent : MonoSingleton<PlayerMoveMent>
     {
         if (!GameManager.Instance.CheckGameOver())
         {
-            LimitMove();
             MoveSystem();
         }
     }
@@ -55,6 +54,7 @@ public class PlayerMoveMent : MonoSingleton<PlayerMoveMent>
         if (move)
         {
             Player.Instance.ChangeAnimationLayer(1, 0);
+            Player.Instance.ChangeAnimation(BaldoSkill.Instance.BalldoAnimation, false);
             MoveMent();
             SetFilp();
         }
@@ -89,14 +89,6 @@ public class PlayerMoveMent : MonoSingleton<PlayerMoveMent>
     public void MoveSound()
     {
         SoundSystem.Instance.PlayFXSound(runSound, 0.5f);
-    }
-
-    private void LimitMove()
-    {
-        float LimitX = Mathf.Clamp(transform.position.x, LimitXLowValue, LimitXHighValue);
-        float LimitY = Mathf.Clamp(transform.position.y, LimitYLowValue, LimitYHighValue);
-
-        transform.position = new Vector3(LimitX, LimitY);
     }
 
     public void SetCanMove(bool value)
@@ -153,6 +145,7 @@ public class PlayerMoveMent : MonoSingleton<PlayerMoveMent>
     #region Landing
     private void LandingAnim(bool value)
     {
+        Player.Instance.ChangeAnimation(BaldoSkill.Instance.BalldoAnimation, !value);
         Player.Instance.ChangeAnimation(landingAnimation, value);
     }
     #endregion

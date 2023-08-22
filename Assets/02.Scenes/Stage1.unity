@@ -123,17 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &19190512 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5720971221152577259, guid: bf99fe411d08c28479c3c19334ae8a01, type: 3}
-  m_PrefabInstance: {fileID: 749696362}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 749696363}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef5e4a7a7a0be7f419eae7591f9e8e24, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &74346145 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1385919355331523879, guid: 0de54acd408e4064cabf8c8d519caee5, type: 3}
@@ -672,7 +661,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6434d79650a2b548be649489b4756b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 19190512}
   cameraSpeed: 6
   LimitYLowValue: -200
   LimitYHighValue: 10
@@ -797,6 +785,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 5720971221152577259, guid: bf99fe411d08c28479c3c19334ae8a01, type: 3}
+      propertyPath: dashSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 938ad7ab4414be7459840860326e21f9, type: 3}
+    - target: {fileID: 5720971221152577259, guid: bf99fe411d08c28479c3c19334ae8a01, type: 3}
       propertyPath: dashEffect
       value: 
       objectReference: {fileID: 8120537418130517573, guid: f2e92456c7a969f469283c3416e550fd, type: 3}
@@ -805,12 +797,24 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5720971221152577260, guid: bf99fe411d08c28479c3c19334ae8a01, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5720971221152577260, guid: bf99fe411d08c28479c3c19334ae8a01, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5720971221152577260, guid: bf99fe411d08c28479c3c19334ae8a01, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5720971221152577260, guid: bf99fe411d08c28479c3c19334ae8a01, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.9
+      value: -4.24
       objectReference: {fileID: 0}
     - target: {fileID: 5720971221152577260, guid: bf99fe411d08c28479c3c19334ae8a01, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.9
+      value: -2.04
       objectReference: {fileID: 0}
     - target: {fileID: 5720971221152577260, guid: bf99fe411d08c28479c3c19334ae8a01, type: 3}
       propertyPath: m_LocalPosition.z
@@ -842,6 +846,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5720971221152577260, guid: bf99fe411d08c28479c3c19334ae8a01, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5720971221152577261, guid: bf99fe411d08c28479c3c19334ae8a01, type: 3}
+      propertyPath: m_FlipY
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5720971221152577261, guid: bf99fe411d08c28479c3c19334ae8a01, type: 3}
+      propertyPath: m_SpriteSortPoint
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5720971221152577262, guid: bf99fe411d08c28479c3c19334ae8a01, type: 3}

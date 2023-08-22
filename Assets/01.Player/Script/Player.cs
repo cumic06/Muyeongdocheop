@@ -5,12 +5,15 @@ using UnityEngine.Internal;
 
 public class Player : Unit
 {
+    #region º¯¼ö
     private readonly float hitShakeTime = 0.5f;
     private readonly float hitShakePower = 0.15f;
 
-    private readonly int attackAnimLayer = 1;
-
     public static Player Instance;
+
+    public AudioClip DashSound => dashSound;
+    [SerializeField] private AudioClip dashSound;
+    #endregion
 
     protected override void Awake()
     {
