@@ -392,7 +392,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &150350521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -408,6 +408,10 @@ MonoBehaviour:
   _Time: 1.5
   _player: {fileID: 749696363}
   _hand: {fileID: 150350520}
+  position0:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   position1:
   - {fileID: 0}
   - {fileID: 0}
@@ -556,6 +560,10 @@ MonoBehaviour:
   _Time: 2
   _player: {fileID: 749696363}
   _hand: {fileID: 162659983}
+  position0:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   position1:
   - {fileID: 0}
   - {fileID: 0}
@@ -5744,6 +5752,10 @@ MonoBehaviour:
   _Time: 1
   _player: {fileID: 749696363}
   _hand: {fileID: 1851786805}
+  position0:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   position1:
   - {fileID: 1367903274}
   - {fileID: 853059013}

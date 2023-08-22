@@ -14,9 +14,9 @@ public class Hand_Fsm0 : IFsm
     public void Fsm_Action()
     {
         main.Check = false;
-        main._coroutine = main.StartCoroutine(UP());
+        main._coroutine = main.StartCoroutine(main.PosMove(main.Position0));
         Debug.Log("∆–≈œ0");
-        //Main.StartCoroutine(Main.Timer(0));
+        main.StartCoroutine(main.Timer(0));
     }
      
     IEnumerator UP()

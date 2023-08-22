@@ -16,5 +16,11 @@ public class Hand_Fsm3 : IFsm
         
     }
 
-    
+    //IEnumerator Gun() 
+    //{
+    //    while (true) 
+    //    {
+    //        Main.transform.position
+    //    }
+    //}
 }

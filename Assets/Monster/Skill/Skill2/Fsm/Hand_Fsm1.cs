@@ -18,6 +18,6 @@ public class Hand_Fsm1 : IFsm
     {
         Main.Check = false;
         Main._coroutine = Main.StartCoroutine(Main.PosMove(Main.Position1));
-        //Main.StartCoroutine(Main.Timer(1));
+        Main.StartCoroutine(Main.Timer(1));
     }
 }

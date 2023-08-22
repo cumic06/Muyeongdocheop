@@ -22,12 +22,17 @@ public class Hand : MonoBehaviour
     public IFsm[] fsm { get => _fsm; set => _fsm = value; }
 
     [SerializeField]
+    private GameObject[] position0 = new GameObject[3];
+    public GameObject[] Position0 { get => position0; }
+
+    [SerializeField]
     private GameObject[] position1 = new GameObject[2];
     public GameObject[] Position1 { get => position1; }
 
     [SerializeField]
     private GameObject[] position2 = new GameObject[2];
     public GameObject[] Position2 { get => position2; }
+
 
     [SerializeField]
     private bool check = false;
@@ -51,7 +56,7 @@ public class Hand : MonoBehaviour
         _fsm[1] = new Hand_Fsm1(_Hand);
         _fsm[2] = new Hand_Fsm2(_Hand);
         _fsm[3] = new Hand_Fsm3(_Hand);
-        _fsm[4] = _fsm[2];
+        _fsm[4] = _fsm[0];
     }
 
     private void GetEffectObject()
@@ -75,6 +80,7 @@ public class Hand : MonoBehaviour
     {
         while (true)
         {
+            transform.position = Pos[0].transform.position;
             for (int i = 0; i < Pos.Length; i++)
             {
                 Vector3 startPos = transform.position;
@@ -115,15 +121,14 @@ public class Hand : MonoBehaviour
         return fsm[1] == fsm[4];
     }
 
-    //public IEnumerator Timer(int X_num)
-    //{
-    //    hand.gameObject.SetActive(true);
-    //    yield return new WaitForSeconds(10);
-    //    StopCoroutine(_coroutine);
-    //    fsm[4] = fsm[1];
-    //    hand.gameObject.SetActive(false);
-    //    _check = true;
-    //}
+    public IEnumerator Timer(int X_num)
+    {
+        
+        yield return new WaitForSeconds(10);
+        StopCoroutine(_coroutine);
+        fsm[4] = fsm[Random.Range(0,3) - X_num];
+        Check = true;
+    }
 
 
 }
