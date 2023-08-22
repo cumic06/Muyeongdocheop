@@ -388,14 +388,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1801056811, guid: f97bda952197d1a41a4077cd4172fef4, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1801056811, guid: f97bda952197d1a41a4077cd4172fef4, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1801056811, guid: f97bda952197d1a41a4077cd4172fef4, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1801056811, guid: f97bda952197d1a41a4077cd4172fef4, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1801056811, guid: f97bda952197d1a41a4077cd4172fef4, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1801056811, guid: f97bda952197d1a41a4077cd4172fef4, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1801056812, guid: f97bda952197d1a41a4077cd4172fef4, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2dfbdfc46b2413f4daeb36c320ac39bf, type: 3}
     - target: {fileID: 3406909629995363378, guid: f97bda952197d1a41a4077cd4172fef4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1192245790}
-    - target: {fileID: 3406909629995363378, guid: f97bda952197d1a41a4077cd4172fef4, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: StageSelect_Scene
-      objectReference: {fileID: 0}
     - target: {fileID: 3406909630323760889, guid: f97bda952197d1a41a4077cd4172fef4, type: 3}
       propertyPath: m_Pivot.x
       value: 0
