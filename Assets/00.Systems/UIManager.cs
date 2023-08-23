@@ -103,6 +103,8 @@ public class UIManager : MonoSingleton<UIManager>
     public void GameClearUI(string bossName)
     {
         clearTxt.text = $"{bossName} Clear !";
+        UIActive(gameClearUIPanel.gameObject);
+        UIActive(gameClearUI.gameObject);
     }
 
     #region GameOverBtn
@@ -115,16 +117,13 @@ public class UIManager : MonoSingleton<UIManager>
     {
         StageSelect.Instance.LoadThisScene();
         gameOverUIPanel.gameObject.SetActive(false);
+        GameTimeSystem.Instance.NormalTime();
     }
 
     public void NextBossBtn()
     {
         StageSelect.Instance.StageSelect_Scene();
     }
-    #endregion
-
-    #region Blur
-
     #endregion
 
     #region VolumeHandler

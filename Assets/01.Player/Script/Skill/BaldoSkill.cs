@@ -144,10 +144,9 @@ public class BaldoSkill : SkillSystem
         Player.Instance.ChangeAnimationLayer(1, 1);
         Player.Instance.ChangeAnimation(BalldoAnimation, true);
 
-
-
         if (TryAttackMonster(out List<Monster> resultMonster))
         {
+            Player.Instance.MuJuk();
             for (int i = 0; i < resultMonster.Count; i++)
             {
                 resultMonster[i].TakeDamage(Player.Instance.GetAttackPower());
@@ -217,7 +216,6 @@ public class BaldoSkill : SkillSystem
 
             foreach (var hit in monsterHit)
             {
-                Debug.Log(hit.name);
                 hit.TryGetComponent(out Monster monster);
                 monsterList.Add(monster);
                 UIManager.Instance.RayUIAction?.Invoke(monster.transform.position);

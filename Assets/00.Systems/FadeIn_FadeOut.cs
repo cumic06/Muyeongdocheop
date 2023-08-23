@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FadeIn_FadeOut : Singleton<FadeIn_FadeOut>
+public class FadeIn_FadeOut : MonoSingleton<FadeIn_FadeOut>
 {
     public CanvasGroup Canvas_Group;
 

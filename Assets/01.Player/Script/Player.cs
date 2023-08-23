@@ -23,7 +23,7 @@ public class Player : Unit
 
     protected override void ResetHp()
     {
-        unitStat.MaxHp = 2;
+        unitStat.MaxHp = 500;
         base.ResetHp();
     }
 
@@ -42,6 +42,25 @@ public class Player : Unit
         base.TakeDamage(damageValue);
         UIManager.Instance.HitAction?.Invoke();
         CameraShakeSystem.Instance.CameraShake(hitShakeTime, hitShakePower);
+        MuJuk();
+    }
+
+    public void MuJuk()
+    {
+        DiableCol();
+        TimeAgent agent = new(3, endTimeAction: (a) => AbleCol());
+        TimerSystem.Instance.AddTimer(agent);
+
+        void DiableCol()
+        {
+            col.enabled = false;
+        }
+
+        void AbleCol()
+        {
+            col.enabled = true;
+        }
+
     }
 
     protected override void ChangeHp(int value)

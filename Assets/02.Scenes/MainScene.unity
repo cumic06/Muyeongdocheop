@@ -210,6 +210,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6290528679390355776, guid: 836fd6d3092ae9341a8227f53459175a, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 7ad4ef92e06acb84f883de91dcb572cc, type: 3}
     - target: {fileID: 6290528679600595760, guid: 836fd6d3092ae9341a8227f53459175a, type: 3}
       propertyPath: m_Name
       value: System
@@ -281,8 +285,16 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3323982053978611246, guid: e4926d492c8d3ee4eadca029ea7728e1, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3323982053978611246, guid: e4926d492c8d3ee4eadca029ea7728e1, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3323982053978611246, guid: e4926d492c8d3ee4eadca029ea7728e1, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3323982054079465162, guid: e4926d492c8d3ee4eadca029ea7728e1, type: 3}
       propertyPath: m_AnchorMax.y
@@ -293,8 +305,16 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3323982054499777287, guid: e4926d492c8d3ee4eadca029ea7728e1, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3323982054499777287, guid: e4926d492c8d3ee4eadca029ea7728e1, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3323982054524211877, guid: e4926d492c8d3ee4eadca029ea7728e1, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3323982054802782192, guid: e4926d492c8d3ee4eadca029ea7728e1, type: 3}
       propertyPath: m_Pivot.x
@@ -387,6 +407,22 @@ PrefabInstance:
     - target: {fileID: 3323982054802782193, guid: e4926d492c8d3ee4eadca029ea7728e1, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3323982055530730017, guid: e4926d492c8d3ee4eadca029ea7728e1, type: 3}
+      propertyPath: m_Value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3323982055530730017, guid: e4926d492c8d3ee4eadca029ea7728e1, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3323982055530730017, guid: e4926d492c8d3ee4eadca029ea7728e1, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2089623960}
+    - target: {fileID: 3323982055530730017, guid: e4926d492c8d3ee4eadca029ea7728e1, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e4926d492c8d3ee4eadca029ea7728e1, type: 3}

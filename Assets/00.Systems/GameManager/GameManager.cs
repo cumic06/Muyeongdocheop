@@ -39,6 +39,12 @@ public class GameManager : MonoSingleton<GameManager>
     }
     #endregion
 
+    public void GameClear(string name)
+    {
+        GameTimeSystem.Instance.TimeStop();
+        UIManager.Instance.GameClearUI(name);
+    }
+
     #region GameScene
     public GameScene GetGameScene()
     {

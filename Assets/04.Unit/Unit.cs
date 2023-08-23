@@ -40,6 +40,9 @@ public abstract class Unit : MonoBehaviour, IDamageable
 
     protected Rigidbody2D rigid;
     public Rigidbody2D Rigid => rigid;
+
+    protected CapsuleCollider2D col;
+    public CapsuleCollider2D Col => col;
     #endregion
 
     protected virtual void Awake()
@@ -47,6 +50,7 @@ public abstract class Unit : MonoBehaviour, IDamageable
         spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody2D>();
+        col = GetComponent<CapsuleCollider2D>();
     }
 
     protected virtual void Start()
@@ -82,6 +86,7 @@ public abstract class Unit : MonoBehaviour, IDamageable
 
         void HitEffect()
         {
+            Debug.Log(name);
             GameObject hitEffectSpawn = Instantiate(hitEffect);
             Vector3 randomPos = transform.position + (Vector3)Random.insideUnitCircle * 0.5f;
             hitEffectSpawn.transform.position = randomPos;
@@ -104,6 +109,8 @@ public abstract class Unit : MonoBehaviour, IDamageable
         {
             ClampHp(ref value);
             hp += value;
+            Debug.Log(value);
+            Debug.Log(hp += value);
             if (Hp <= UnitStat.MinHp)
             {
                 Death();

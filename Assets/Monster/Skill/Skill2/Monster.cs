@@ -7,6 +7,8 @@ using UnityEngine.UIElements;
 [System.Serializable]
 public class Monster : Unit
 {
+    public string bossName;
+
     public float _Time;
     public GameObject Effect { get; set; }
 
@@ -35,53 +37,51 @@ public class Monster : Unit
     public GameObject[] Position2 { get => position2; }
 
 
-    [SerializeField]private bool check = false;
+    [SerializeField] private bool check = false;
     public bool Check { get => check; set => check = value; }
 
     public float Patteren_Time { get; set; }
     public Vector3 SavePlayer { get; set; }
     public Coroutine _coroutine { get; set; }
 
-
-
     public GameObject[] StrObject = new GameObject[3];
 
     [SerializeField]
     private GameObject[] handObject = new GameObject[3];
+
+    public static int DeadCount;
+
     void Awake()
     {
         GetEffectObject();
         SetFsmPattern();
         StartCoroutine(Turn());
-        
     }
-
-    protected override void Start()
-    {
-        base.Start();
-        StartCoroutine(Die());
-    }
-
-
 
     // -------------------------------------------------------------------------------
 
 
-    IEnumerator Die()
+    //IEnumerator Die()
+    //{
+    //    yield return new WaitUntil(() => Hp <= 0);
+    //    gameObject.SetActive(false);
+    //}
+
+    protected override void Death()
     {
-        yield return new WaitUntil(()=>Hp <= 0);
+        base.Death();
         gameObject.SetActive(false);
+        DeadCount++;
+        Debug.Log(DeadCount);
+        if (DeadCount >= 3)
+        {
+            GameManager.Instance.GameClear(bossName);
+        }
     }
-
-
-
-
-
-
 
     protected override void ResetHp()
     {
-        unitStat.MaxHp = 1;
+        unitStat.MaxHp = 100;
         base.ResetHp();
     }
 
@@ -97,13 +97,11 @@ public class Monster : Unit
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.transform.TryGetComponent(out Player player))
+        if (collision.gameObject.TryGetComponent(out Player player))
         {
             player.TakeDamage(UnitStat.AttackPower);
         }
     }
-
-
 
     // -------------------------------------------------------------------------------
 
@@ -202,5 +200,5 @@ public class Monster : Unit
     }
 
 
-    
+
 }
