@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
-[Serializable]
 public struct UnitStatInfo
 {
     public int MaxHp;
@@ -50,7 +48,7 @@ public abstract class Unit : MonoBehaviour, IDamageable
         rigid = GetComponent<Rigidbody2D>();
     }
 
-    protected virtual void Start()
+    protected void Start()
     {
         ReSetStat();
     }
