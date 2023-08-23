@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CameraShakeSystem : Singleton<CameraShakeSystem>
+public class CameraShakeSystem : MonoSingleton<CameraShakeSystem>
 {
     public void CameraShake(float shakeTime, float shakePower)
     {

@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using UnityEngine.UI;
 
-public class UIManager : Singleton<UIManager>
+public class UIManager : MonoSingleton<UIManager>
 {
     #region 변수
     public Action HitAction;
@@ -17,11 +17,27 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] private GameObject player;
     [Space]
 
+    [SerializeField] private Text timeTxt;
+
+    [Header("GameOver & GameClear")]
+    [SerializeField] private Text clearTxt;
+    [SerializeField] private Image gameOverUIPanel;
+    [SerializeField] private Image gameOverUI;
+
+    [SerializeField] private Image gameClearUIPanel;
+    [SerializeField] private Image gameClearUI;
+
+    [SerializeField] private Button reStartBtn;
+    [SerializeField] private Button backToMainBtn;
+    [SerializeField] private Button nextBossBtn;
+
     [Header("Setting")]
     [SerializeField] private Button optionBtn;
     [SerializeField] private Slider fxHandler;
     [SerializeField] private Slider bgmHandler;
     [SerializeField] private Button xBtn;
+    [SerializeField] private Button frame30Btn;
+    [SerializeField] private Button frame60Btn;
     [SerializeField] private GameObject settingImage;
     [SerializeField] private Toggle vibrate_Toggle;
     [SerializeField] private int vibrateInt;
@@ -31,18 +47,85 @@ public class UIManager : Singleton<UIManager>
     {
         base.Awake();
         HitAction += () => UIActiveSystem(0.5f, hitImage.gameObject);
+
         RayUIAction += BaldoSkillUIResetPos;
         PlayerHpAction += PlayerHpHandler;
-        xBtn.onClick.AddListener(() => UIDisable(settingImage));
-        optionBtn.onClick.AddListener(() => UIActive(settingImage));
+
+        xBtn.onClick.AddListener(() => { UIDisable(settingImage); GameTimeSystem.Instance.NormalTime(); });
+        optionBtn.onClick.AddListener(() => { UIActive(settingImage); GameTimeSystem.Instance.TimeStop(); });
+
+        frame30Btn.onClick.AddListener(() => FrameRate.Instance.SetMaxFrame(30));
+        frame60Btn.onClick.AddListener(() => FrameRate.Instance.SetMaxFrame(60));
+
+        if (GameManager.Instance.GetGameScene().Equals(GameScene.Stage))
+        {
+            reStartBtn.onClick.AddListener(ReStartBtn);
+            backToMainBtn.onClick.AddListener(BackToMainBtn);
+            nextBossBtn.onClick.AddListener(NextBossBtn);
+        }
     }
 
     private void Start()
     {
-        UpdateSystem.Instance.AddUpdateAction(BGMHandlerManager);
+        UpdateSystem.Instance.AddUpdateAction(() => { BGMHandlerManager(); });
+
         bgmHandler.value = SoundSystem.Instance.GetBGMVolume();
         fxHandler.value = SoundSystem.Instance.GetFXVolume();
     }
+
+    private void TimeTextUI()
+    {
+        float time = GameManager.Instance.GetTime();
+        int min = 0;
+        int hour = 0;
+
+        while (time >= 60)
+        {
+            time -= 60;
+            min++;
+        }
+
+        while (min >= 60)
+        {
+            min -= 60;
+            hour++;
+        }
+
+        timeTxt.text = $"PlayTime : {hour}시간 {min}분 {time:F1}초";
+    }
+
+    public void GameOverUI()
+    {
+        UIActive(gameOverUIPanel.gameObject);
+        UIActive(gameOverUI.gameObject);
+    }
+
+    public void GameClearUI(string bossName)
+    {
+        clearTxt.text = $"{bossName} Clear !";
+    }
+
+    #region GameOverBtn
+    public void BackToMainBtn()
+    {
+        StageSelect.Instance.Main_Scene();
+    }
+
+    public void ReStartBtn()
+    {
+        StageSelect.Instance.LoadThisScene();
+        gameOverUIPanel.gameObject.SetActive(false);
+    }
+
+    public void NextBossBtn()
+    {
+        StageSelect.Instance.StageSelect_Scene();
+    }
+    #endregion
+
+    #region Blur
+
+    #endregion
 
     #region VolumeHandler
     private void BGMHandlerManager()
@@ -120,6 +203,7 @@ public class UIManager : Singleton<UIManager>
         Vector2 balldoSkillUIPos = Camera.main.ScreenToWorldPoint(baldoSkillDirectionImage.rectTransform.position);
         return balldoSkillUIPos;
     }
+
     public bool GetBaldoSkillUIActive()
     {
         return baldoSkillDirectionImage.gameObject.activeSelf;

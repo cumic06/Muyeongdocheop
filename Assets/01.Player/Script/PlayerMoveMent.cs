@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class PlayerMoveMent : Singleton<PlayerMoveMent>
+public class PlayerMoveMent : MonoSingleton<PlayerMoveMent>
 {
     #region º¯¼ö 
-    private Player player;
-
     public Action<bool> landingAction;
 
     private readonly float LimitXLowValue = -8.5f;
@@ -31,7 +29,6 @@ public class PlayerMoveMent : Singleton<PlayerMoveMent>
     protected override void Awake()
     {
         base.Awake();
-        player = GetComponent<Player>();
     }
 
     private void Start()
@@ -42,25 +39,28 @@ public class PlayerMoveMent : Singleton<PlayerMoveMent>
 
     private void MoveManager()
     {
-        LimitMove();
-
-        MoveSystem();
+        if (!GameManager.Instance.CheckGameOver())
+        {
+            MoveSystem();
+        }
     }
 
     private void MoveSystem()
     {
         bool move = IsMoveInput() && IsCanMove && !BaldoSkillJoyStick.Instance.CheckJoyStickMove();
 
-        player.ChangeAnimation(runAnimation, move);
+        Player.Instance.ChangeAnimation(runAnimation, move);
 
         if (move)
         {
+            Player.Instance.ChangeAnimationLayer(1, 0);
+            Player.Instance.ChangeAnimation(BaldoSkill.Instance.BalldoAnimation, false);
             MoveMent();
             SetFilp();
         }
     }
 
-    private bool IsMoveInput()
+    public bool IsMoveInput()
     {
 #if UNITY_EDITOR || UNITY_STANDALONE_WIN
         return Input.GetAxisRaw("Horizontal") != 0;
@@ -72,7 +72,7 @@ public class PlayerMoveMent : Singleton<PlayerMoveMent>
     #region Move
     private void MoveMent()
     {
-        float moveSpeed = player.GetMoveSpeed() * Time.fixedDeltaTime;
+        float moveSpeed = Player.Instance.GetMoveSpeed() * Time.fixedDeltaTime;
         Vector2 direction = GetDirection();
         transform.Translate(moveSpeed * direction);
     }
@@ -91,14 +91,6 @@ public class PlayerMoveMent : Singleton<PlayerMoveMent>
         SoundSystem.Instance.PlayFXSound(runSound, 0.5f);
     }
 
-    private void LimitMove()
-    {
-        float LimitX = Mathf.Clamp(transform.position.x, LimitXLowValue, LimitXHighValue);
-        float LimitY = Mathf.Clamp(transform.position.y, LimitYLowValue, LimitYHighValue);
-
-        transform.position = new Vector3(LimitX, LimitY);
-    }
-
     public void SetCanMove(bool value)
     {
         IsCanMove = value;
@@ -112,13 +104,13 @@ public class PlayerMoveMent : Singleton<PlayerMoveMent>
         #region PC
         if (BaldoSkillJoyStick.Instance.CheckJoyStickMove())
         {
-            player.SpriteRenderer.flipX = BaldoSkillJoyStick.Instance.GetJoyStickHorizontalValue() < 0.01f;
+            Player.Instance.SpriteRenderer.flipX = BaldoSkillJoyStick.Instance.GetJoyStickHorizontalValue() < 0.01f;
         }
         else
         {
             if (Input.GetAxisRaw("Horizontal") != 0)
             {
-                player.SpriteRenderer.flipX = Input.GetAxisRaw("Horizontal") < 0.01f;
+                Player.Instance.SpriteRenderer.flipX = Input.GetAxisRaw("Horizontal") < 0.01f;
             }
         }
         #endregion
@@ -143,17 +135,18 @@ public class PlayerMoveMent : Singleton<PlayerMoveMent>
     public void ReSetMoveMent()
     {
         SetCanMove(true);
-        player.SetGravityScale(3);
-        player.ChangeAnimation(landingAnimation, false);
+        Player.Instance.SetGravityScale(3);
+        Player.Instance.ChangeAnimation(landingAnimation, false);
         transform.eulerAngles = Vector3.zero;
         landingAction?.Invoke(false);
-        player.VelocityReset();
+        Player.Instance.VelocityReset();
     }
 
     #region Landing
     private void LandingAnim(bool value)
     {
-        player.ChangeAnimation(landingAnimation, value);
+        Player.Instance.ChangeAnimation(BaldoSkill.Instance.BalldoAnimation, !value);
+        Player.Instance.ChangeAnimation(landingAnimation, value);
     }
     #endregion
 }

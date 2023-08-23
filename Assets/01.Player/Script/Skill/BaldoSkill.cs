@@ -7,17 +7,15 @@ public class BaldoSkill : SkillSystem
 {
     #region º¯¼ö
     public static BaldoSkill Instance;
-    private Player player;
 
     [SerializeField] private LayerMask monsterLayerMask = 1 << 3;
 
-    private readonly int balldoAnimation = Animator.StringToHash("IsAttack");
-    private readonly int chargingAnimation = Animator.StringToHash("IsCharging");
+    private readonly int balldoAnimation = Animator.StringToHash("IsAttackIdle");
+    public int BalldoAnimation => balldoAnimation;
 
     private bool IsCharging;
     public bool IsDash;
 
-    [SerializeField] private ParticleSystem afterImage;
     [SerializeField] private GameObject chargingEffect;
     #endregion
 
@@ -25,7 +23,6 @@ public class BaldoSkill : SkillSystem
     {
         base.Awake();
         Instance = GetComponent<BaldoSkill>();
-        player = GetComponent<Player>();
     }
 
     #region Get
@@ -121,14 +118,7 @@ public class BaldoSkill : SkillSystem
 
     public void Charging()
     {
-        if (CheckCharging())
-        {
-            chargingEffect.SetActive(true);
-        }
-        else
-        {
-            chargingEffect.SetActive(false);
-        }
+        chargingEffect.SetActive(CheckCharging());
     }
 
     public bool CheckCharging()
@@ -140,21 +130,29 @@ public class BaldoSkill : SkillSystem
 
     protected override void UseSkill()
     {
-        Dash();
+        if (!GameManager.Instance.CheckGameOver())
+        {
+            SoundSystem.Instance.PlayFXSound(Player.Instance.DashSound, 0.5f);
+            CameraShakeSystem.Instance.CameraShake(0.15f, 0.15f);
+            Dash();
+        }
     }
 
     #region Dash
     public void Dash()
     {
+        Player.Instance.ChangeAnimationLayer(1, 1);
+        Player.Instance.ChangeAnimation(BalldoAnimation, true);
+
+
+
         if (TryAttackMonster(out List<Monster> resultMonster))
         {
             for (int i = 0; i < resultMonster.Count; i++)
             {
-                resultMonster[i].TakeDamage(player.GetAttackPower());
+                resultMonster[i].TakeDamage(Player.Instance.GetAttackPower());
             }
-
             PlayerMoveMent.Instance.transform.position = resultMonster[0].transform.position;
-            player.ChangeAnimation(balldoAnimation, true);
         }
         else if (TryWall(out float wallAngle, out Vector2Int normal, out RaycastHit2D wallHit, out Vector2 point))
         {
@@ -167,9 +165,9 @@ public class BaldoSkill : SkillSystem
             else
             {
                 PlayerMoveMent.Instance.landingAction?.Invoke(true);
+                Player.Instance.ChangeAnimationLayer(1, 0);
                 StickWall(wallAngle, point, false);
             }
-            player.ChangeAnimation(balldoAnimation, false);
         }
         else
         {
@@ -177,27 +175,27 @@ public class BaldoSkill : SkillSystem
             if (!TryFloor())
             {
                 StartCoroutine(DashCor(GetDashLastPos()));
-                player.ChangeAnimation(balldoAnimation, false);
             }
         }
+        Player.Instance.ChangeAnimationLayer(1, 0);
     }
 
     private IEnumerator DashCor(Vector2 lastPos)
     {
         float t = 0;
-        Vector2 startPos = player.transform.position;
+        Vector2 startPos = Player.Instance.transform.position;
 
         while (t <= 1f)
         {
-            t += Time.deltaTime * player.GetMoveSpeed();
-            player.transform.position = Vector2.Lerp(startPos, lastPos, t);
+            t += Time.deltaTime * Player.Instance.GetMoveSpeed();
+            Player.Instance.transform.position = Vector2.Lerp(startPos, lastPos, t);
             yield return null;
             if (Vector2.Distance(transform.position, lastPos) <= 0.5f)
             {
                 break;
             }
         }
-        player.transform.position = lastPos;
+        Player.Instance.transform.position = lastPos;
         yield return null;
     }
     #endregion
@@ -276,10 +274,10 @@ public class BaldoSkill : SkillSystem
 
     private void StickWall(float wallAngle, Vector2 point, bool setCanMove)
     {
-        player.SetGravityScale(0);
-        player.VelocityReset();
+        Player.Instance.SetGravityScale(0);
+        Player.Instance.VelocityReset();
         transform.position = point;
-        player.transform.eulerAngles = new(0, 0, -wallAngle);
+        Player.Instance.transform.eulerAngles = new(0, 0, -wallAngle);
         PlayerMoveMent.Instance.SetCanMove(setCanMove);
     }
 }

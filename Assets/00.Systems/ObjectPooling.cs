@@ -14,7 +14,7 @@ public class Pool
     }
 }
 
-public class ObjectPooling : Singleton<ObjectPooling>
+public class ObjectPooling : MonoSingleton<ObjectPooling>
 {
     private Dictionary<GameObject, Pool> poolDic = new();
 

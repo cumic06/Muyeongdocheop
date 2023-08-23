@@ -42,7 +42,7 @@ public abstract class Unit : MonoBehaviour, IDamageable
     public Rigidbody2D Rigid => rigid;
     #endregion
 
-    protected void Awake()
+    protected virtual void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();

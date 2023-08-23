@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class UpdateSystem : Singleton<UpdateSystem>
+public class UpdateSystem : MonoSingleton<UpdateSystem>
 {
     private readonly HashSet<Action> updateActionHash = new();
 

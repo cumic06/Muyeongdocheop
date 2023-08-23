@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5720971221152577260}
+  - component: {fileID: 5720971221152577261}
   - component: {fileID: 5720971221152577259}
   - component: {fileID: 5720971221152577256}
   - component: {fileID: 5720971221152577271}
-  - component: {fileID: 5720971221152577261}
   - component: {fileID: 5720971221152577258}
   - component: {fileID: 5720971221152577270}
   - component: {fileID: 5720971221152577269}
@@ -39,61 +39,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5720971221152577259
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5720971221152577262}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef5e4a7a7a0be7f419eae7591f9e8e24, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unitStat:
-    MaxHp: 10
-    MinHp: 0
-    MoveSpeed: 6
-    AttackPower: 5
-  attackEffect: {fileID: 0}
-  hitEffect: {fileID: 6108084238071318285, guid: b6b4165663574a44fb0b5630762503dd, type: 3}
-  dashEffect: {fileID: 0}
-  hitSound: {fileID: 0}
---- !u!114 &5720971221152577256
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5720971221152577262}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71558f662ef47ba4ca3de7ac8217bf65, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  runSound: {fileID: 8300000, guid: 5b35d7f3bf77aa646a27e9e465dc8d4f, type: 3}
-  ChargingEffect: {fileID: 8120537418130517573, guid: f2e92456c7a969f469283c3416e550fd, type: 3}
---- !u!114 &5720971221152577271
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5720971221152577262}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb67889ecf64a1c42a9edba571779870, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skillDistance: 7
-  skillCoolTime: 1
-  monsterLayerMask:
-    serializedVersion: 2
-    m_Bits: 8
-  IsDash: 0
-  afterImage: {fileID: 0}
-  chargingEffect: {fileID: 4599592225084215235}
 --- !u!212 &5720971221152577261
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -146,6 +91,61 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5720971221152577259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5720971221152577262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef5e4a7a7a0be7f419eae7591f9e8e24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitStat:
+    MaxHp: 10
+    MinHp: 0
+    MoveSpeed: 6
+    AttackPower: 5
+  attackEffect: {fileID: 0}
+  hitEffect: {fileID: 6108084238071318285, guid: b6b4165663574a44fb0b5630762503dd, type: 3}
+  dashEffect: {fileID: 8120537418130517573, guid: f2e92456c7a969f469283c3416e550fd, type: 3}
+  hitSound: {fileID: 0}
+  dashSound: {fileID: 8300000, guid: 97a01086de92a3846aade4c61f5f464a, type: 3}
+--- !u!114 &5720971221152577256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5720971221152577262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71558f662ef47ba4ca3de7ac8217bf65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  runSound: {fileID: 8300000, guid: 5b35d7f3bf77aa646a27e9e465dc8d4f, type: 3}
+  ChargingEffect: {fileID: 8120537418130517573, guid: f2e92456c7a969f469283c3416e550fd, type: 3}
+--- !u!114 &5720971221152577271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5720971221152577262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb67889ecf64a1c42a9edba571779870, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillDistance: 7
+  skillCoolTime: 1
+  monsterLayerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  IsDash: 0
+  chargingEffect: {fileID: 4599592225084215235}
 --- !u!50 &5720971221152577258
 Rigidbody2D:
   serializedVersion: 4

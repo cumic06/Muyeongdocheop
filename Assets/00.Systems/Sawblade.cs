@@ -32,7 +32,7 @@ public class Sawblade : MonoBehaviour
                 for (float j = 0; j < 1; j += Time.fixedDeltaTime * 0.07f)
                 {
                     gameObject.transform.position = Vector3.Lerp(startPos, targetPos, j);
-                    yield return null;
+                    yield return new WaitForFixedUpdate();
                 }
             }
         }

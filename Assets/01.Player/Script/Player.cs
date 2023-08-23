@@ -5,8 +5,21 @@ using UnityEngine.Internal;
 
 public class Player : Unit
 {
+    #region º¯¼ö
     private readonly float hitShakeTime = 0.5f;
     private readonly float hitShakePower = 0.15f;
+
+    public static Player Instance;
+
+    public AudioClip DashSound => dashSound;
+    [SerializeField] private AudioClip dashSound;
+    #endregion
+
+    protected override void Awake()
+    {
+        base.Awake();
+        Instance = GetComponent<Player>();
+    }
 
     protected override void ResetHp()
     {
@@ -43,15 +56,21 @@ public class Player : Unit
     }
 
     #region Animation
+    public void ChangeAnimationLayer(int animationValue, float weight)
+    {
+        anim.SetLayerWeight(animationValue, weight);
+    }
+
     public void ChangeAnimation(int animationValue, bool value)
     {
-        Anim.SetBool(animationValue, value);
+        anim.SetBool(animationValue, value);
     }
     #endregion
 
     protected override void Death()
     {
         base.Death();
+        GameManager.Instance.GameOver();
     }
 
     public void VelocityReset()
