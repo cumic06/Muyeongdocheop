@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 [System.Serializable]
-public class Hand : MonoBehaviour
+public class Hand : Unit
 {
     public float _Time;
     public GameObject Effect { get; set; }
@@ -18,7 +18,7 @@ public class Hand : MonoBehaviour
     public GameObject hand { get => _hand; }
 
     [SerializeField]
-    private IFsm[] _fsm = new IFsm[5];
+    private IFsm[] _fsm = new IFsm[4];
     public IFsm[] fsm { get => _fsm; set => _fsm = value; }
 
     [SerializeField]
@@ -34,15 +34,20 @@ public class Hand : MonoBehaviour
     public GameObject[] Position2 { get => position2; }
 
 
-    [SerializeField]
-    private bool check = false;
+    [SerializeField]private bool check = false;
     public bool Check { get => check; set => check = value; }
 
     public float Patteren_Time { get; set; }
     public Vector3 SavePlayer { get; set; }
     public Coroutine _coroutine { get; set; }
 
-    void Start()
+
+
+    public GameObject[] StrObject = new GameObject[3];
+
+    [SerializeField]
+    private GameObject[] handObject = new GameObject[3];
+    void Awake()
     {
         GetEffectObject();
         SetFsmPattern();
@@ -55,14 +60,13 @@ public class Hand : MonoBehaviour
         _fsm[0] = new Hand_Fsm0(_Hand);
         _fsm[1] = new Hand_Fsm1(_Hand);
         _fsm[2] = new Hand_Fsm2(_Hand);
-        _fsm[3] = new Hand_Fsm3(_Hand);
-        _fsm[4] = _fsm[0];
+        _fsm[3] = _fsm[0];
     }
 
     private void GetEffectObject()
     {
         Effect = transform.GetChild(0).gameObject;
-        Debug.Log(Effect.name);
+
     }
 
     IEnumerator Turn()
@@ -71,7 +75,7 @@ public class Hand : MonoBehaviour
         while (true)
         {
             yield return wait;
-            _fsm[4].Fsm_Action();
+            _fsm[3].Fsm_Action();
             yield return new WaitUntil(() => Check);
         }
     }
@@ -80,7 +84,7 @@ public class Hand : MonoBehaviour
     {
         while (true)
         {
-            transform.position = Pos[0].transform.position;
+
             for (int i = 0; i < Pos.Length; i++)
             {
                 Vector3 startPos = transform.position;
@@ -91,7 +95,7 @@ public class Hand : MonoBehaviour
                     transform.position = Vector3.Lerp(startPos, targetPos, j);
                     yield return new WaitForFixedUpdate();
                 }
-                
+
 
                 if (i == 0 && IsSmashing())
                 {
@@ -106,6 +110,7 @@ public class Hand : MonoBehaviour
             }
             if (IsSmashing())
             {
+
                 yield return new WaitForSeconds(4 - (_Time * 2));
             }
             else
@@ -118,17 +123,23 @@ public class Hand : MonoBehaviour
 
     private bool IsSmashing()
     {
-        return fsm[1] == fsm[4];
+        return fsm[1] == fsm[3];
     }
 
     public IEnumerator Timer(int X_num)
     {
-        
+
         yield return new WaitForSeconds(10);
         StopCoroutine(_coroutine);
-        fsm[4] = fsm[Random.Range(0,3) - X_num];
+        fsm[3] = fsm[Random.Range(0, 3)];
         Check = true;
     }
 
-
+    public void InputSetActive(int[] Index)
+    {
+        foreach (var item in Index)
+        {
+            handObject[item].SetActive((handObject[item].activeSelf) ? true : false);
+        }
+    }
 }

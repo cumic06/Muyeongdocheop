@@ -7,6 +7,8 @@ public enum number { Plus = 1, Minus = -1 }
 [CreateAssetMenu(fileName = "ScriptableObject", menuName = "ScriptableObject", order = 1)]
 public class ScriptTableObject_ : ScriptableObject
 {
+    
+   public  GameObject[] handObject = new GameObject[3];
     public void Move(GameObject Object, float X)
     {
         Object.transform.Translate(X, 0, 0);

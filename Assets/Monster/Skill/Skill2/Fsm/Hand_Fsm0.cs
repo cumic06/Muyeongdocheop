@@ -5,6 +5,7 @@ using UnityEngine;
 public class Hand_Fsm0 : IFsm
 {
     private readonly Hand main;
+    int[] Des = new int[2] { 1, 2 };
 
     public Hand_Fsm0(Hand main)
     {
@@ -13,12 +14,13 @@ public class Hand_Fsm0 : IFsm
 
     public void Fsm_Action()
     {
+        main.transform.position = main.StrObject[0].transform.position;
+        //main.InputSetActive(Des);
         main.Check = false;
-        main._coroutine = main.StartCoroutine(main.PosMove(main.Position0));
-        Debug.Log("∆–≈œ0");
+        main._coroutine = main.StartCoroutine(main.PosMove(main.Position1));
         main.StartCoroutine(main.Timer(0));
     }
-     
+
     IEnumerator UP()
     {
         while (true)

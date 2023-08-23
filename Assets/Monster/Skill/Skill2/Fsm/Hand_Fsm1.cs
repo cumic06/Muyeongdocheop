@@ -16,8 +16,9 @@ public class Hand_Fsm1 : IFsm
     }
     public void Fsm_Action()
     {
+        Main.transform.position = Main.StrObject[1].transform.position;
         Main.Check = false;
-        Main._coroutine = Main.StartCoroutine(Main.PosMove(Main.Position1));
+        Main._coroutine = Main.StartCoroutine(Main.PosMove(Main.Position0));
         Main.StartCoroutine(Main.Timer(1));
     }
 }
