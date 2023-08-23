@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
 public struct UnitStatInfo
 {
     public int MaxHp;
@@ -49,7 +48,7 @@ public abstract class Unit : MonoBehaviour, IDamageable
         rigid = GetComponent<Rigidbody2D>();
     }
 
-    protected virtual void Start()
+    protected void Start()
     {
         ReSetStat();
     }
@@ -89,7 +88,7 @@ public abstract class Unit : MonoBehaviour, IDamageable
 
         void HitSound()
         {
-            SoundSystem.Instance.PlayFXSound(hitSound, 0.5f);
+            SoundSystem.Instance.PlaySound(hitSound);
         }
     }
 
@@ -98,7 +97,7 @@ public abstract class Unit : MonoBehaviour, IDamageable
         ChangeHp(healValue);
     }
 
-    protected virtual void ChangeHp(int value)
+    protected void ChangeHp(int value)
     {
         if (!isDead)
         {
@@ -152,5 +151,4 @@ public abstract class Unit : MonoBehaviour, IDamageable
     {
         CameraShakeSystem.Instance.CameraShake(0.5f, 0.2f);
     }
-
 }
