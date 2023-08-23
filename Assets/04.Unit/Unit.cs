@@ -152,4 +152,5 @@ public abstract class Unit : MonoBehaviour, IDamageable
     {
         CameraShakeSystem.Instance.CameraShake(0.5f, 0.2f);
     }
+
 }

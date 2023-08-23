@@ -23,7 +23,7 @@ public class Player : Unit
 
     protected override void ResetHp()
     {
-        unitStat.MaxHp = 100;
+        unitStat.MaxHp = 2;
         base.ResetHp();
     }
 
