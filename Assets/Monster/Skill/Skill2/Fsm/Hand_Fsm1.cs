@@ -6,11 +6,11 @@ using UnityEngine.UI;
 
 public class Hand_Fsm1 : IFsm
 {
-    private Hand Main;
+    private Monster Main;
     private Vector3 Player_Target;
     Collision2D col;
     float time_;
-    public Hand_Fsm1(Hand Main_)
+    public Hand_Fsm1(Monster Main_)
     {
         this.Main = Main_;
     }

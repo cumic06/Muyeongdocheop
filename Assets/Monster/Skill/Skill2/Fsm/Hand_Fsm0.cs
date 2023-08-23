@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Hand_Fsm0 : IFsm
 {
-    private readonly Hand main;
+    private readonly Monster main;
     int[] Des = new int[2] { 1, 2 };
 
-    public Hand_Fsm0(Hand main)
+    public Hand_Fsm0(Monster main)
     {
         this.main = main;
     }

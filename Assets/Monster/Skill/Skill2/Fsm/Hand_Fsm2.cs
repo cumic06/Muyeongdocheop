@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Hand_Fsm2 : IFsm
 {
-    private Hand Main;
+    private Monster Main;
     int[] Des = new int[1] {1};
 
-    public Hand_Fsm2(Hand Main_)
+    public Hand_Fsm2(Monster Main_)
     {
         //Main.InputSetActive(Des);
         this.Main = Main_;

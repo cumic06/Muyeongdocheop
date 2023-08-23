@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Hand_Fsm3 : IFsm
 {
-    private Hand Main;
+    private Monster Main;
 
-    public Hand_Fsm3(Hand Main_)
+    public Hand_Fsm3(Monster Main_)
     {
         this.Main = Main_;
     }
