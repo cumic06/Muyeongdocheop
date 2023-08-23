@@ -110,8 +110,9 @@ MonoBehaviour:
     AttackPower: 5
   attackEffect: {fileID: 0}
   hitEffect: {fileID: 6108084238071318285, guid: b6b4165663574a44fb0b5630762503dd, type: 3}
-  dashEffect: {fileID: 0}
+  dashEffect: {fileID: 8120537418130517573, guid: f2e92456c7a969f469283c3416e550fd, type: 3}
   hitSound: {fileID: 0}
+  dashSound: {fileID: 8300000, guid: 97a01086de92a3846aade4c61f5f464a, type: 3}
 --- !u!114 &5720971221152577256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,7 +145,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   IsDash: 0
-  afterImage: {fileID: 0}
   chargingEffect: {fileID: 4599592225084215235}
 --- !u!50 &5720971221152577258
 Rigidbody2D:

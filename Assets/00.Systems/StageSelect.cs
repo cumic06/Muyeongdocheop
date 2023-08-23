@@ -14,6 +14,12 @@ public enum StageNum
 
 public class StageSelect : MonoSingleton<StageSelect>
 {
+    public void Main_Scene()
+    {
+        int main_Scene = (int)StageNum.MainScene;
+        SceneManager.LoadScene(main_Scene);
+    }
+
     public void StageSelect_Scene()
     {
         int stageSelect_Scene = (int)StageNum.StageSelectScene;
@@ -30,5 +36,11 @@ public class StageSelect : MonoSingleton<StageSelect>
     {
         int stage2_Scene = (int)StageNum.Stage2Scene;
         SceneManager.LoadScene(stage2_Scene);
+    }
+
+    public void LoadThisScene()
+    {
+        int thisScene = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(thisScene);
     }
 }

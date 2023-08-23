@@ -19,6 +19,18 @@ public class UIManager : MonoSingleton<UIManager>
 
     [SerializeField] private Text timeTxt;
 
+    [Header("GameOver & GameClear")]
+    [SerializeField] private Text clearTxt;
+    [SerializeField] private Image gameOverUIPanel;
+    [SerializeField] private Image gameOverUI;
+
+    [SerializeField] private Image gameClearUIPanel;
+    [SerializeField] private Image gameClearUI;
+
+    [SerializeField] private Button reStartBtn;
+    [SerializeField] private Button backToMainBtn;
+    [SerializeField] private Button nextBossBtn;
+
     [Header("Setting")]
     [SerializeField] private Button optionBtn;
     [SerializeField] private Slider fxHandler;
@@ -35,12 +47,22 @@ public class UIManager : MonoSingleton<UIManager>
     {
         base.Awake();
         HitAction += () => UIActiveSystem(0.5f, hitImage.gameObject);
+
         RayUIAction += BaldoSkillUIResetPos;
         PlayerHpAction += PlayerHpHandler;
+
         xBtn.onClick.AddListener(() => { UIDisable(settingImage); GameTimeSystem.Instance.NormalTime(); });
         optionBtn.onClick.AddListener(() => { UIActive(settingImage); GameTimeSystem.Instance.TimeStop(); });
+
         frame30Btn.onClick.AddListener(() => FrameRate.Instance.SetMaxFrame(30));
         frame60Btn.onClick.AddListener(() => FrameRate.Instance.SetMaxFrame(60));
+
+        if (GameManager.Instance.GetGameScene().Equals(GameScene.Stage))
+        {
+            reStartBtn.onClick.AddListener(ReStartBtn);
+            backToMainBtn.onClick.AddListener(BackToMainBtn);
+            nextBossBtn.onClick.AddListener(NextBossBtn);
+        }
     }
 
     private void Start()
@@ -49,11 +71,6 @@ public class UIManager : MonoSingleton<UIManager>
 
         bgmHandler.value = SoundSystem.Instance.GetBGMVolume();
         fxHandler.value = SoundSystem.Instance.GetFXVolume();
-
-        if (GameManager.Instance.GetGameScene().Equals(GameScene.Stage))
-        {
-            UpdateSystem.Instance.AddUpdateAction(TimeTextUI);
-        }
     }
 
     private void TimeTextUI()
@@ -76,6 +93,35 @@ public class UIManager : MonoSingleton<UIManager>
 
         timeTxt.text = $"PlayTime : {hour}시간 {min}분 {time:F1}초";
     }
+
+    public void GameOverUI()
+    {
+        UIActive(gameOverUIPanel.gameObject);
+        UIActive(gameOverUI.gameObject);
+    }
+
+    public void GameClearUI(string bossName)
+    {
+        clearTxt.text = $"{bossName} Clear !";
+    }
+
+    #region GameOverBtn
+    public void BackToMainBtn()
+    {
+        StageSelect.Instance.Main_Scene();
+    }
+
+    public void ReStartBtn()
+    {
+        StageSelect.Instance.LoadThisScene();
+        gameOverUIPanel.gameObject.SetActive(false);
+    }
+
+    public void NextBossBtn()
+    {
+        StageSelect.Instance.StageSelect_Scene();
+    }
+    #endregion
 
     #region Blur
 

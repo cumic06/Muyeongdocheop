@@ -133,6 +133,7 @@ public class BaldoSkill : SkillSystem
         if (!GameManager.Instance.CheckGameOver())
         {
             SoundSystem.Instance.PlayFXSound(Player.Instance.DashSound, 0.5f);
+            CameraShakeSystem.Instance.CameraShake(0.15f, 0.15f);
             Dash();
         }
     }
@@ -143,7 +144,6 @@ public class BaldoSkill : SkillSystem
         Player.Instance.ChangeAnimationLayer(1, 1);
         Player.Instance.ChangeAnimation(BalldoAnimation, true);
 
-        CameraShakeSystem.Instance.CameraShake(0.25f, 0.15f);
 
 
         if (TryAttackMonster(out List<Monster> resultMonster))

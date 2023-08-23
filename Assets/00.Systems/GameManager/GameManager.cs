@@ -34,7 +34,8 @@ public class GameManager : MonoSingleton<GameManager>
 
     public void GameOver()
     {
-
+        GameTimeSystem.Instance.TimeStop();
+        UIManager.Instance.GameOverUI();
     }
     #endregion
 
