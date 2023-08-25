@@ -118,13 +118,13 @@ public class PlayerMoveMent : MonoSingleton<PlayerMoveMent>
         #region Mobile
         if (BaldoSkillJoyStick.Instance.CheckJoyStickMove())
         {
-            player.SpriteRenderer.flipX = BaldoSkillJoyStick.Instance.GetJoyStickHorizontalValue() < 0.01f;
+            Player.Instance.SpriteRenderer.flipX = BaldoSkillJoyStick.Instance.GetJoyStickHorizontalValue() < 0.01f;
         }
         else
         {
             if (MoveJoyStick.Instance.CheckJoyStickMove())
             {
-                player.SpriteRenderer.flipX = MoveJoyStick.Instance.GetJoyStickHorizontalValue() < 0.01f;
+                Player.Instance.SpriteRenderer.flipX = MoveJoyStick.Instance.GetJoyStickHorizontalValue() < 0.01f;
             }
         }
         #endregion
